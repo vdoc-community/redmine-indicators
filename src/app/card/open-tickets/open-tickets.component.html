@@ -1,3 +1,18 @@
-<p>
-  open-tickets works!
-</p>
+<mat-card class="autosize">
+  <mat-card-header>
+    <mat-card-title>
+      Open tickets
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="dashboard-card-content">
+    <canvas
+      baseChart
+      [chartType]="'line'"
+      [datasets]="chartData"
+      [labels]="chartLabels"
+      [options]="chartOptions"
+      [legend]="true"
+      (chartClick)="onChartClick($event)">
+    </canvas>
+  </mat-card-content>
+</mat-card>

@@ -1,15 +1,17 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DashboardComponent } from './navigation/dashboard/dashboard.component';
-import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
-import { LayoutModule } from '@angular/cdk/layout';
-import { ObjectiveComponent } from './card/objective/objective.component';
+import {AppComponent} from './app.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {DashboardComponent} from './navigation/dashboard/dashboard.component';
+import {MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule} from '@angular/material';
+import {LayoutModule} from '@angular/cdk/layout';
+import {ObjectiveComponent} from './card/objective/objective.component';
 import {ObjectivesService} from './services/objectives.service';
-import { OpenTicketsComponent } from './card/open-tickets/open-tickets.component';
-import { BurndownComponent } from './card/burndown/burndown.component';
+import {OpenTicketsComponent} from './card/open-tickets/open-tickets.component';
+import {BurndownComponent} from './card/burndown/burndown.component';
+import {ChartsModule} from 'ng2-charts';
+import { SupportComponent } from './card/support/support.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { BurndownComponent } from './card/burndown/burndown.component';
     DashboardComponent,
     ObjectiveComponent,
     OpenTicketsComponent,
-    BurndownComponent
+    BurndownComponent,
+    SupportComponent
   ],
   imports: [
     BrowserModule,
@@ -27,9 +30,11 @@ import { BurndownComponent } from './card/burndown/burndown.component';
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
+    ChartsModule,
     LayoutModule
   ],
   providers: [ObjectivesService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
