@@ -12,12 +12,13 @@ export class OpenTicketsComponent implements OnInit {
   };
 
   chartData = [
-    {data: [330, 600, 260, 700], label: 'Account A'},
-    {data: [120, 455, 100, 340], label: 'Account B'},
-    {data: [45, 67, 800, 500], label: 'Account C'}
+    {data: [3], label: 'Ité - Dev'},
+    {data: [1], label: 'Ité - Support'},
+    {data: [2], label: 'Ité - Test'},
+    {data: [2], label: 'Ité - Intégration'}
   ];
 
-  chartLabels = ['January', 'February', 'Mars', 'April'];
+  chartLabels = [''];
 
   constructor() {
   }

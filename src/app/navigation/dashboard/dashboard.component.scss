@@ -2,18 +2,16 @@
   margin: 20px;
 }
 
-.dashboard-card, .dashboard-tile {
+.dashboard-tile {
+  /*
   position: absolute;
   top: 15px;
   left: 15px;
   right: 15px;
-  bottom: 15px;
-}
-
-.more-button {
-  position: absolute;
-  top: 5px;
-  right: 10px;
+  bottom: 15px;*/
+  min-height: 100%;
+  min-width: 100%;
+  padding: 15px;
 }
 
 .dashboard-card-content {

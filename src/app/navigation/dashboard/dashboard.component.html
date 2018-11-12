@@ -8,16 +8,19 @@
     </mat-grid-tile>
   </mat-grid-list>
 
-  <mat-grid-list cols="3" rowHeight="350px">
+  <mat-grid-list cols="3" rowHeight="250px" >
 
-    <mat-grid-tile [colspan]="1" [rowspan]="2">
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
       <app-open-tickets class="dashboard-tile"></app-open-tickets>
     </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="2" [rowspan]="2">
+      <app-burndown class="dashboard-tile"></app-burndown>
+    </mat-grid-tile>
+
     <mat-grid-tile [colspan]="1" [rowspan]="1">
       <app-support class="dashboard-tile"></app-support>
     </mat-grid-tile>
-    <mat-grid-tile [colspan]="2" [rowspan]="1">
-      <app-burndown class="dashboard-tile"></app-burndown>
-    </mat-grid-tile>
+
   </mat-grid-list>
 </div>
