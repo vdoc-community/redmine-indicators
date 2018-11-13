@@ -3,8 +3,7 @@ import {Objective} from '../../beans/objective';
 
 @Component({
   selector: 'app-objective',
-  templateUrl: './objective.component.html',
-  styleUrls: ['./objective.component.scss']
+  templateUrl: './objective.component.html'
 })
 
 export class ObjectiveComponent implements OnInit {

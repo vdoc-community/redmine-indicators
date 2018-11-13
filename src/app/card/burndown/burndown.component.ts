@@ -2,8 +2,7 @@ import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-burndown',
-  templateUrl: './burndown.component.html',
-  styleUrls: ['./burndown.component.scss']
+  templateUrl: './burndown.component.html'
 })
 export class BurndownComponent implements OnInit {
 
