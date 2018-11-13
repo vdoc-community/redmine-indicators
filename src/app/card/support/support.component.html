@@ -1,3 +1,18 @@
-<p>
-  support works!
-</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      Support
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <canvas
+      baseChart
+      [chartType]="'horizontalBar'"
+      [datasets]="chartData"
+      [labels]="chartLabels"
+      [options]="chartOptions"
+      [legend]="true"
+      (chartClick)="onChartClick($event)">
+    </canvas>
+  </mat-card-content>
+</mat-card>

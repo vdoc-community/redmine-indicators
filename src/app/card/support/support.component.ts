@@ -6,7 +6,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SupportComponent implements OnInit {
 
-  constructor() { }
+  chartOptions = {
+    responsive: true
+  };
+
+  chartData = [
+    {data: [3], label: 'Ité - Dev'},
+    {data: [1], label: 'Ité - Support'},
+    {data: [2], label: 'Ité - Test'},
+    {data: [2], label: 'Ité - Intégration'}
+  ];
+
+  chartLabels = [''];
+
+  constructor() {
+  }
 
   ngOnInit() {
   }
