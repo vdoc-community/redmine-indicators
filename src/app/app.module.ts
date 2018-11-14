@@ -11,7 +11,10 @@ import {ObjectivesService} from './services/objectives.service';
 import {OpenTicketsComponent} from './card/open-tickets/open-tickets.component';
 import {BurndownComponent} from './card/burndown/burndown.component';
 import {ChartsModule} from 'ng2-charts';
-import { SupportComponent } from './card/support/support.component';
+import {SupportComponent} from './card/support/support.component';
+import {BurndownService} from './services/burndown.service';
+import {OpenTicketsService} from './services/open-tickets.service';
+import {SupportService} from './services/support.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,12 @@ import { SupportComponent } from './card/support/support.component';
     ChartsModule,
     LayoutModule
   ],
-  providers: [ObjectivesService],
+  providers: [
+    ObjectivesService,
+    BurndownService,
+    OpenTicketsService,
+    SupportService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

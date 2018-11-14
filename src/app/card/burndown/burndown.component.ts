@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {BurndownService} from '../../services/burndown.service';
 
 @Component({
   selector: 'app-burndown',
@@ -40,36 +41,26 @@ export class BurndownComponent implements OnInit {
   };
 
   datasets = [{
-    label: 'My First dataset',
-    data: [
-      20,
-      5,
-      3,
-      10,
-      3,
-      3,
-      9
-    ]
+    label: 'Burndown',
+    data: []
   }, {
-    label: 'My Second dataset',
+    label: 'Ideal',
     fill: false,
-    data: [
-      10,
-      3,
-      5,
-      10,
-      3,
-      3,
-      9
-    ],
+    data: [],
   }];
 
   labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
-  constructor() {
+  constructor(private burndownService: BurndownService) {
   }
 
   ngOnInit() {
+    this.burndownService.findBurndown(null).subscribe((values) => {
+      this.datasets[0].data = values;
+    });
+    this.burndownService.findIdeal(null).subscribe((values) => {
+      this.datasets[1].data = values;
+    });
   }
 
 }

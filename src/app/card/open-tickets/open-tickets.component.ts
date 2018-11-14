@@ -1,4 +1,8 @@
 import {Component, OnInit} from '@angular/core';
+import {OpenTicketsService} from '../../services/open-tickets.service';
+import {RedmineIndicatorsService} from '../../services/redmine-indicators.service';
+import {Observable} from 'rxjs';
+import {Category} from '../../beans/category';
 
 @Component({
   selector: 'app-open-tickets',
@@ -7,27 +11,37 @@ import {Component, OnInit} from '@angular/core';
 export class OpenTicketsComponent implements OnInit {
 
   chartOptions = {
-    responsive: true
+    responsive: true,
+    legend: {
+      display: false
+    },
+    title: {
+      display: true,
+      position: 'left'
+    }
   };
 
-  chartData = [
-    {data: [3], label: 'Ité - Dev'},
-    {data: [1], label: 'Ité - Support'},
-    {data: [2], label: 'Ité - Test'},
-    {data: [2], label: 'Ité - Intégration'}
-  ];
+  categories: Observable<Category[]>;
+
+  chartData = [];
 
   chartLabels = [''];
 
-  constructor() {
+  constructor(private redmineIndicators: RedmineIndicatorsService, private openTicketsService: OpenTicketsService) {
   }
 
   ngOnInit() {
+    this.categories = this.redmineIndicators.findCategories();
+    this.categories.subscribe((categories) => {
+      this.chartData = [];
+      categories.forEach((category) => {
+        this.openTicketsService.findOpenTickets(null, category).subscribe((nb) => {
+          const data = [];
+          data.push(nb);
+          this.chartData.push({data: data, label: category.name});
+        });
+      });
+    });
   }
-
-  onChartClick(event) {
-    console.log(event);
-  }
-
 
 }

@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {Objective} from '../beans/objective';
+import {Iteration} from '../beans/iteration';
 
 @Injectable()
 export class ObjectivesService {
@@ -8,7 +9,7 @@ export class ObjectivesService {
   constructor() {
   }
 
-  public findObjectives(): Observable<Objective[]> {
+  public findObjectives(iteration: Iteration): Observable<Objective[]> {
     const objectives: Objective[] = [];
 
     for (let i = 0; i < 2; i++) {
