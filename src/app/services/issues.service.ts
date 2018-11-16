@@ -6,13 +6,17 @@ import {Observable, of} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class OpenTicketsService {
+export class IssuesService {
 
   constructor() {
   }
 
   public findOpenTickets(iteration: Iteration, category: Category): Observable<number> {
     return of(3);
+  }
+
+  public findSupportIssues(): Observable<number> {
+    return of(15);
   }
 
 }

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {IssuesService} from '../../services/issues.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-support',
@@ -6,23 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SupportComponent implements OnInit {
 
-  chartOptions = {
-    responsive: true
-  };
+  public count: Observable<number>;
 
-  chartData = [
-    {data: [3], label: 'Ité - Dev'},
-    {data: [1], label: 'Ité - Support'},
-    {data: [2], label: 'Ité - Test'},
-    {data: [2], label: 'Ité - Intégration'}
-  ];
-
-  chartLabels = [''];
-
-  constructor() {
+  constructor(private issuesService: IssuesService) {
   }
 
   ngOnInit() {
+    this.count = this.issuesService.findSupportIssues();
   }
 
 }

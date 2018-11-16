@@ -13,8 +13,7 @@ import {BurndownComponent} from './card/burndown/burndown.component';
 import {ChartsModule} from 'ng2-charts';
 import {SupportComponent} from './card/support/support.component';
 import {BurndownService} from './services/burndown.service';
-import {OpenTicketsService} from './services/open-tickets.service';
-import {SupportService} from './services/support.service';
+import {IssuesService} from './services/issues.service';
 import { OpenIssueByCategoryComponent } from './card/open-tickets/open-issue-by-category/open-issue-by-category.component';
 
 @NgModule({
@@ -42,8 +41,7 @@ import { OpenIssueByCategoryComponent } from './card/open-tickets/open-issue-by-
   providers: [
     ObjectivesService,
     BurndownService,
-    OpenTicketsService,
-    SupportService
+    IssuesService
   ],
   bootstrap: [AppComponent]
 })

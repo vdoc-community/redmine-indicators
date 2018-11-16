@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Category} from '../../../beans/category';
-import {OpenTicketsService} from '../../../services/open-tickets.service';
+import {IssuesService} from '../../../services/issues.service';
 import {Observable} from 'rxjs';
 import {Iteration} from '../../../beans/iteration';
 
@@ -19,7 +19,7 @@ export class OpenIssueByCategoryComponent implements OnInit {
 
   public issues$: Observable<number>;
 
-  constructor(private openTicketsService: OpenTicketsService) {
+  constructor(private openTicketsService: IssuesService) {
   }
 
   ngOnInit() {
