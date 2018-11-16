@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {RedmineIndicatorsService} from '../../services/redmine-indicators.service';
 import {Observable} from 'rxjs';
 import {Category} from '../../beans/category';
+import {Iteration} from '../../beans/iteration';
 
 @Component({
   selector: 'app-open-tickets',
@@ -9,13 +10,16 @@ import {Category} from '../../beans/category';
 })
 export class OpenTicketsComponent implements OnInit {
 
-  categories: Observable<Category[]>;
+  @Input()
+  public iteration: Iteration;
+
+  categories$: Observable<Category[]>;
 
   constructor(private redmineIndicators: RedmineIndicatorsService) {
   }
 
   ngOnInit() {
-    this.categories = this.redmineIndicators.findCategories();
+    this.categories$ = this.redmineIndicators.findCategories();
   }
 
 }

@@ -4,6 +4,8 @@ import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Observable, of} from 'rxjs';
 import {ObjectivesService} from '../../services/objectives.service';
 import {Objective} from '../../beans/objective';
+import {Iteration} from '../../beans/iteration';
+import {RedmineIndicatorsService} from '../../services/redmine-indicators.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,11 +14,13 @@ import {Objective} from '../../beans/objective';
 export class DashboardComponent implements OnInit {
 
   private objectives: Observable<Objective[]>;
+  public currentIteration$: Observable<Iteration>;
 
-  constructor( private objectivesService: ObjectivesService) {
+  constructor( private redmineIndicatorsService: RedmineIndicatorsService, private objectivesService: ObjectivesService) {
   }
 
   ngOnInit(): void {
+    this.currentIteration$ = this.redmineIndicatorsService.findCurrentIteration();
     this.objectives = this.objectivesService.findObjectives(null);
   }
 }

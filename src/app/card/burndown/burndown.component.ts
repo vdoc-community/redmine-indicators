@@ -1,5 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {BurndownService} from '../../services/burndown.service';
+import {Observable} from 'rxjs';
+import {Iteration} from '../../beans/iteration';
 
 @Component({
   selector: 'app-burndown',
@@ -7,6 +9,8 @@ import {BurndownService} from '../../services/burndown.service';
 })
 export class BurndownComponent implements OnInit {
 
+  @Input()
+  public iteration: Iteration;
 
   options = {
     responsive: true,
@@ -55,10 +59,10 @@ export class BurndownComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.burndownService.findBurndown(null).subscribe((values) => {
+    this.burndownService.findBurndown(this.iteration).subscribe((values) => {
       this.datasets[0].data = values;
     });
-    this.burndownService.findIdeal(null).subscribe((values) => {
+    this.burndownService.findIdeal(this.iteration).subscribe((values) => {
       this.datasets[1].data = values;
     });
   }
