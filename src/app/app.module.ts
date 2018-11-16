@@ -4,7 +4,7 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DashboardComponent} from './navigation/dashboard/dashboard.component';
-import {MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule} from '@angular/material';
+import {MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatListModule} from '@angular/material';
 import {LayoutModule} from '@angular/cdk/layout';
 import {ObjectiveComponent} from './card/objective/objective.component';
 import {ObjectivesService} from './services/objectives.service';
@@ -15,6 +15,7 @@ import {SupportComponent} from './card/support/support.component';
 import {BurndownService} from './services/burndown.service';
 import {OpenTicketsService} from './services/open-tickets.service';
 import {SupportService} from './services/support.service';
+import { OpenIssueByCategoryComponent } from './card/open-tickets/open-issue-by-category/open-issue-by-category.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {SupportService} from './services/support.service';
     ObjectiveComponent,
     OpenTicketsComponent,
     BurndownComponent,
-    SupportComponent
+    SupportComponent,
+    OpenIssueByCategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +35,7 @@ import {SupportService} from './services/support.service';
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
+    MatListModule,
     ChartsModule,
     LayoutModule
   ],
