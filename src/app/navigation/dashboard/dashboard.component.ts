@@ -13,7 +13,7 @@ import {RedmineIndicatorsService} from '../../services/redmine-indicators.servic
 })
 export class DashboardComponent implements OnInit {
 
-  private objectives: Observable<Objective[]>;
+  public objectives: Observable<Objective[]>;
   public currentIteration$: Observable<Iteration>;
 
   constructor( private redmineIndicatorsService: RedmineIndicatorsService, private objectivesService: ObjectivesService) {
