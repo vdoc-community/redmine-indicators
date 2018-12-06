@@ -11,6 +11,14 @@ export class RedmineIndicatorsService {
   constructor() {
   }
 
+  public getXRedmineApiKey(): string | null {
+    return localStorage.getItem('x-redmine-api-key');
+  }
+
+  public setXRedmineApiKey(xRedmineApiKey: string | null) {
+    localStorage.setItem('x-redmine-api-key', xRedmineApiKey);
+  }
+
   public findCurrentIteration(): Observable<Iteration> {
     const iteration = new Iteration(51, 'Marne');
     return of(iteration);

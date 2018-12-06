@@ -1,0 +1,12 @@
+.centred-content {
+  display: flex;
+  justify-content: center;
+  .mat-card {
+    align-items: stretch;
+    max-width: 75%;
+  }
+}
+
+.centred {
+
+}

@@ -4,7 +4,15 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DashboardComponent} from './navigation/dashboard/dashboard.component';
-import {MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatListModule} from '@angular/material';
+import {
+  MatGridListModule,
+  MatCardModule,
+  MatMenuModule,
+  MatIconModule,
+  MatButtonModule,
+  MatListModule,
+  MatToolbarModule, MatFormFieldModule, MatInputModule
+} from '@angular/material';
 import {LayoutModule} from '@angular/cdk/layout';
 import {ObjectiveComponent} from './card/objective/objective.component';
 import {ObjectivesService} from './services/objectives.service';
@@ -14,7 +22,24 @@ import {ChartsModule} from 'ng2-charts';
 import {SupportComponent} from './card/support/support.component';
 import {BurndownService} from './services/burndown.service';
 import {IssuesService} from './services/issues.service';
-import { OpenIssueByCategoryComponent } from './card/open-tickets/open-issue-by-category/open-issue-by-category.component';
+import {OpenIssueByCategoryComponent} from './card/open-tickets/open-issue-by-category/open-issue-by-category.component';
+import {RouterModule, Routes} from '@angular/router';
+import {XRedmineApiKeyGuard} from './guard/x-redmine-api-key.guard';
+import {ConfigurationComponent} from './configuration/configuration/configuration.component';
+import {FormsModule} from '@angular/forms';
+
+
+export const ROUTES: Routes = [
+  {
+    path: '',
+    component: DashboardComponent,
+    canActivate: [XRedmineApiKeyGuard]
+  },
+  {
+    path: 'settings',
+    component: ConfigurationComponent,
+  }
+];
 
 @NgModule({
   declarations: [
@@ -24,11 +49,17 @@ import { OpenIssueByCategoryComponent } from './card/open-tickets/open-issue-by-
     OpenTicketsComponent,
     BurndownComponent,
     SupportComponent,
-    OpenIssueByCategoryComponent
+    OpenIssueByCategoryComponent,
+    ConfigurationComponent
   ],
   imports: [
+    RouterModule.forRoot(ROUTES),
     BrowserModule,
     BrowserAnimationsModule,
+    MatToolbarModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatInputModule,
     MatGridListModule,
     MatCardModule,
     MatMenuModule,
