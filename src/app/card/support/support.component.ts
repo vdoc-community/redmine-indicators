@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {IssuesService} from '../../services/issues.service';
 import {Observable} from 'rxjs';
+import { SimpleIndicator } from 'src/app/beans/simple-indicator';
 
 @Component({
   selector: 'app-support',
@@ -8,7 +9,7 @@ import {Observable} from 'rxjs';
 })
 export class SupportComponent implements OnInit {
 
-  public count: Observable<number>;
+  public count: Observable<SimpleIndicator>;
 
   constructor(private issuesService: IssuesService) {
   }

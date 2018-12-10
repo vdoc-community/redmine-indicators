@@ -27,6 +27,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {XRedmineApiKeyGuard} from './guard/x-redmine-api-key.guard';
 import {ConfigurationComponent} from './configuration/configuration/configuration.component';
 import {FormsModule} from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 export const ROUTES: Routes = [
@@ -56,6 +58,7 @@ export const ROUTES: Routes = [
     RouterModule.forRoot(ROUTES),
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule, // import HttpClientModule after BrowserModule.
     MatToolbarModule,
     MatFormFieldModule,
     FormsModule,
