@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {IssuesService} from '../../services/issues.service';
 import {Observable} from 'rxjs';
-import { SimpleIndicator } from 'src/app/beans/simple-indicator';
+import { SimpleIndicator, SimpleIndicator } from 'src/app/beans/simple-indicator';
 
 @Component({
   selector: 'app-support',
@@ -9,13 +9,15 @@ import { SimpleIndicator } from 'src/app/beans/simple-indicator';
 })
 export class SupportComponent implements OnInit {
 
-  public count: Observable<SimpleIndicator>;
+  public count: SimpleIndicator;
 
   constructor(private issuesService: IssuesService) {
   }
 
   ngOnInit() {
-    this.count = this.issuesService.findSupportIssues();
+    this.issuesService.findSupportIssues().subscribe((simpleIndicator: SimpleIndicator) => {
+      this.count = simpleIndicator;
+    });
   }
 
 }
