@@ -1,13 +1,12 @@
-import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
-import {Category} from '../beans/category';
-import {Iteration} from '../beans/iteration';
+import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { Category } from '../beans/category';
+import { Iteration } from '../beans/iteration';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RedmineIndicatorsService {
-
   constructor() {
   }
 
@@ -15,8 +14,16 @@ export class RedmineIndicatorsService {
     return localStorage.getItem('x-redmine-api-key');
   }
 
+  public getBackendUrl(): string | null {
+    return localStorage.getItem('redmine-ng-api-backend-url');
+  }
+
   public setXRedmineApiKey(xRedmineApiKey: string | null) {
     localStorage.setItem('x-redmine-api-key', xRedmineApiKey);
+  }
+
+  public setBackendUrl(backendUrl: string | null) {
+    localStorage.setItem('redmine-ng-api-backend-url', backendUrl);
   }
 
   public findCurrentIteration(): Observable<Iteration> {

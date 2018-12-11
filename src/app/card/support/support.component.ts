@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {IssuesService} from '../../services/issues.service';
 import {Observable} from 'rxjs';
-import { SimpleIndicator, SimpleIndicator } from 'src/app/beans/simple-indicator';
+import { SimpleIndicator } from 'src/app/beans/simple-indicator';
 
 @Component({
   selector: 'app-support',
