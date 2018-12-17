@@ -1,3 +1,4 @@
+import { AdminComponent } from './admin/admin/admin.component';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
@@ -39,7 +40,12 @@ export const ROUTES: Routes = [
   },
   {
     path: 'settings',
-    component: ConfigurationComponent,
+    component: ConfigurationComponent
+  },
+  {
+    path: 'admin',
+    component: AdminComponent,
+    canActivate: [XRedmineApiKeyGuard]
   }
 ];
 
@@ -52,7 +58,8 @@ export const ROUTES: Routes = [
     BurndownComponent,
     SupportComponent,
     OpenIssueByCategoryComponent,
-    ConfigurationComponent
+    ConfigurationComponent,
+    AdminComponent
   ],
   imports: [
     RouterModule.forRoot(ROUTES),
