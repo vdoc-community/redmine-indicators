@@ -7,7 +7,7 @@
   <mat-card-content>
     <div class="centred-content" [(ngSwitch)]="status">
       <ng-container *ngSwitchCase="'loading'">
-        <span>Loading</span>
+          <mat-spinner></mat-spinner>
       </ng-container>
 
       <ng-container *ngSwitchCase="'success'">

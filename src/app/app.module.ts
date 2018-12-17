@@ -11,7 +11,7 @@ import {
   MatIconModule,
   MatButtonModule,
   MatListModule,
-  MatToolbarModule, MatFormFieldModule, MatInputModule
+  MatToolbarModule, MatFormFieldModule, MatInputModule, MatProgressSpinnerModule
 } from '@angular/material';
 import {LayoutModule} from '@angular/cdk/layout';
 import {ObjectiveComponent} from './card/objective/objective.component';
@@ -69,6 +69,7 @@ export const ROUTES: Routes = [
     MatIconModule,
     MatButtonModule,
     MatListModule,
+    MatProgressSpinnerModule,
     ChartsModule,
     LayoutModule
   ],

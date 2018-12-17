@@ -7,12 +7,18 @@
     flex-direction: column;
 }
 
+.horizontal-centred-content {
+  display: flex;
+  justify-content: center;
+  .screen {
+    align-items: stretch;
+    width: 75%;
+    margin: 32px;
+  }
+}
+
 .centred-content {
     display: flex;
+    align-items: center;
     justify-content: center;
-    .mat-card {
-      align-items: stretch;
-      width: 75%;
-      margin: 32px;
-    }
   }

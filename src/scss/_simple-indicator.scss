@@ -1,0 +1,9 @@
+.simple-indcator {
+  font-size: 12em;
+  &.alert {
+    color: $alert;
+  }
+  &.normal {
+    color: $normal;
+  }
+}
