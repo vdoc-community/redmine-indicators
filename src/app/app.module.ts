@@ -55,7 +55,7 @@ export const ROUTES: Routes = [
       },
       {
         path: 'iteration/:id',
-        component: IterationsViewComponent
+        component: IterationsEditComponent
       }
     ]
   }
