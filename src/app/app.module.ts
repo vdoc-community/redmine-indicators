@@ -12,7 +12,7 @@ import {
   MatIconModule,
   MatButtonModule,
   MatListModule,
-  MatToolbarModule, MatFormFieldModule, MatInputModule, MatProgressSpinnerModule
+  MatToolbarModule, MatFormFieldModule, MatInputModule, MatProgressSpinnerModule, MatSidenavModule
 } from '@angular/material';
 import {LayoutModule} from '@angular/cdk/layout';
 import {ObjectiveComponent} from './card/objective/objective.component';
@@ -29,6 +29,8 @@ import {XRedmineApiKeyGuard} from './guard/x-redmine-api-key.guard';
 import {ConfigurationComponent} from './configuration/configuration/configuration.component';
 import {FormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { IterationsViewComponent } from './admin/iterations/iterations-view/iterations-view.component';
+import { IterationsEditComponent } from './admin/iterations/iterations-edit/iterations-edit.component';
 
 
 
@@ -45,7 +47,17 @@ export const ROUTES: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
-    canActivate: [XRedmineApiKeyGuard]
+    canActivate: [XRedmineApiKeyGuard],
+    children: [
+      {
+        path: 'iteration',
+        component: IterationsViewComponent
+      },
+      {
+        path: 'iteration/:id',
+        component: IterationsViewComponent
+      }
+    ]
   }
 ];
 
@@ -59,7 +71,9 @@ export const ROUTES: Routes = [
     SupportComponent,
     OpenIssueByCategoryComponent,
     ConfigurationComponent,
-    AdminComponent
+    AdminComponent,
+    IterationsViewComponent,
+    IterationsEditComponent
   ],
   imports: [
     RouterModule.forRoot(ROUTES),
@@ -77,6 +91,7 @@ export const ROUTES: Routes = [
     MatButtonModule,
     MatListModule,
     MatProgressSpinnerModule,
+    MatSidenavModule,
     ChartsModule,
     LayoutModule
   ],
