@@ -1,11 +1,9 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>
-      Support
-    </mat-card-title>
+    <mat-card-title>Support</mat-card-title>
   </mat-card-header>
-  <mat-card-content>
-    <div class="centred-content" [(ngSwitch)]="status">
+  <mat-card-content class="full-height">
+    <div class="centred-content full-height" [(ngSwitch)]="status" >
       <ng-container *ngSwitchCase="'loading'">
           <mat-spinner></mat-spinner>
       </ng-container>
