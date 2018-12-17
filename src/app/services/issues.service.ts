@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Iteration } from '../beans/iteration';
 import { Category } from '../beans/category';
 import { Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 import { SimpleIndicator } from '../beans/simple-indicator';
 import { RedmineIndicatorsService } from './redmine-indicators.service';
 import { ConfigurationService } from './configuration.service';
