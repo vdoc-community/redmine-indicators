@@ -6,17 +6,21 @@ import { HttpClient } from '@angular/common/http';
 import { SimpleIndicator } from '../beans/simple-indicator';
 import { RedmineIndicatorsService } from './redmine-indicators.service';
 import { ConfigurationService } from './configuration.service';
+import { RedmineAwareClientService } from './http/redmine-aware-client.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IssuesService {
-  private httpClient: HttpClient;
+  private redmineAwareClientService: RedmineAwareClientService;
   private redmineIndicatorsService: RedmineIndicatorsService;
   private configurationService: ConfigurationService;
 
-  constructor(httpClient: HttpClient, redmineIndicatorsService: RedmineIndicatorsService, configurationService: ConfigurationService) {
-    this.httpClient = httpClient;
+  constructor(
+    redmineAwareClientService: RedmineAwareClientService,
+    redmineIndicatorsService: RedmineIndicatorsService,
+    configurationService: ConfigurationService) {
+    this.redmineAwareClientService = redmineAwareClientService;
     this.redmineIndicatorsService = redmineIndicatorsService;
     this.configurationService = configurationService;
   }
@@ -26,16 +30,11 @@ export class IssuesService {
   }
 
   public findSupportIssues(): Observable<SimpleIndicator> {
-    return this.httpClient.get<SimpleIndicator>(
+    return this.redmineAwareClientService.get<SimpleIndicator>(
       this.buildSupportIssuesUrl(
         this.redmineIndicatorsService.getBackendUrl(),
         this.configurationService.getSupportProjectId(),
         this.configurationService.getRDOpenQueryId())
-      , {
-        headers: {
-          "X-Redmine-API-Key": this.redmineIndicatorsService.getXRedmineApiKey()
-        }
-      }
     );
   }
 
