@@ -1,10 +1,11 @@
 <mat-drawer-container class="full-height">
   <mat-drawer mode="side" opened>
-    <mat-list>
-      <mat-list-item>
-        <a [routerLink]="['iteration']" mat-button ><mat-icon>autorenew</mat-icon> Iterations</a>
-      </mat-list-item>
-    </mat-list>
+    <mat-action-list>
+      <button [routerLink]="['iteration']" mat-list-item >
+        <mat-icon matListIcon >autorenew</mat-icon>
+        <span>Iterations</span>
+      </button>
+    </mat-action-list>
   </mat-drawer>
   <mat-drawer-content>
     <router-outlet></router-outlet>

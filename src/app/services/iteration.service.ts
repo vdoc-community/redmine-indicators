@@ -14,7 +14,7 @@ export class IterationService {
     iterations.push(new Iteration(0, '53'));
     iterations.push(new Iteration(1, '54'));
     const page: Page<Iteration> = {
-      total_count: 3,
+      total_count: 2,
       offset: 0,
       limit: 25,
       elements: iterations
