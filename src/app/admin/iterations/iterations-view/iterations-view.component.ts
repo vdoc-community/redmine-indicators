@@ -1,4 +1,6 @@
+import { Iteration } from './../../../beans/iteration';
 import { Component, OnInit } from '@angular/core';
+import { IterationService } from 'src/app/services/iteration.service';
 
 @Component({
   selector: 'app-iterations-view',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IterationsViewComponent implements OnInit {
 
-  constructor() { }
+  public iterations: Array<Iteration>;
+
+  constructor(private iterationService: IterationService) { }
 
   ngOnInit() {
+    this.iterationService.findIterations().subscribe((page) => {
+      this.iterations = page.elements;
+    });
   }
 
 }
