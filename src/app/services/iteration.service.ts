@@ -9,6 +9,20 @@ import { Observable, of } from 'rxjs';
 export class IterationService {
   constructor() {}
 
+  public findIterationById(id: number): Observable<Iteration> {
+    const it = new Iteration(id, `Iteration ${id}`);
+    it.start = new Date();
+    it.end = new Date();
+    return of(it);
+  }
+
+  public saveIteration(iteration: Iteration): Observable<Iteration> {
+    return of(iteration);
+  }
+  public updateIteration(iteration: Iteration): Observable<Iteration> {
+    return of(iteration);
+  }
+
   public findIterations(): Observable<Page<Iteration>> {
     const iterations = [];
     let it = new Iteration(0, '53');
