@@ -8,14 +8,14 @@
       <mat-card-content>
         <div class="form-field-container">
           <mat-form-field>
-              <input matInput [matDatepicker]="startPicker" [(ngModel)]="start" placeholder="Start date">
+              <input matInput [matDatepicker]="startPicker" [(ngModel)]="start" [max]="end" placeholder="Start date">
               <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
               <mat-datepicker #startPicker></mat-datepicker>
           </mat-form-field>
           <mat-form-field>
-              <input matInput [matDatepicker]="endPicker" [(ngModel)]="end" placeholder="End date">
+              <input matInput [matDatepicker]="endPicker" [(ngModel)]="end" [min]="start" placeholder="End date">
               <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-              <mat-datepicker #endPicker></mat-datepicker>
+              <mat-datepicker #endPicker ></mat-datepicker>
           </mat-form-field>
         </div>
       </mat-card-content>
