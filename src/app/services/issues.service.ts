@@ -31,14 +31,13 @@ export class IssuesService {
   public findSupportIssues(): Observable<SimpleIndicator> {
     return this.redmineAwareClientService.get<SimpleIndicator>(
       this.buildSupportIssuesUrl(
-        this.redmineIndicatorsService.getBackendUrl(),
         this.configurationService.getSupportProjectId(),
         this.configurationService.getRDOpenQueryId())
     );
   }
 
-  private buildSupportIssuesUrl(backendUrl: string, projectId: number, queryId: number): string {
-    return `${backendUrl}/v1/issues/project/${projectId}/query/${queryId}/count/`;
+  private buildSupportIssuesUrl( projectId: number, queryId: number): string {
+    return `/issues/project/${projectId}/query/${queryId}/count/`;
   }
 
 }

@@ -1,18 +1,11 @@
 export abstract class AbstractBean {
 
-  protected _id: number;
-  protected _name: string;
+  public readonly id: number;
+  public name: string;
 
   constructor(id: number, name: string) {
-    this._id = id;
-    this._name = name;
+    this.id = id;
+    this.name = name;
   }
 
-  get id() {
-    return this._id;
-  }
-
-  get name() {
-    return this._name;
-  }
 }

@@ -3,13 +3,14 @@ import { Page } from './../beans/page';
 import { Iteration } from './../beans/iteration';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { RedmineAwareClientService } from './http/redmine-aware-client.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IterationService {
 
-  constructor(private eventsService: EventsService) {}
+  constructor(private redmineClient: RedmineAwareClientService) {}
 
   public findIterationById(id: number): Observable<Iteration> {
     const it = new Iteration(id, `Iteration ${id}`);
@@ -19,30 +20,13 @@ export class IterationService {
   }
 
   public saveIteration(iteration: Iteration): Observable<Iteration> {
-    this.eventsService.publish({message: 'iterations saved'});
-    return of(iteration);
+    return this.redmineClient.post('/iteration', iteration);
   }
   public updateIteration(iteration: Iteration): Observable<Iteration> {
-    this.eventsService.publish({message: 'iterations updated'});
-    return of(iteration);
+    return this.redmineClient.put(`/iteration/${iteration.id}`, iteration);
   }
 
   public findIterations(): Observable<Page<Iteration>> {
-    const iterations = [];
-    let it = new Iteration(0, '53');
-    it.start = new Date();
-    it.end = new Date();
-    iterations.push(it);
-    it = new Iteration(1, '54');
-    it.start = new Date();
-    it.end = new Date();
-    iterations.push(it);
-    const page: Page<Iteration> = {
-      total_count: 2,
-      offset: 0,
-      limit: 25,
-      elements: iterations
-    };
-    return of(page);
+    return this.redmineClient.get('/iteration');
   }
 }

@@ -42,11 +42,14 @@ export class IterationsEditComponent implements OnInit {
 
   public save() {
     if (this.id === 'new') {
-      this.iterationService.saveIteration(this.iteration);
+      this.iterationService.saveIteration(this.iteration).subscribe((data) => {
+        this.router.navigate(['..'], { relativeTo: this.route });
+      });
     } else {
-      this.iterationService.updateIteration(this.iteration);
+      this.iterationService.updateIteration(this.iteration).subscribe((data) => {
+        this.router.navigate(['..'], { relativeTo: this.route });
+      });
     }
-    this.router.navigate(['..'], { relativeTo: this.route });
   }
 
   public cancel() {
