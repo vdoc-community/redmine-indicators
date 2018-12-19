@@ -25,4 +25,8 @@ export class IterationsViewComponent implements OnInit {
         }
       );
   }
+
+  public delete(iteration: Iteration): void {
+    console.log(`delete ${iteration}`);
+  }
 }

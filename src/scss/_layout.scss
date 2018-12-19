@@ -1,8 +1,7 @@
-.mat-toolbar {
-  .mat-mini-fab.mat-accent {
-    margin-top: 64px;
-    margin-right: 25px;
-  }
+button.mat-mini-fab.mat-accent.floating {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
 }
 
 .mat-drawer-side {
