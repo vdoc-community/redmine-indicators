@@ -10,6 +10,7 @@ import { retryWhen, delay, take } from 'rxjs/operators';
 })
 export class IterationsViewComponent implements OnInit {
   public iterations: Array<Iteration>;
+  public displayedColumns: string[] = ['name', 'start', 'end'];
 
   constructor(private iterationService: IterationService) {}
 
@@ -18,7 +19,9 @@ export class IterationsViewComponent implements OnInit {
       .findIterations()
       .subscribe(
         page => {
-          this.iterations = page.elements;
+          this.iterations = page.elements
+          .filter( (iteration) => iteration.start)
+          .sort( (a, b) => new Date(b.start).getTime() - new Date(a.start).getTime());
         }
       );
   }
