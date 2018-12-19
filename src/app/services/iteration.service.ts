@@ -1,3 +1,4 @@
+import { EventsService } from './events.service';
 import { Page } from './../beans/page';
 import { Iteration } from './../beans/iteration';
 import { Injectable } from '@angular/core';
@@ -7,7 +8,8 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class IterationService {
-  constructor() {}
+
+  constructor(private eventsService: EventsService) {}
 
   public findIterationById(id: number): Observable<Iteration> {
     const it = new Iteration(id, `Iteration ${id}`);
@@ -17,9 +19,11 @@ export class IterationService {
   }
 
   public saveIteration(iteration: Iteration): Observable<Iteration> {
+    this.eventsService.publish({message: 'iterations saved'});
     return of(iteration);
   }
   public updateIteration(iteration: Iteration): Observable<Iteration> {
+    this.eventsService.publish({message: 'iterations updated'});
     return of(iteration);
   }
 
