@@ -13,10 +13,7 @@ export class IterationService {
   constructor(private redmineClient: RedmineAwareClientService) {}
 
   public findIterationById(id: number): Observable<Iteration> {
-    const it = new Iteration(id, `Iteration ${id}`);
-    it.start = new Date();
-    it.end = new Date();
-    return of(it);
+    return this.redmineClient.get(`/iteration/${id}`);
   }
 
   public saveIteration(iteration: Iteration): Observable<Iteration> {

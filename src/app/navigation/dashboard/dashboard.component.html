@@ -1,18 +1,11 @@
 <div class="dashboard-container">
 
-  <mat-grid-list [cols]="(objectives | async)?.length" rowHeight="250px">
-    <!-- Objectifs -->
-    <mat-grid-tile *ngFor="let objective of objectives | async" [colspan]="1" [rowspan]="1">
-      <app-objective [objective]="objective" ></app-objective>
-    </mat-grid-tile>
-  </mat-grid-list>
-
   <mat-grid-list cols="3" rowHeight="1:0.7" >
 
     <mat-grid-tile [colspan]="1" [rowspan]="1">
       <app-support></app-support>
     </mat-grid-tile>
-    
+
     <mat-grid-tile [colspan]="2" [rowspan]="2">
       <app-burndown [iteration]="currentIteration$ | async"></app-burndown>
     </mat-grid-tile>
@@ -22,4 +15,12 @@
     </mat-grid-tile>
 
   </mat-grid-list>
+
+  <mat-grid-list [cols]="(objectives | async)?.length" rowHeight="250px">
+    <!-- Objectifs -->
+    <mat-grid-tile *ngFor="let objective of objectives | async" [colspan]="1" [rowspan]="1">
+      <app-objective [objective]="objective" ></app-objective>
+    </mat-grid-tile>
+  </mat-grid-list>
+
 </div>
