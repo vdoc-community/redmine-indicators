@@ -11,22 +11,22 @@ import { switchMap } from 'rxjs/operators';
 export class SupportComponent implements OnInit {
   public status: 'loading' | 'success' | 'error' = 'loading';
   public count: SimpleIndicator;
+  private issuesService: IssuesService;
 
-  constructor(private issuesService: IssuesService) {
+  constructor(issuesService: IssuesService) {
+    this.issuesService = issuesService;
   }
 
   ngOnInit() {
     timer(0, 15000)
-    .pipe(
-      switchMap(_ => this.issuesService.findSupportIssues())
-    ).subscribe(
-      (simpleIndicator: SimpleIndicator) => {
-        this.count = simpleIndicator;
-        this.status = 'success';
-      },
-      (error: any) => {
-        this.status = 'error';
-      });
+      .pipe(switchMap(_ => this.issuesService.findSupportIssues()))
+      .subscribe((simpleIndicator: SimpleIndicator) => {
+          this.count = simpleIndicator;
+          this.status = 'success';
+        },
+        (error: any) => {
+          this.status = 'error';
+        }
+      );
   }
-
 }
