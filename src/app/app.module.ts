@@ -39,7 +39,9 @@ import { ObjectiveComponent } from './navigation/dashboard/indicator/objective/o
 import { OpenTicketsComponent } from './navigation/dashboard/indicator/open-tickets/open-tickets.component';
 import { BurndownComponent } from './navigation/dashboard/indicator/burndown/burndown.component';
 import { SupportComponent } from './navigation/dashboard/indicator/support/support.component';
-import { OpenIssueByCategoryComponent } from './navigation/dashboard/indicator/open-tickets/open-issue-by-category/open-issue-by-category.component';
+import {
+  OpenIssueByCategoryComponent
+} from './navigation/dashboard/indicator/open-tickets/open-issue-by-category/open-issue-by-category.component';
 
 export const ROUTES: Routes = [
   {
@@ -109,4 +111,4 @@ export const ROUTES: Routes = [
   providers: [ObjectivesService, BurndownService, IssuesService],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
