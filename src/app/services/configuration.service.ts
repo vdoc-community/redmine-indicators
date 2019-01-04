@@ -10,11 +10,11 @@ export class ConfigurationService {
   constructor() { }
 
   public getSupportProjectId(): number {
-    return environment.supportProjectId;
+    return environment.support.projectId;
   }
 
   public getRDOpenQueryId(): number {
-    return environment.rDOpenQueryId;
+    return environment.support.openIssuesQuery;
   }
 
   public getBackendUrl(): string {
