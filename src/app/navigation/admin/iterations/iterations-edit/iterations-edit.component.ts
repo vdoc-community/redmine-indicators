@@ -1,16 +1,16 @@
-import { Router, ActivatedRoute, Params } from "@angular/router";
-import { Component, OnInit } from "@angular/core";
-import { Iteration } from "src/app/beans/iteration";
-import { IterationService } from "src/app/services/iteration.service";
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Iteration } from 'src/app/beans/iteration';
+import { IterationService } from 'src/app/services/iteration.service';
 
 @Component({
-  selector: "app-iterations-edit",
-  templateUrl: "./iterations-edit.component.html",
-  styleUrls: ["./iterations-edit.component.scss"]
+  selector: 'app-iterations-edit',
+  templateUrl: './iterations-edit.component.html',
+  styleUrls: ['./iterations-edit.component.scss']
 })
 export class IterationsEditComponent implements OnInit {
   public loading = true;
-  private id: number | "new";
+  private id: number | 'new';
 
   public iteration: Iteration;
 
@@ -23,8 +23,8 @@ export class IterationsEditComponent implements OnInit {
   ngOnInit() {
     this.reset();
     this.route.params.subscribe((params: Params) => {
-      this.id = params["id"];
-      if (this.id === "new") {
+      this.id = params['id'];
+      if (this.id === 'new') {
         this.iteration = new Iteration(null, null);
         this.loading = false;
       } else {
@@ -41,18 +41,18 @@ export class IterationsEditComponent implements OnInit {
   private reset(): void {}
 
   public save() {
-    if (this.id === "new") {
+    if (this.id === 'new') {
       this.iterationService.saveIteration(this.iteration).subscribe(data => {
-        this.router.navigate([".."], { relativeTo: this.route });
+        this.router.navigate(['..'], { relativeTo: this.route });
       });
     } else {
       this.iterationService.updateIteration(this.iteration).subscribe(data => {
-        this.router.navigate([".."], { relativeTo: this.route });
+        this.router.navigate(['..'], { relativeTo: this.route });
       });
     }
   }
 
   public cancel() {
-    this.router.navigate([".."], { relativeTo: this.route });
+    this.router.navigate(['..'], { relativeTo: this.route });
   }
 }
