@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Category } from '../beans/category';
-import { Iteration } from '../beans/iteration';
+import { Category } from './beans/dto';
 
 @Injectable({
   providedIn: 'root'

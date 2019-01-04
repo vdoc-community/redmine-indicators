@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { timer, of, Subscription } from 'rxjs';
-import { SimpleIndicator } from 'src/app/beans/simple-indicator';
 import { switchMap, catchError } from 'rxjs/operators';
 import { IssuesService } from 'src/app/services/issues.service';
+import { SimpleIndicator } from 'src/app/services/beans/dto';
 
 @Component({
   selector: 'app-support',

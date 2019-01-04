@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
-import {Objective} from '../beans/objective';
-import {Iteration} from '../beans/iteration';
+import { Iteration, Objective } from './beans/dto';
 
 @Injectable()
 export class ObjectivesService {

@@ -1,8 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import { Iteration } from 'src/app/beans/iteration';
-import { Category } from 'src/app/beans/category';
 import { IssuesService } from 'src/app/services/issues.service';
+import { Iteration, Category } from 'src/app/services/beans/dto';
 
 @Component({
   selector: 'app-open-issue-by-category',

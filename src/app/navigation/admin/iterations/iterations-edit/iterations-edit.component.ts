@@ -1,7 +1,7 @@
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { Iteration } from 'src/app/beans/iteration';
 import { IterationService } from 'src/app/services/iteration.service';
+import { Iteration } from 'src/app/services/beans/dto';
 
 @Component({
   selector: 'app-iterations-edit',

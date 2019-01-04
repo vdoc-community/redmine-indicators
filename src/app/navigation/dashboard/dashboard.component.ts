@@ -1,12 +1,8 @@
 import { IterationService } from './../../services/iteration.service';
 import {Component, OnInit} from '@angular/core';
-import {map} from 'rxjs/operators';
-import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {ObjectivesService} from '../../services/objectives.service';
-import {Objective} from '../../beans/objective';
-import {Iteration} from '../../beans/iteration';
-import {RedmineIndicatorsService} from '../../services/redmine-indicators.service';
+import { Objective, Iteration } from 'src/app/services/beans/dto';
 
 @Component({
   selector: 'app-dashboard',

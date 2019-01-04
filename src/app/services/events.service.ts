@@ -1,6 +1,6 @@
 import { Observable, Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { MessageEvent } from '../beans/message-event';
+import { MessageEvent } from './beans/message-event';
 
 @Injectable({
   providedIn: 'root'

@@ -1,9 +1,8 @@
 import { EventsService } from './events.service';
-import { Page } from './../beans/page';
-import { Iteration } from './../beans/iteration';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { RedmineClient } from './http/redmine-client.service';
+import { Iteration, Page } from './beans/dto';
 
 @Injectable({
   providedIn: 'root'

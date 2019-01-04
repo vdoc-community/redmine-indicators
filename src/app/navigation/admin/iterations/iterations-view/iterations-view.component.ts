@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IterationService } from 'src/app/services/iteration.service';
 import { retryWhen, delay, take } from 'rxjs/operators';
-import { Iteration } from 'src/app/beans/iteration';
+import { Iteration } from 'src/app/services/beans/dto';
 
 @Component({
   selector: 'app-iterations-view',
