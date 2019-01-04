@@ -23,15 +23,10 @@ import {
   MatTableModule
 } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
-import { ObjectiveComponent } from './card/objective/objective.component';
 import { ObjectivesService } from './services/objectives.service';
-import { OpenTicketsComponent } from './card/open-tickets/open-tickets.component';
-import { BurndownComponent } from './card/burndown/burndown.component';
 import { ChartsModule } from 'ng2-charts';
-import { SupportComponent } from './card/support/support.component';
 import { BurndownService } from './services/burndown.service';
 import { IssuesService } from './services/issues.service';
-import { OpenIssueByCategoryComponent } from './card/open-tickets/open-issue-by-category/open-issue-by-category.component';
 import { RouterModule, Routes } from '@angular/router';
 import { XRedmineApiKeyGuard } from './guard/x-redmine-api-key.guard';
 import { FormsModule } from '@angular/forms';
@@ -40,6 +35,11 @@ import { IterationsViewComponent } from './navigation/admin/iterations/iteration
 import { IterationsEditComponent } from './navigation/admin/iterations/iterations-edit/iterations-edit.component';
 import { AdminComponent } from './navigation/admin/admin.component';
 import { ConfigurationComponent } from './navigation/configuration/configuration/configuration.component';
+import { ObjectiveComponent } from './navigation/dashboard/indicator/objective/objective.component';
+import { OpenTicketsComponent } from './navigation/dashboard/indicator/open-tickets/open-tickets.component';
+import { BurndownComponent } from './navigation/dashboard/indicator/burndown/burndown.component';
+import { SupportComponent } from './navigation/dashboard/indicator/support/support.component';
+import { OpenIssueByCategoryComponent } from './navigation/dashboard/indicator/open-tickets/open-issue-by-category/open-issue-by-category.component';
 
 export const ROUTES: Routes = [
   {

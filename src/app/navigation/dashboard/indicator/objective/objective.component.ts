@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Objective} from '../../beans/objective';
+import { Objective } from 'src/app/beans/objective';
 
 @Component({
   selector: 'app-objective',

@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {BurndownService} from '../../services/burndown.service';
 import {Observable} from 'rxjs';
-import {Iteration} from '../../beans/iteration';
+import { Iteration } from 'src/app/beans/iteration';
+import { BurndownService } from 'src/app/services/burndown.service';
 
 @Component({
   selector: 'app-burndown',

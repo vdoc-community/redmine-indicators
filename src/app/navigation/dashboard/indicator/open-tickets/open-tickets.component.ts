@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {RedmineIndicatorsService} from '../../services/redmine-indicators.service';
 import {Observable} from 'rxjs';
-import {Category} from '../../beans/category';
-import {Iteration} from '../../beans/iteration';
+import { Iteration } from 'src/app/beans/iteration';
+import { Category } from 'src/app/beans/category';
+import { RedmineIndicatorsService } from 'src/app/services/redmine-indicators.service';
 
 @Component({
   selector: 'app-open-tickets',
