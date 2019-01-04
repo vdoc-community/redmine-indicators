@@ -1,4 +1,4 @@
-import { ConfigurationService } from './../services/configuration.service';
+import { ConfigurationService } from '../services/configuration/configuration.service';
 import {Injectable} from '@angular/core';
 import {Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';

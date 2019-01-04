@@ -1,4 +1,4 @@
-import { ConfigurationService } from './../configuration.service';
+import { ConfigurationService } from '../configuration/configuration.service';
 import { EventsService } from '../events.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';

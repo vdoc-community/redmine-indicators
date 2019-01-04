@@ -4,7 +4,7 @@ import { Category } from '../beans/category';
 import { Observable, of } from 'rxjs';
 import { SimpleIndicator } from '../beans/simple-indicator';
 import { RedmineIndicatorsService } from './redmine-indicators.service';
-import { ConfigurationService } from './configuration.service';
+import { ConfigurationService } from './configuration/configuration.service';
 import { RedmineClient } from './http/redmine-client.service';
 
 @Injectable({
