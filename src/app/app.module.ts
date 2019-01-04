@@ -34,12 +34,12 @@ import { IssuesService } from './services/issues.service';
 import { OpenIssueByCategoryComponent } from './card/open-tickets/open-issue-by-category/open-issue-by-category.component';
 import { RouterModule, Routes } from '@angular/router';
 import { XRedmineApiKeyGuard } from './guard/x-redmine-api-key.guard';
-import { ConfigurationComponent } from './configuration/configuration/configuration.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { IterationsViewComponent } from './navigation/admin/iterations/iterations-view/iterations-view.component';
 import { IterationsEditComponent } from './navigation/admin/iterations/iterations-edit/iterations-edit.component';
 import { AdminComponent } from './navigation/admin/admin.component';
+import { ConfigurationComponent } from './navigation/configuration/configuration/configuration.component';
 
 export const ROUTES: Routes = [
   {

@@ -1,5 +1,5 @@
-import { ConfigurationService } from './../../services/configuration.service';
 import { Component, OnInit } from '@angular/core';
+import { ConfigurationService } from 'src/app/services/configuration.service';
 
 @Component({
   selector: 'app-configuration',
