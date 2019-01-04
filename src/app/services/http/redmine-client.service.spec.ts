@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { RedmineAwareClientService } from './redmine-aware-client.service';
+import { RedmineClient } from './redmine-client.service';
 
 describe('RedmineAwareClientService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: RedmineAwareClientService = TestBed.get(RedmineAwareClientService);
+    const service: RedmineClient = TestBed.get(RedmineClient);
     expect(service).toBeTruthy();
   });
 });

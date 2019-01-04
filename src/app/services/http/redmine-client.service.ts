@@ -1,4 +1,4 @@
-import { EventsService } from './../events.service';
+import { EventsService } from '../events.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
 import { RedmineIndicatorsService } from '../redmine-indicators.service';
@@ -8,7 +8,7 @@ import { catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class RedmineAwareClientService {
+export class RedmineClient {
   private httpClient: HttpClient;
   private redmineIndicatorsService: RedmineIndicatorsService;
   private eventsService: EventsService;
