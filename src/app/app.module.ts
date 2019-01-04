@@ -1,4 +1,4 @@
-import { AdminComponent } from './admin/admin/admin.component';
+import { AdminComponent } from './navigation/admin/admin.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { NgModule } from '@angular/core';
@@ -38,8 +38,8 @@ import { XRedmineApiKeyGuard } from './guard/x-redmine-api-key.guard';
 import { ConfigurationComponent } from './configuration/configuration/configuration.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { IterationsViewComponent } from './admin/iterations/iterations-view/iterations-view.component';
-import { IterationsEditComponent } from './admin/iterations/iterations-edit/iterations-edit.component';
+import { IterationsViewComponent } from './navigation/admin/iterations/iterations-view/iterations-view.component';
+import { IterationsEditComponent } from './navigation/admin/iterations/iterations-edit/iterations-edit.component';
 
 export const ROUTES: Routes = [
   {
