@@ -1,3 +1,4 @@
+import { ConfigurationService } from './../configuration.service';
 import { EventsService } from '../events.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
@@ -9,19 +10,12 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class RedmineClient {
-  private httpClient: HttpClient;
-  private redmineIndicatorsService: RedmineIndicatorsService;
-  private eventsService: EventsService;
 
   constructor(
-    httpClient: HttpClient,
-    redmineIndicatorsService: RedmineIndicatorsService,
-    eventsService: EventsService
-  ) {
-    this.httpClient = httpClient;
-    this.redmineIndicatorsService = redmineIndicatorsService;
-    this.eventsService = eventsService;
-  }
+    private httpClient: HttpClient,
+    private configurationService: ConfigurationService,
+    private eventsService: EventsService
+  ) { }
 
   public get<T>(url: string): Observable<T> {
     return this.httpClient.get<T>(this.buildUrl(url), {
@@ -43,11 +37,11 @@ export class RedmineClient {
 
   private buildDefaultHeaders(): HttpHeaders {
     let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.set('X-Redmine-API-Key', this.redmineIndicatorsService.getXRedmineApiKey());
+    headers = headers.set('X-Redmine-API-Key', this.configurationService.getXRedmineApiKey());
     return headers;
   }
 
   private buildUrl(url: string): string {
-    return `${this.redmineIndicatorsService.getBackendUrl()}/v1${url}`;
+    return `${this.configurationService.getBackendUrl()}/v1${url}`;
   }
 }

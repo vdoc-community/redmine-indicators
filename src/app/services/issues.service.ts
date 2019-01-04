@@ -5,21 +5,21 @@ import { Observable, of } from 'rxjs';
 import { SimpleIndicator } from '../beans/simple-indicator';
 import { RedmineIndicatorsService } from './redmine-indicators.service';
 import { ConfigurationService } from './configuration.service';
-import { RedmineAwareClientService } from './http/redmine-aware-client.service';
+import { RedmineClient } from './http/redmine-client.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IssuesService {
-  private redmineAwareClientService: RedmineAwareClientService;
+  private redmineAwareClientService: RedmineClient;
   private redmineIndicatorsService: RedmineIndicatorsService;
   private configurationService: ConfigurationService;
 
   constructor(
-    redmineAwareClientService: RedmineAwareClientService,
+    redmineClient: RedmineClient,
     redmineIndicatorsService: RedmineIndicatorsService,
     configurationService: ConfigurationService) {
-    this.redmineAwareClientService = redmineAwareClientService;
+    this.redmineAwareClientService = redmineClient;
     this.redmineIndicatorsService = redmineIndicatorsService;
     this.configurationService = configurationService;
   }

@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   supportProjectId: 1032,
-  rDOpenQueryId: 1762
+  rDOpenQueryId: 1762,
+  backendUrl: 'http://127.0.0.1:8080/redmine-ng-api'
 };
 
 /*

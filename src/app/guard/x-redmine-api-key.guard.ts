@@ -1,3 +1,4 @@
+import { ConfigurationService } from './../services/configuration.service';
 import {Injectable} from '@angular/core';
 import {Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';
@@ -9,7 +10,7 @@ import {RedmineIndicatorsService} from '../services/redmine-indicators.service';
 export class XRedmineApiKeyGuard implements CanActivate {
 
 
-  constructor(private redmineIndicatorsService: RedmineIndicatorsService, private router: Router) {
+  constructor(private configurationService: ConfigurationService, private router: Router) {
   }
 
   public canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
@@ -21,7 +22,7 @@ export class XRedmineApiKeyGuard implements CanActivate {
   }
 
   public isAuthenticated(): boolean {
-    const token = this.redmineIndicatorsService.getXRedmineApiKey();
+    const token = this.configurationService.getXRedmineApiKey();
     // Check whether the token is expired and return
     // true or false
     return token !== null && token.length > 0;

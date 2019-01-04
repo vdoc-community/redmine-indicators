@@ -1,3 +1,4 @@
+import { IterationService } from './../../services/iteration.service';
 import {Component, OnInit} from '@angular/core';
 import {map} from 'rxjs/operators';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
@@ -16,11 +17,11 @@ export class DashboardComponent implements OnInit {
   public objectives: Observable<Objective[]>;
   public currentIteration$: Observable<Iteration>;
 
-  constructor( private redmineIndicatorsService: RedmineIndicatorsService, private objectivesService: ObjectivesService) {
+  constructor( private iterationService: IterationService, private objectivesService: ObjectivesService) {
   }
 
   ngOnInit(): void {
-    this.currentIteration$ = this.redmineIndicatorsService.findCurrentIteration();
+    this.currentIteration$ = this.iterationService.findCurrentIteration();
     this.objectives = this.objectivesService.findObjectives(null);
   }
 }
