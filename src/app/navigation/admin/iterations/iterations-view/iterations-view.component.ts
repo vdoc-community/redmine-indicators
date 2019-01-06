@@ -9,7 +9,7 @@ import { Iteration } from 'src/app/services/beans/dto';
 })
 export class IterationsViewComponent implements OnInit {
   public iterations: Array<Iteration>;
-  public displayedColumns: string[] = ['name', 'start', 'end'];
+  public displayedColumns: string[] = ['number', 'name', 'start', 'end'];
 
   constructor(private iterationService: IterationService) {}
 
@@ -20,7 +20,7 @@ export class IterationsViewComponent implements OnInit {
         page => {
           this.iterations = page.elements
           .filter( (iteration) => iteration.start)
-          .sort( (a, b) => new Date(b.start).getTime() - new Date(a.start).getTime());
+          .sort( (a, b) => b.start.getTime() - a.start.getTime());
         }
       );
   }

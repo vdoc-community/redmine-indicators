@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MomentModule } from 'angular2-moment';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -105,6 +106,7 @@ export const ROUTES: Routes = [
     MatMomentDateModule,
     MatSnackBarModule,
     MatTableModule,
+    MomentModule,
     ChartsModule,
     LayoutModule
   ],
