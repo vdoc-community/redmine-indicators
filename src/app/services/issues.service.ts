@@ -35,7 +35,7 @@ export class IssuesService {
   }
 
   private buildSupportIssuesUrl( projectId: number, queryId: number): string {
-    return `/issues/project/${projectId}/query/${queryId}/count/`;
+    return `/issue/project/${projectId}/query/${queryId}/count/`;
   }
 
 }
