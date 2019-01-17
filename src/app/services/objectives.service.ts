@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import { Iteration, Objective } from './beans/dto';
 import { AbstractCrudService } from './abstract-crud-service';
 import { RedmineClient } from './http/redmine-client.service';
+import { IterationRef } from './beans/refs/iteration-ref';
 
 @Injectable()
 export class ObjectivesService extends AbstractCrudService<Objective> {
@@ -32,6 +33,7 @@ export class ObjectivesService extends AbstractCrudService<Objective> {
     const objective = new Objective(json.id, json.name);
     objective.summary = json.summary;
     objective.description = json.description;
+    objective.iteration = this.parserRef(json.iteration, new IterationRef());
     return objective;
   }
 

@@ -3,6 +3,7 @@ import { Page } from './beans/dto';
 import { RedmineClient } from './http/redmine-client.service';
 import { Observable } from 'rxjs';
 import { AbstractBean } from './beans/dto/abstract-bean';
+import { AbstractRef } from './beans/refs/abstract-ref';
 
 export abstract class AbstractCrudService<T extends AbstractBean> {
 
@@ -34,6 +35,12 @@ export abstract class AbstractCrudService<T extends AbstractBean> {
 
   protected abstract endpoint(): string ;
   protected abstract parser(json: any): T ;
+
+  protected parserRef<R extends AbstractRef>(json: any, ref: R): R {
+    ref.id = json.id;
+    ref.name = json.name;
+    return ref;
+  }
 
   protected pageParser(json: any, parser: (item: any) => T): Page<T> {
     const page = new Page<T>();
