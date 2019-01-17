@@ -35,6 +35,12 @@ export class RedmineClient {
     });
   }
 
+  public delete<T>(url: string): Observable<T> {
+    return this.httpClient.delete<T>(this.buildUrl(url), {
+      headers: this.buildDefaultHeaders()
+    });
+  }
+
   private buildDefaultHeaders(): HttpHeaders {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.set('X-Redmine-API-Key', this.configurationService.getXRedmineApiKey());

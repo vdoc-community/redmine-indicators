@@ -29,7 +29,7 @@ export class IterationsEditComponent implements OnInit {
         this.loading = false;
       } else {
         this.iterationService
-          .findIterationById(this.id)
+          .findById(this.id)
           .subscribe(iteration => {
             this.iteration = iteration;
             this.loading = false;
@@ -42,11 +42,11 @@ export class IterationsEditComponent implements OnInit {
 
   public save() {
     if (this.id === 'new') {
-      this.iterationService.saveIteration(this.iteration).subscribe(data => {
+      this.iterationService.save(this.iteration).subscribe(data => {
         this.router.navigate(['..'], { relativeTo: this.route });
       });
     } else {
-      this.iterationService.updateIteration(this.iteration).subscribe(data => {
+      this.iterationService.update(this.iteration).subscribe(data => {
         this.router.navigate(['..'], { relativeTo: this.route });
       });
     }

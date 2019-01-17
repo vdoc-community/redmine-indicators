@@ -15,7 +15,7 @@ export class IterationsViewComponent implements OnInit {
 
   ngOnInit() {
     this.iterationService
-      .findIterations()
+      .findAll()
       .subscribe(
         page => {
           this.iterations = page.elements
