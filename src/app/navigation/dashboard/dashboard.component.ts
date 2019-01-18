@@ -2,7 +2,7 @@ import { IterationService } from './../../services/iteration.service';
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {ObjectivesService} from '../../services/objectives.service';
-import { Objective, Iteration } from 'src/app/services/beans/dto';
+import { Objective, Iteration, Page } from 'src/app/services/beans/dto';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,7 +10,7 @@ import { Objective, Iteration } from 'src/app/services/beans/dto';
 })
 export class DashboardComponent implements OnInit {
 
-  public objectives: Observable<Objective[]>;
+  public objectives: Observable<Page<Objective>>;
   public currentIteration$: Observable<Iteration>;
 
   constructor( private iterationService: IterationService, private objectivesService: ObjectivesService) {
@@ -18,6 +18,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentIteration$ = this.iterationService.findCurrent();
-    this.objectives = this.objectivesService.findObjectives(null);
+    this.currentIteration$.subscribe(iteration => {
+      this.objectives = this.objectivesService.findObjectives(iteration);
+    });
   }
 }

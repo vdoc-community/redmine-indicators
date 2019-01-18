@@ -1,6 +1,7 @@
+import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Iteration, Objective } from './beans/dto';
+import { Iteration, Objective, Page } from './beans/dto';
 import { AbstractCrudService } from './abstract-crud-service';
 import { RedmineClient } from './http/redmine-client.service';
 import { IterationRef } from './beans/refs/iteration-ref';
@@ -12,17 +13,9 @@ export class ObjectivesService extends AbstractCrudService<Objective> {
     super(redmineClient);
   }
 
-  public findObjectives(iteration: Iteration): Observable<Objective[]> {
-    const objectives: Objective[] = [];
-
-    for (let i = 0; i < 2; i++) {
-      const objective: Objective = new Objective(1, '');
-      objective.summary = 'Objective ' + i;
-      objective.description = 'Objective description' + i;
-      objectives.push(objective);
-    }
-
-    return of(objectives);
+  public findObjectives(iteration: Iteration | IterationRef): Observable<Page<Objective>> {
+    return this.redmineClient.get(`/${this.endpoint()}/iteration/${iteration.id}`)
+      .pipe(map(json => this.pageParser(json, this.parser.bind(this))));
   }
 
   protected endpoint(): string {

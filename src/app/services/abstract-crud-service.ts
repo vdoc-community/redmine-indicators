@@ -33,8 +33,8 @@ export abstract class AbstractCrudService<T extends AbstractBean> {
     return this.redmineClient.get(`/${this.endpoint()}`).pipe(map(json => this.pageParser(json, this.parser)));
   }
 
-  protected abstract endpoint(): string ;
-  protected abstract parser(json: any): T ;
+  protected abstract endpoint(): string;
+  protected abstract parser(json: any): T;
 
   protected parserRef<R extends AbstractRef>(json: any, ref: R): R {
     ref.id = json.id;
@@ -48,9 +48,11 @@ export abstract class AbstractCrudService<T extends AbstractBean> {
     page.offset = json.offset;
     page.total_count = json.total_count;
     page.elements = [];
-    json.elements.forEach(element => {
-      page.elements.push(parser(element));
-    });
+    if (json.elements) {
+      json.elements.forEach(element => {
+        page.elements.push(parser(element));
+      });
+    }
     return page;
   }
 

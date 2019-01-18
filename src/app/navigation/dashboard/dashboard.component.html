@@ -16,9 +16,9 @@
 
   </mat-grid-list>
 
-  <mat-grid-list [cols]="(objectives | async)?.length" rowHeight="250px">
+  <mat-grid-list [cols]="(objectives | async)?.elements.length" rowHeight="250px">
     <!-- Objectifs -->
-    <mat-grid-tile *ngFor="let objective of objectives | async" [colspan]="1" [rowspan]="1">
+    <mat-grid-tile *ngFor="let objective of (objectives | async)?.elements" [colspan]="1" [rowspan]="1">
       <app-objective [objective]="objective" ></app-objective>
     </mat-grid-tile>
   </mat-grid-list>
