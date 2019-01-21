@@ -13,7 +13,7 @@ export class ObjectivesService extends AbstractCrudService<Objective> {
     super(redmineClient);
   }
 
-  public findObjectives(iteration: Iteration | IterationRef): Observable<Page<Objective>> {
+  public findByIteration(iteration: Iteration | IterationRef): Observable<Page<Objective>> {
     return this.redmineClient.get(`/${this.endpoint()}/iteration/${iteration.id}`)
       .pipe(map(json => this.pageParser(json, this.parser.bind(this))));
   }
@@ -24,7 +24,6 @@ export class ObjectivesService extends AbstractCrudService<Objective> {
 
   protected parser(json: any): Objective {
     const objective = new Objective(json.id, json.name);
-    objective.summary = json.summary;
     objective.description = json.description;
     objective.iteration = this.parserRef(json.iteration, new IterationRef());
     return objective;

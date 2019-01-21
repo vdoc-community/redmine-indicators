@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.currentIteration$ = this.iterationService.findCurrent();
     this.currentIteration$.subscribe(iteration => {
-      this.objectives = this.objectivesService.findObjectives(iteration);
+      this.objectives = this.objectivesService.findByIteration(iteration);
     });
   }
 }

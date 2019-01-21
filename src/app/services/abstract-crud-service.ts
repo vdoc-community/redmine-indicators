@@ -18,7 +18,7 @@ export abstract class AbstractCrudService<T extends AbstractBean> {
   }
 
   public save(bean: T): Observable<T> {
-    return this.redmineClient.post('/${this.endpoint()}', bean);
+    return this.redmineClient.post(`/${this.endpoint()}`, bean);
   }
 
   public update(bean: T): Observable<T> {

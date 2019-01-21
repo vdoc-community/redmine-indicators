@@ -43,6 +43,8 @@ import { SupportComponent } from './navigation/dashboard/indicator/support/suppo
 import {
   OpenIssueByCategoryComponent
 } from './navigation/dashboard/indicator/open-tickets/open-issue-by-category/open-issue-by-category.component';
+import { IterationsObjectivesViewComponent } from './navigation/admin/iterations/iterations-objectives-view/iterations-objectives-view.component';
+import { ObjectiveEditComponent } from './navigation/admin/objectives/objective-edit/objective-edit.component';
 
 export const ROUTES: Routes = [
   {
@@ -83,7 +85,9 @@ export const ROUTES: Routes = [
     ConfigurationComponent,
     AdminComponent,
     IterationsViewComponent,
-    IterationsEditComponent
+    IterationsEditComponent,
+    IterationsObjectivesViewComponent,
+    ObjectiveEditComponent
   ],
   imports: [
     RouterModule.forRoot(ROUTES),

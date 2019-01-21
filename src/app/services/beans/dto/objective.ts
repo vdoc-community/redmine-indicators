@@ -8,6 +8,5 @@ export class Objective extends AbstractBean {
   }
 
   iteration: IterationRef;
-  summary: string;
   description: string;
 }
