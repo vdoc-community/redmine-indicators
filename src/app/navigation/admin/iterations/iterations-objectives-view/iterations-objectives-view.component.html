@@ -1,9 +1,9 @@
-<mat-grid-list cols="3" rowHeight="100px">
+<mat-grid-list cols="3" rowHeight="1:0.5" gutterSize="16px">
   <mat-grid-tile
       *ngFor="let objective of objectives;"
       [colspan]="1"
       [rowspan]="1" >
-    <app-objective-edit class="full-width full-height" [objective]="objective" ></app-objective-edit>
+    <app-objective-edit class="full-width full-height" [objective]="objective" (deleted)="onDelete(objective);" ></app-objective-edit>
   </mat-grid-tile>
   <mat-grid-tile [colspan]="1" [rowspan]="1" >
     <button mat-fab (click)="add()">

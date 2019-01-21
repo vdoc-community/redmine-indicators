@@ -36,6 +36,10 @@ export class IterationsObjectivesViewComponent implements OnInit {
     this.objectives.push(objective);
   }
 
+  public onDelete(objective: Objective) {
+    this.objectives.splice(this.objectives.indexOf(objective), 1);
+  }
+
   private loadObjectives() {
     if (this._iteration) {
       this.objectivesService.findByIteration(this.iteration).subscribe(page => {

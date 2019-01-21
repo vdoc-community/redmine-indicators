@@ -1,7 +1,7 @@
 import { ConfigurationService } from '../configuration/configuration.service';
 import { EventsService } from '../events.service';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHandler, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { RedmineIndicatorsService } from '../redmine-indicators.service';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -35,9 +35,10 @@ export class RedmineClient {
     });
   }
 
-  public delete<T>(url: string): Observable<T> {
-    return this.httpClient.delete<T>(this.buildUrl(url), {
-      headers: this.buildDefaultHeaders()
+  public delete(url: string): Observable<HttpResponse<any>> {
+    return this.httpClient.delete<any>(this.buildUrl(url), {
+      headers: this.buildDefaultHeaders(),
+      observe: 'response'
     });
   }
 

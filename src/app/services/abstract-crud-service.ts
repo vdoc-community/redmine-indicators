@@ -1,4 +1,5 @@
-import { map } from 'rxjs/operators';
+import { HttpResponse } from '@angular/common/http';
+import { map, switchMap } from 'rxjs/operators';
 import { Page } from './beans/dto';
 import { RedmineClient } from './http/redmine-client.service';
 import { Observable } from 'rxjs';
@@ -14,7 +15,7 @@ export abstract class AbstractCrudService<T extends AbstractBean> {
   }
 
   public findById(id: number): Observable<T> {
-    return this.redmineClient.get(`/${this.endpoint()}/${id}`);
+    return this.redmineClient.get<T>(`/${this.endpoint()}/${id}`);
   }
 
   public save(bean: T): Observable<T> {

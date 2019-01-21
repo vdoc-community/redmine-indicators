@@ -1,11 +1,43 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>{{objective.name}}</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <p>
-      {{objective.description}}
-    </p>
-  </mat-card-content>
+<mat-card class="full-height">
+  <ng-container [ngSwitch]="mode">
+    <ng-container *ngSwitchCase="'read'">
+      <mat-card-header>
+        <mat-card-title>{{objective.name}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          {{objective.description}}
+        </p>
+      </mat-card-content>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+      <!-- create and edit -->
+      <mat-card-header>
+        <mat-card-title>
+          <input matInput class="full-width" [(ngModel)]="updateableObjective.name">
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field class="full-width">
+          <textarea matInput [(ngModel)]="updateableObjective.description"></textarea>
+        </mat-form-field>
+      </mat-card-content>
+    </ng-container>
+  </ng-container>
+  <mat-card-actions>
+    <ng-container [ngSwitch]="mode">
+      <ng-container *ngSwitchCase="'read'">
+        <button mat-button color="primary" (click)="edit()">Edit</button>
+        <button mat-button (click)="delete()">Delete</button>
+      </ng-container>
+      <ng-container *ngSwitchCase="'edit'">
+        <button mat-button color="primary" (click)="update()">Update</button>
+        <button mat-button (click)="cancel()">Cancel</button>
+      </ng-container>
+      <ng-container *ngSwitchCase="'create'">
+        <button mat-button color="primary" (click)="save()">Save</button>
+        <button mat-button (click)="delete()">Delete</button>
+      </ng-container>
+    </ng-container>
+  </mat-card-actions>
 </mat-card>
-
