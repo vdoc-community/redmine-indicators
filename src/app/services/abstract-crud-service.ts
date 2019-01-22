@@ -26,7 +26,7 @@ export abstract class AbstractCrudService<T extends AbstractBean> {
     return this.redmineClient.put(`/${this.endpoint()}/${bean.id}`, bean);
   }
 
-  public delete(bean: T): Observable<T> {
+  public delete(bean: T): Observable<HttpResponse<any>> {
     return this.redmineClient.delete(`/${this.endpoint()}/${bean.id}`);
   }
 
