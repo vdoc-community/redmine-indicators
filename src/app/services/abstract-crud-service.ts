@@ -37,12 +37,6 @@ export abstract class AbstractCrudService<T extends AbstractBean> {
   protected abstract endpoint(): string;
   protected abstract parser(json: any): T;
 
-  protected parserRef<R extends AbstractRef>(json: any, ref: R): R {
-    ref.id = json.id;
-    ref.name = json.name;
-    return ref;
-  }
-
   protected pageParser(json: any, parser: (item: any) => T): Page<T> {
     const page = new Page<T>();
     page.limit = json.limit;

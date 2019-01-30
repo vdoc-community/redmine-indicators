@@ -5,13 +5,11 @@
     </mat-card-title>
   </mat-card-header>
   <mat-card-content class="dashboard-card-content">
-    <canvas
+    <canvas #chart
       baseChart
       [chartType]="'line'"
       [datasets]="datasets"
-      [labels]="labels"
-      [options]="options"
-      [legend]="true">
+      [options]="options" >
     </canvas>
   </mat-card-content>
 </mat-card>

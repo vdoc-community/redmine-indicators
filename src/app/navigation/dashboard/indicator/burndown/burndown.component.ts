@@ -1,6 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import { BurndownService } from 'src/app/services/burndown.service';
+import { BurndownChart } from './../../../../services/beans/dto/burndown-chart';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Iteration } from 'src/app/services/beans/dto';
+import { ChartService } from 'src/app/services/chart.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-burndown',
@@ -8,23 +10,39 @@ import { Iteration } from 'src/app/services/beans/dto';
 })
 export class BurndownComponent implements OnInit {
 
+  private readonly defaultDatasets = [{
+    label: 'Real',
+    lineTension: 0,
+    data: [],
+    borderColor: '#36A2EB',
+    pointRadius: 0,
+    fill: false
+  }, {
+    label: 'Ideal',
+    borderColor: '#FF6384',
+    borderDash: [5, 5],
+    data: [],
+    lineTension: 0,
+    fill: false
+  }];
+
   private _iteration: Iteration;
 
   @Input()
   set iteration(iteration: Iteration) {
     this._iteration = iteration;
-    this.iteration ? this.update() : this.reset();
+    this.update();
   }
 
   get iteration(): Iteration {
     return this._iteration;
   }
 
-  options = {
+  public options = {
     responsive: true,
     title: {
-      display: true,
-      text: 'Chart.js Line Chart'
+      display: false,
+      text: 'Burndown'
     },
     tooltips: {
       mode: 'index',
@@ -32,61 +50,75 @@ export class BurndownComponent implements OnInit {
     },
     hover: {
       mode: 'nearest',
-      intersect: true
+      intersect: false
     },
     scales: {
       xAxes: [{
-        display: true,
+        type: 'time',
+        position: 'bottom',
+        time: {
+          // format: 'MM/DD/YYYY HH:mm',
+          // round: 'day'
+          tooltipFormat: 'll HH:mm'
+        },
         scaleLabel: {
           display: true,
-          labelString: 'Day'
+          labelString: 'Date'
         }
       }],
       yAxes: [{
-        display: true,
         scaleLabel: {
           display: true,
           labelString: 'Points'
+        },
+        ticks: {
+          min: 0,
+          stepSize: 10
         }
       }]
     }
   };
 
-  datasets = [{
-    label: 'Burndown',
-    data: []
-  }, {
-    label: 'Ideal',
-    fill: false,
-    data: [],
-  }];
+  public datasets: any;
 
-  labels = [];
-
-  constructor(private burndownService: BurndownService) {
+  constructor(private chartService: ChartService) {
   }
 
   ngOnInit() {
+    this.update();
   }
 
   private reset() {
+    Object.assign(this.datasets, this.defaultDatasets);
+    this.datasets[0].data = [];
+    this.datasets[1].data = [];
   }
 
   private update() {
-    let currentDay: Date = new Date(this.iteration.start);
-    let dayCount = 0;
-    while (this.iteration.end < currentDay) {
-      this.labels.push(currentDay);
-      dayCount++;
-      currentDay = new Date(currentDay.setDate(currentDay.getDate() + dayCount));
+    if (!this.iteration) {
+      this.reset();
+      return;
     }
+    const real$ = this.chartService.findBurndown(this.iteration);
+    const ideal$ = this.chartService.findIdeal(this.iteration);
 
-    this.burndownService.findBurndown(this.iteration).subscribe((values) => {
-      this.datasets[0].data = values;
+    forkJoin([real$, ideal$]).subscribe(results => {
+      const real = results[0];
+      const ideal = results[1];
+      this.datasets = [];
+      Object.assign(this.datasets, this.defaultDatasets);
+      this.datasets[0].data = this.toChartJs(real);
+      this.datasets[1].data = this.toChartJs(ideal);
+
     });
-    this.burndownService.findIdeal(this.iteration).subscribe((values) => {
-      this.datasets[1].data = values;
+  }
+
+  private toChartJs(burndownChart: BurndownChart): any[] {
+    const points = [];
+    burndownChart.values.forEach(value => {
+      points.push({ x: value.date, y: value.value });
     });
+    return points;
   }
 
 }

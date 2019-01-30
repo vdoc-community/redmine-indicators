@@ -5,6 +5,7 @@ import { Iteration, Objective, Page } from './beans/dto';
 import { AbstractCrudService } from './abstract-crud-service';
 import { RedmineClient } from './http/redmine-client.service';
 import { IterationRef } from './beans/refs/iteration-ref';
+import { parseObjective } from './beans/dto/objective';
 
 @Injectable()
 export class ObjectivesService extends AbstractCrudService<Objective> {
@@ -23,10 +24,7 @@ export class ObjectivesService extends AbstractCrudService<Objective> {
   }
 
   protected parser(json: any): Objective {
-    const objective = new Objective(json.id, json.name);
-    objective.description = json.description;
-    objective.iteration = this.parserRef(json.iteration, new IterationRef());
-    return objective;
+    return parseObjective(json);
   }
 
 }

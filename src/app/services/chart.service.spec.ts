@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BurndownService } from './burndown.service';
+import { ChartService } from './chart.service';
 
-describe('BurndownService', () => {
+describe('ChartService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: BurndownService = TestBed.get(BurndownService);
+    const service: ChartService = TestBed.get(ChartService);
     expect(service).toBeTruthy();
   });
 });
