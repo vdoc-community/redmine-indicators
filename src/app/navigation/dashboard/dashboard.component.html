@@ -14,11 +14,11 @@
     </mat-grid-tile>
 
     <mat-grid-tile [colspan]="2" [rowspan]="2">
-      <app-burndown [iteration]="currentIteration$ | async"></app-burndown>
+      <app-burndown [iteration]="currentIteration"></app-burndown>
     </mat-grid-tile>
 
     <mat-grid-tile [colspan]="1" [rowspan]="1">
-      <app-open-tickets [iteration]="currentIteration$ | async"></app-open-tickets>
+      <app-open-tickets [iteration]="currentIteration"></app-open-tickets>
     </mat-grid-tile>
 
   </mat-grid-list>

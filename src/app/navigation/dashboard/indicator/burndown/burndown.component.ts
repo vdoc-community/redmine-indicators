@@ -8,8 +8,17 @@ import { Iteration } from 'src/app/services/beans/dto';
 })
 export class BurndownComponent implements OnInit {
 
+  private _iteration: Iteration;
+
   @Input()
-  public iteration: Iteration;
+  set iteration(iteration: Iteration) {
+    this._iteration = iteration;
+    this.iteration ? this.update() : this.reset();
+  }
+
+  get iteration(): Iteration {
+    return this._iteration;
+  }
 
   options = {
     responsive: true,
@@ -30,14 +39,14 @@ export class BurndownComponent implements OnInit {
         display: true,
         scaleLabel: {
           display: true,
-          labelString: 'Month'
+          labelString: 'Day'
         }
       }],
       yAxes: [{
         display: true,
         scaleLabel: {
           display: true,
-          labelString: 'Value'
+          labelString: 'Points'
         }
       }]
     }
@@ -52,12 +61,26 @@ export class BurndownComponent implements OnInit {
     data: [],
   }];
 
-  labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  labels = [];
 
   constructor(private burndownService: BurndownService) {
   }
 
   ngOnInit() {
+  }
+
+  private reset() {
+  }
+
+  private update() {
+    let currentDay: Date = new Date(this.iteration.start);
+    let dayCount = 0;
+    while (this.iteration.end < currentDay) {
+      this.labels.push(currentDay);
+      dayCount++;
+      currentDay = new Date(currentDay.setDate(currentDay.getDate() + dayCount));
+    }
+
     this.burndownService.findBurndown(this.iteration).subscribe((values) => {
       this.datasets[0].data = values;
     });

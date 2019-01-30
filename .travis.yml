@@ -1,0 +1,26 @@
+language: node_js
+node_js:
+  - "10"
+sudo: required
+
+before_script:
+  - npm install -g @angular/cli
+
+script:
+  - ng build --prod
+  - tar -czvf dist.tar.gz dist/redmine-indicators/*
+
+notifications:
+  email:
+    on_failure: always
+    on_success: change
+
+deploy:
+  provider: releases
+  api_key: '$GITHUB_API_KEY'
+  file:
+    - './dist.tar.gz'
+  skip_cleanup: true
+  on:
+    branch : master
+    tags: true

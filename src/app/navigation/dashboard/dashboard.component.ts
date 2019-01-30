@@ -11,14 +11,14 @@ import { Objective, Iteration, Page } from 'src/app/services/beans/dto';
 export class DashboardComponent implements OnInit {
 
   public objectives: Observable<Page<Objective>>;
-  public currentIteration$: Observable<Iteration>;
+  public currentIteration: Iteration;
 
   constructor( private iterationService: IterationService, private objectivesService: ObjectivesService) {
   }
 
   ngOnInit(): void {
-    this.currentIteration$ = this.iterationService.findCurrent();
-    this.currentIteration$.subscribe(iteration => {
+    this.iterationService.findCurrent().subscribe(iteration => {
+      this.currentIteration = iteration;
       this.objectives = this.objectivesService.findByIteration(iteration);
     });
   }
