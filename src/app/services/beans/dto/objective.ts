@@ -1,5 +1,5 @@
 import { AbstractBean } from './abstract-bean';
-import { IterationRef } from '../refs/iteration-ref';
+import { IterationRef, parseIterationRef } from '../refs';
 
 export class Objective extends AbstractBean {
 
@@ -9,4 +9,11 @@ export class Objective extends AbstractBean {
 
   iteration: IterationRef;
   description: string;
+}
+
+export function parseObjective(json: any): Objective {
+  const objective = new Objective(json.id, json.name);
+  objective.description = json.description;
+  objective.iteration = parseIterationRef(json.iteration);
+  return objective;
 }

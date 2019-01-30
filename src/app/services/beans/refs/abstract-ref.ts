@@ -15,6 +15,10 @@ export abstract class AbstractRef {
       }
     }
   }
+}
 
-
+export function parserRef<R extends AbstractRef>(json: any, ref: R): R {
+  ref.id = json.id;
+  ref.name = json.name;
+  return ref;
 }

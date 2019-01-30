@@ -1,3 +1,4 @@
+import { ChartService } from 'src/app/services/chart.service';
 import { MomentModule } from 'ngx-moment';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
@@ -26,7 +27,6 @@ import {
 import { LayoutModule } from '@angular/cdk/layout';
 import { ObjectivesService } from './services/objectives.service';
 import { ChartsModule } from 'ng2-charts';
-import { BurndownService } from './services/burndown.service';
 import { IssuesService } from './services/issues.service';
 import { RouterModule, Routes } from '@angular/router';
 import { XRedmineApiKeyGuard } from './guard/x-redmine-api-key.guard';
@@ -40,9 +40,7 @@ import { ObjectiveComponent } from './navigation/dashboard/indicator/objective/o
 import { OpenTicketsComponent } from './navigation/dashboard/indicator/open-tickets/open-tickets.component';
 import { BurndownComponent } from './navigation/dashboard/indicator/burndown/burndown.component';
 import { SupportComponent } from './navigation/dashboard/indicator/support/support.component';
-import {
-  OpenIssueByCategoryComponent
-} from './navigation/dashboard/indicator/open-tickets/open-issue-by-category/open-issue-by-category.component';
+import { OpenIssueByCategoryComponent } from './navigation/dashboard/indicator/open-tickets/open-issue-by-category/open-issue-by-category.component';
 import { IterationsObjectivesViewComponent } from './navigation/admin/iterations/iterations-objectives-view/iterations-objectives-view.component';
 import { ObjectiveEditComponent } from './navigation/admin/objectives/objective-edit/objective-edit.component';
 
@@ -114,7 +112,7 @@ export const ROUTES: Routes = [
     ChartsModule,
     LayoutModule
   ],
-  providers: [ObjectivesService, BurndownService, IssuesService],
+  providers: [ObjectivesService, ChartService, IssuesService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
