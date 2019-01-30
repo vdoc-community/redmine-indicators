@@ -89,6 +89,7 @@ export class BurndownComponent implements OnInit {
   }
 
   private reset() {
+    this.datasets = [];
     Object.assign(this.datasets, this.defaultDatasets);
     this.datasets[0].data = [];
     this.datasets[1].data = [];
