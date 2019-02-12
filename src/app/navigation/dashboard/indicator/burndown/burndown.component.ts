@@ -2,7 +2,7 @@ import { BurndownChart } from './../../../../services/beans/dto/burndown-chart';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Iteration } from 'src/app/services/beans/dto';
 import { ChartService } from 'src/app/services/chart.service';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subscription, timer } from 'rxjs';
 
 @Component({
   selector: 'app-burndown',
@@ -26,6 +26,7 @@ export class BurndownComponent implements OnInit {
     fill: false
   }];
 
+  private timmer: Subscription;
   private _iteration: Iteration;
 
   @Input()
@@ -86,6 +87,10 @@ export class BurndownComponent implements OnInit {
 
   ngOnInit() {
     this.update();
+    this.timmer = timer(0, 15 * 60 * 1000) /* refresh every 15 minutes */
+      .subscribe(balek => {
+        this.update();
+      });
   }
 
   private reset() {
