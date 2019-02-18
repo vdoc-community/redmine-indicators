@@ -43,6 +43,7 @@ import { SupportComponent } from './navigation/dashboard/indicator/support/suppo
 import { OpenIssueByCategoryComponent } from './navigation/dashboard/indicator/open-tickets/open-issue-by-category/open-issue-by-category.component';
 import { IterationsObjectivesViewComponent } from './navigation/admin/iterations/iterations-objectives-view/iterations-objectives-view.component';
 import { ObjectiveEditComponent } from './navigation/admin/objectives/objective-edit/objective-edit.component';
+import { FitTextComponent } from './components/fit-text/fit-text.component';
 
 export const ROUTES: Routes = [
   {
@@ -85,7 +86,8 @@ export const ROUTES: Routes = [
     IterationsViewComponent,
     IterationsEditComponent,
     IterationsObjectivesViewComponent,
-    ObjectiveEditComponent
+    ObjectiveEditComponent,
+    FitTextComponent
   ],
   imports: [
     RouterModule.forRoot(ROUTES),

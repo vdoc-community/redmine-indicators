@@ -2,19 +2,19 @@
   <mat-card-header>
     <mat-card-title>Support</mat-card-title>
   </mat-card-header>
-  <mat-card-content class="full-height">
-    <div class="centred-content full-height" [ngSwitch]="status" >
+  <mat-card-content class="centred-content full-width full-height">
+    <ng-container [ngSwitch]="status">
       <ng-container *ngSwitchCase="'loading'">
           <mat-spinner></mat-spinner>
       </ng-container>
 
       <ng-container *ngSwitchCase="'success'">
-        <span [ngClass]="{'alert': count.value >= 15, 'normal': count.value < 15 }" class="simple-indcator" >{{count.value}}</span>
+        <app-fit-text [color]="count.value >= 15 ? 'alert' : 'normal'" [text]="count.value"></app-fit-text>
       </ng-container>
 
       <ng-container *ngSwitchDefault >
-        <span>Error!</span>
+          <app-fit-text [color]=" 'alert'" [text]="'Error'"></app-fit-text>
       </ng-container>
-    </div>
+    </ng-container>
   </mat-card-content>
 </mat-card>
