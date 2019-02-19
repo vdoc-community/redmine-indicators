@@ -44,7 +44,7 @@ import { OpenIssueByCategoryComponent } from './navigation/dashboard/indicator/o
 import { IterationsObjectivesViewComponent } from './navigation/admin/iterations/iterations-objectives-view/iterations-objectives-view.component';
 import { ObjectiveEditComponent } from './navigation/admin/objectives/objective-edit/objective-edit.component';
 import { FitTextComponent } from './components/fit-text/fit-text.component';
-import { AbstractCardComponent } from './navigation/dashboard/abstract-card/abstract-card.component';
+import { SimpleIndicatorComponent } from './navigation/dashboard/indicator/simple-indicator/simple-indicator.component';
 
 export const ROUTES: Routes = [
   {
@@ -89,7 +89,7 @@ export const ROUTES: Routes = [
     IterationsObjectivesViewComponent,
     ObjectiveEditComponent,
     FitTextComponent,
-    AbstractCardComponent
+    SimpleIndicatorComponent
 
   ],
   imports: [

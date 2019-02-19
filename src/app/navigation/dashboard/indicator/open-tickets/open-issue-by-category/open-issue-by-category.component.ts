@@ -22,7 +22,7 @@ export class OpenIssueByCategoryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.issues$ = this.openTicketsService.findOpenTickets(this.iteration, this.category);
+    // this.issues$ = this.openTicketsService.findOpenTickets(this.iteration, this.category);
   }
 
 }

@@ -1,0 +1,21 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{name}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="centred-content full-width full-height">
+    <ng-container [ngSwitch]="status" >
+      <ng-container *ngSwitchCase="'loading'">
+          <mat-spinner></mat-spinner>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'success'">
+        <app-fit-text [color]="'normal'" [text]="count.value"></app-fit-text>
+      </ng-container>
+
+      <ng-container *ngSwitchDefault >
+        <span>Error!</span>
+      </ng-container>
+    </ng-container>
+  </mat-card-content>
+</mat-card>
+
