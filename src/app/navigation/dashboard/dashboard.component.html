@@ -17,8 +17,8 @@
       <app-burndown [iteration]="currentIteration"></app-burndown>
     </mat-grid-tile>
 
-    <mat-grid-tile [colspan]="1" [rowspan]="1">
-      <app-open-tickets [iteration]="currentIteration"></app-open-tickets>
+    <mat-grid-tile [colspan]="2" [rowspan]="2">
+      <app-abstract-card [datasource]="dummyCount" [name]="'dummy'" [timerStart]="0" [timerPeriod]="1000"></app-abstract-card>
     </mat-grid-tile>
 
   </mat-grid-list>

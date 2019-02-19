@@ -1,8 +1,8 @@
 import { IterationService } from './../../services/iteration.service';
 import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {ObjectivesService} from '../../services/objectives.service';
-import { Objective, Iteration, Page } from 'src/app/services/beans/dto';
+import { Objective, Iteration, Page, SimpleIndicator } from 'src/app/services/beans/dto';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,5 +21,12 @@ export class DashboardComponent implements OnInit {
       this.currentIteration = iteration;
       this.objectives = this.objectivesService.findByIteration(iteration);
     });
+  }
+
+  public dummyCount(): Observable<SimpleIndicator>{
+    const count = new SimpleIndicator();
+    count.name = 'dummy';
+    count.value = 999;
+    return of(count);
   }
 }
