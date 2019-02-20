@@ -9,7 +9,7 @@
       </ng-container>
 
       <ng-container *ngSwitchCase="'success'">
-        <app-fit-text [color]="'normal'" [text]="count.value"></app-fit-text>
+        <app-fit-text [color]="count.value >= alertThreshold ? 'alert' : 'normal'" [text]="count.value"></app-fit-text>
       </ng-container>
 
       <ng-container *ngSwitchDefault >

@@ -47,7 +47,7 @@ export class FitTextComponent implements OnInit {
     const containerDiv: HTMLDivElement = this.containerRef.nativeElement;
 
     textSVG.setAttribute('y', this.fontSize.toString());
-    imageSVG.setAttribute('viewBox', `0 0 ${(this._text.toString().length - 1) * this.fontSize} ${this.fontSize}`);
+    imageSVG.setAttribute('viewBox', `0 0 ${this._text.toString().length * this.fontSize} ${this.fontSize}`);
     imageSVG.setAttribute('width', `${ containerDiv.offsetWidth}px`);
     imageSVG.setAttribute('height', `${ containerDiv.offsetHeight}px`);
   }

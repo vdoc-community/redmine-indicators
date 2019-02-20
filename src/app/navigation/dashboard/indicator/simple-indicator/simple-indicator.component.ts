@@ -15,6 +15,8 @@ export class SimpleIndicatorComponent implements OnInit, OnDestroy {
   public count: SimpleIndicator;
   @Input()
   public datasource: () => Observable<SimpleIndicator>;
+  @Input()
+  public alertThreshold: number;
   private timer: Subscription;
   @Input()
   public timerStart: number;

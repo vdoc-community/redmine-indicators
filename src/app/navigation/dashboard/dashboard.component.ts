@@ -13,6 +13,12 @@ export class DashboardComponent implements OnInit {
 
   public objectives: Observable<Page<Objective>>;
   public currentIteration: Iteration;
+  public supportTickets = this._supportTickets.bind(this);
+  public supportColor = this._supportColor.bind(this);
+  public devTickets = this._devTickets.bind(this);
+  public testTickets = this._testTickets.bind(this);
+  public integrationTickets = this._integrationTickets.bind(this);
+  public techcenterTickets = this._techcenterTickets.bind(this);
 
   constructor(
     private iterationService: IterationService,
@@ -34,26 +40,30 @@ export class DashboardComponent implements OnInit {
     return of(count);
   }
 
-  public supportIssues(): Observable<SimpleIndicator> {
+  private _supportTickets(): Observable<SimpleIndicator> {
     return this.issuesService.findSupportIssues();
   }
 
-  public devTickets(): Observable<SimpleIndicator> {
+  private _supportColor(indicator: SimpleIndicator): string {
+    return 'red';
+  }
+
+  private _devTickets(): Observable<SimpleIndicator> {
     const category = new Category(1223, 'dev');
     return this.issuesService.findOpenTickets(category, this.currentIteration);
   }
 
-  public testTickets(): Observable<SimpleIndicator> {
+  public _testTickets(): Observable<SimpleIndicator> {
     const category = new Category(1225, 'test');
     return this.issuesService.findOpenTickets(category, this.currentIteration);
   }
 
-  public integrationTickets(): Observable<SimpleIndicator> {
+  public _integrationTickets(): Observable<SimpleIndicator> {
     const category = new Category(1224, 'integration');
     return this.issuesService.findOpenTickets(category, this.currentIteration);
   }
 
-  public techcenterTickets(): Observable<SimpleIndicator> {
+  public _techcenterTickets(): Observable<SimpleIndicator> {
     const category = new Category(1231, 'techcenter');
     return this.issuesService.findOpenTickets(category, this.currentIteration);
   }
