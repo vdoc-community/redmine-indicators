@@ -7,18 +7,30 @@
     </mat-grid-tile>
   </mat-grid-list>
 
-  <mat-grid-list cols="3" rowHeight="1:0.6" >
+  <mat-grid-list cols="12" rowHeight="8:12" >
 
-    <mat-grid-tile [colspan]="1" [rowspan]="1">
-      <app-support></app-support>
+    <mat-grid-tile [colspan]="4" [rowspan]="1">
+      <app-simple-indicator [datasource]="supportTickets" [alertThreshold]="15" [name]="'Support'" [timerStart]="0" [timerPeriod]="15000"></app-simple-indicator>
     </mat-grid-tile>
 
-    <mat-grid-tile [colspan]="2" [rowspan]="2">
+    <mat-grid-tile [colspan]="8" [rowspan]="3">
       <app-burndown [iteration]="currentIteration"></app-burndown>
     </mat-grid-tile>
 
-    <mat-grid-tile [colspan]="1" [rowspan]="1">
-      <app-open-tickets [iteration]="currentIteration"></app-open-tickets>
+    <mat-grid-tile [colspan]="2" [rowspan]="1">
+      <app-simple-indicator [datasource]="devTickets" [alertThreshold]="3" [name]="'Dev'" [timerStart]="0" [timerPeriod]="15000"></app-simple-indicator>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="2" [rowspan]="1">
+      <app-simple-indicator [datasource]="testTickets" [alertThreshold]="3" [name]="'Test'" [timerStart]="0" [timerPeriod]="15000"></app-simple-indicator>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="2" [rowspan]="1">
+      <app-simple-indicator [datasource]="integrationTickets" [alertThreshold]="3" [name]="'Inté'" [timerStart]="0" [timerPeriod]="15000"></app-simple-indicator>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="2" [rowspan]="1">
+      <app-simple-indicator [datasource]="techcenterTickets" [alertThreshold]="3" [name]="'Techcenter'" [timerStart]="0" [timerPeriod]="15000"></app-simple-indicator>
     </mat-grid-tile>
 
   </mat-grid-list>
