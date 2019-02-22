@@ -3,6 +3,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Iteration } from 'src/app/services/beans/dto';
 import { ChartService } from 'src/app/services/chart.service';
 import { forkJoin, Subscription, timer } from 'rxjs';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-burndown',
@@ -56,11 +57,9 @@ export class BurndownComponent implements OnInit {
     scales: {
       xAxes: [{
         type: 'time',
-        position: 'bottom',
+        distribution: 'linear',
         time: {
-          // format: 'MM/DD/YYYY HH:mm',
-          // round: 'day'
-          tooltipFormat: 'll HH:mm'
+          round: 'day'
         },
         scaleLabel: {
           display: true,

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OpenTicketsComponent } from './open-tickets.component';
+import { FitTextComponent } from './fit-text.component';
 
-describe('OpenTicketsComponent', () => {
-  let component: OpenTicketsComponent;
-  let fixture: ComponentFixture<OpenTicketsComponent>;
+describe('FitTextComponent', () => {
+  let component: FitTextComponent;
+  let fixture: ComponentFixture<FitTextComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OpenTicketsComponent ]
+      declarations: [ FitTextComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OpenTicketsComponent);
+    fixture = TestBed.createComponent(FitTextComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

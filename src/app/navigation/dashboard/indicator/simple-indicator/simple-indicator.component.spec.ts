@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SupportComponent } from './support.component';
+import { SimpleIndicatorComponent } from './simple-indicator.component';
 
-describe('SupportComponent', () => {
-  let component: SupportComponent;
-  let fixture: ComponentFixture<SupportComponent>;
+describe('SimpleIndicatorComponent', () => {
+  let component: SimpleIndicatorComponent;
+  let fixture: ComponentFixture<SimpleIndicatorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SupportComponent ]
+      declarations: [ SimpleIndicatorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SupportComponent);
+    fixture = TestBed.createComponent(SimpleIndicatorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

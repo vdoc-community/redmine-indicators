@@ -8,3 +8,18 @@ button.mat-mini-fab.mat-accent.floating {
   width: 16em;
   max-width: 300px;
 }
+
+.fit-text {
+  svg {
+    .fit-text-content {
+      font-size: 13px;
+      fill: black;
+      &.normal {
+        fill: $normal;
+      }
+      &.alert {
+        fill: $alert;
+      }
+    }
+  }
+}
