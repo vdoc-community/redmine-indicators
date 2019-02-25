@@ -1,3 +1,4 @@
+import { flatMap, last } from 'rxjs/operators';
 import { IterationService } from './../../services/iteration.service';
 import {Component, OnInit} from '@angular/core';
 import {Observable, of} from 'rxjs';
@@ -13,6 +14,7 @@ export class DashboardComponent implements OnInit {
 
   public objectives: Observable<Page<Objective>>;
   public currentIteration: Iteration;
+  public $currentIteration: Observable<Iteration>;
   public supportTickets = this._supportTickets.bind(this);
   public supportColor = this._supportColor.bind(this);
   public devTickets = this._devTickets.bind(this);
@@ -27,7 +29,8 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.iterationService.findCurrent().subscribe(iteration => {
+    this.$currentIteration = this.iterationService.findCurrent();
+    this.$currentIteration.subscribe(iteration => {
       this.currentIteration = iteration;
       this.objectives = this.objectivesService.findByIteration(iteration);
     });
@@ -49,23 +52,25 @@ export class DashboardComponent implements OnInit {
   }
 
   private _devTickets(): Observable<SimpleIndicator> {
-    const category = new Category(1223, 'dev');
-    return this.issuesService.findOpenTickets(category, this.currentIteration);
+    return this.findOpenTickets(1223);
   }
 
-  public _testTickets(): Observable<SimpleIndicator> {
-    const category = new Category(1225, 'test');
-    return this.issuesService.findOpenTickets(category, this.currentIteration);
+  private _testTickets(): Observable<SimpleIndicator> {
+    return this.findOpenTickets(1225);
   }
 
-  public _integrationTickets(): Observable<SimpleIndicator> {
-    const category = new Category(1224, 'integration');
-    return this.issuesService.findOpenTickets(category, this.currentIteration);
+  private _integrationTickets(): Observable<SimpleIndicator> {
+    return this.findOpenTickets(1224);
   }
 
-  public _techcenterTickets(): Observable<SimpleIndicator> {
-    const category = new Category(1231, 'techcenter');
-    return this.issuesService.findOpenTickets(category, this.currentIteration);
+  private _techcenterTickets(): Observable<SimpleIndicator> {
+    return this.findOpenTickets(1231);
+  }
+
+  private findOpenTickets(categoryId: number): Observable<SimpleIndicator> {
+    return this.$currentIteration
+      .pipe(last())
+      .pipe(flatMap((currentIteration: Iteration) => this.issuesService.findOpenTickets(categoryId, currentIteration) ));
   }
 
 }
