@@ -22,10 +22,11 @@ export class IssuesService {
     this.configurationService = configurationService;
   }
 
-  public findOpenTickets(category: Category, iteration: Iteration): Observable<SimpleIndicator> {
+  public findOpenTickets(category: Category | number, iteration: Iteration): Observable<SimpleIndicator> {
+    const categoryId =  category instanceof Category ? category.id : category;
     return this.redmineAwareClientService.get<SimpleIndicator>(
       this.buildOpenTicketsUrl(
-        category,
+        categoryId,
         iteration)
     );
   }
@@ -42,8 +43,8 @@ export class IssuesService {
     return `/issue/project/${projectId}/query/${queryId}/count/`;
   }
 
-  private buildOpenTicketsUrl( category: Category, iteration: Iteration): string {
-    return `/issue/category/${category.id}/iteration/${iteration.number}/count/`;
+  private buildOpenTicketsUrl( category: number, iteration: Iteration): string {
+    return `/issue/category/${category}/iteration/${iteration.number}/count/`;
   }
 
 }
