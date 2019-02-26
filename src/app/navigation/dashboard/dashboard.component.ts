@@ -1,8 +1,8 @@
 import { flatMap, last } from 'rxjs/operators';
 import { IterationService } from './../../services/iteration.service';
-import {Component, OnInit} from '@angular/core';
-import {Observable, of} from 'rxjs';
-import {ObjectivesService} from '../../services/objectives.service';
+import { Component, OnInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { ObjectivesService } from '../../services/objectives.service';
 import { Objective, Iteration, Page, SimpleIndicator, Category } from 'src/app/services/beans/dto';
 import { IssuesService } from 'src/app/services/issues.service';
 
@@ -12,6 +12,9 @@ import { IssuesService } from 'src/app/services/issues.service';
 })
 export class DashboardComponent implements OnInit {
 
+  private readonly MIN_OBJECTIVES_ROW_LENGTH = 3;
+
+  private _objectivesRowLength = this.MIN_OBJECTIVES_ROW_LENGTH;
   public objectives: Observable<Page<Objective>>;
   public currentIteration: Iteration;
   public $currentIteration: Observable<Iteration>;
@@ -21,6 +24,14 @@ export class DashboardComponent implements OnInit {
   public testTickets = this._testTickets.bind(this);
   public integrationTickets = this._integrationTickets.bind(this);
   public techcenterTickets = this._techcenterTickets.bind(this);
+
+  get objectivesRowLength(): number {
+    return this._objectivesRowLength;
+  }
+
+  set objectivesRowLength(objectivesRowLength: number) {
+    this._objectivesRowLength = Math.max(objectivesRowLength, this.MIN_OBJECTIVES_ROW_LENGTH);
+  }
 
   constructor(
     private iterationService: IterationService,
@@ -33,6 +44,7 @@ export class DashboardComponent implements OnInit {
     this.$currentIteration.subscribe(iteration => {
       this.currentIteration = iteration;
       this.objectives = this.objectivesService.findByIteration(iteration);
+      this.objectives.subscribe((page) => this.objectivesRowLength = page.total_count);
     });
   }
 
@@ -70,7 +82,7 @@ export class DashboardComponent implements OnInit {
   private findOpenTickets(categoryId: number): Observable<SimpleIndicator> {
     return this.$currentIteration
       .pipe(last())
-      .pipe(flatMap((currentIteration: Iteration) => this.issuesService.findOpenTickets(categoryId, currentIteration) ));
+      .pipe(flatMap((currentIteration: Iteration) => this.issuesService.findOpenTickets(categoryId, currentIteration)));
   }
 
 }
