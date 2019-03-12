@@ -42,6 +42,7 @@ import { IterationsObjectivesViewComponent } from './navigation/admin/iterations
 import { ObjectiveEditComponent } from './navigation/admin/objectives/objective-edit/objective-edit.component';
 import { FitTextComponent } from './components/fit-text/fit-text.component';
 import { SimpleIndicatorComponent } from './navigation/dashboard/indicator/simple-indicator/simple-indicator.component';
+import { ReleaseNoteComponent } from './navigation/admin/release-note/release-note.component';
 
 export const ROUTES: Routes = [
   {
@@ -65,6 +66,10 @@ export const ROUTES: Routes = [
       {
         path: 'iteration/:id',
         component: IterationsEditComponent
+      },
+      {
+        path: 'release-note',
+        component: ReleaseNoteComponent
       }
     ]
   }
@@ -83,8 +88,8 @@ export const ROUTES: Routes = [
     IterationsObjectivesViewComponent,
     ObjectiveEditComponent,
     FitTextComponent,
-    SimpleIndicatorComponent
-
+    SimpleIndicatorComponent,
+    ReleaseNoteComponent
   ],
   imports: [
     RouterModule.forRoot(ROUTES),
