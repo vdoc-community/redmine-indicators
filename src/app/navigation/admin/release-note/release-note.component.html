@@ -1,4 +1,4 @@
-<body>
+<div>
   <p>
     <input type="text" name="version" id="version" value="testhtmlv"/>
     <input type="text" name="version" id="product" value="testhtmlp"/>
@@ -15,4 +15,14 @@
     Création d'un zip :
     <button mat-raised-button (click)="onClickSelect('zip')">Click?</button>
   </p>
-</body>
+    <mat-form-field>
+      <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+</div>
+

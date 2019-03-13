@@ -22,7 +22,8 @@ import {
   MatDatepickerModule,
   MatNativeDateModule,
   MatSnackBarModule,
-  MatTableModule
+  MatTableModule,
+  MatAutocompleteModule
 } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ObjectivesService } from './services/objectives.service';
@@ -30,7 +31,7 @@ import { ChartsModule } from 'ng2-charts';
 import { IssuesService } from './services/issues.service';
 import { RouterModule, Routes } from '@angular/router';
 import { XRedmineApiKeyGuard } from './guard/x-redmine-api-key.guard';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { IterationsViewComponent } from './navigation/admin/iterations/iterations-view/iterations-view.component';
 import { IterationsEditComponent } from './navigation/admin/iterations/iterations-edit/iterations-edit.component';
@@ -112,9 +113,11 @@ export const ROUTES: Routes = [
     MatMomentDateModule,
     MatSnackBarModule,
     MatTableModule,
+    MatAutocompleteModule,
     MomentModule,
     ChartsModule,
-    LayoutModule
+    LayoutModule,
+    ReactiveFormsModule
   ],
   providers: [ObjectivesService, ChartService, IssuesService],
   bootstrap: [AppComponent]
