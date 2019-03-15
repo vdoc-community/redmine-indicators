@@ -1,28 +1,57 @@
 <div>
-  <p>
+  <!-- <p>
     <input type="text" name="version" id="version" value="testhtmlv"/>
-    <input type="text" name="version" id="product" value="testhtmlp"/>
-  </p>
+    <input type="text" name="product" id="product" value="testhtmlp"/>
+  </p> -->
   <p>
-    Création d'un pdf :
-    <button mat-raised-button (click)="onClickSelect('pdf')">Click?</button>
-  </p>
-  <p>
-    Création d'un doc :
-    <button mat-raised-button (click)="onClickSelect('doc')">Click?</button>
-  </p>
-  <p>
-    Création d'un zip :
-    <button mat-raised-button (click)="onClickSelect('zip')">Click?</button>
-  </p>
     <mat-form-field>
-      <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-          {{option}}
+      <input type="text"
+            placeholder="Pick one project"
+            aria-label="Project"
+            id = 'project'
+            width="80"
+            matInput [formControl]="myControlP"
+            [matAutocomplete]="autoProject">
+      <mat-autocomplete #autoProject="matAutocomplete"
+                        [displayWith]="displayFnP"
+                        (optionSelected)="selectProject()">
+        <mat-option *ngFor="let project of optionsProjects" [value]="project">
+          <span>{{project.name}}</span>
+          <small> | ID: {{project.id}}</small>
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-
+  </p>
+  <p>
+    <mat-form-field>
+      <input type="text"
+            placeholder="Pick one version"
+            aria-label="Version"
+            id= 'version'
+            width="80"
+            [disabled]="!(idProject)"
+            matInput [formControl]="myControlV"
+            [matAutocomplete]="autoVersion">
+      <mat-autocomplete #autoVersion="matAutocomplete"
+                        [displayWith]="displayFnV"
+                        (optionSelected)="selectVersion()">
+        <mat-option *ngFor="let version of optionsVersions" [value]="version">
+          <span>{{version.name}}</span>
+          <small> | ID: {{version.id}}</small>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </p>
+  <p>
+    <button mat-raised-button id='pdf' [disabled]="!(idProject && idVersion)" (click)="onClickSelect('pdf')">PDF</button>
+    &nbsp;
+    <button mat-raised-button id='doc' [disabled]="!(idProject && idVersion)" (click)="onClickSelect('doc')">DOC</button>
+    &nbsp;
+    <button mat-raised-button id='zip' [disabled]="!(idProject && idVersion)" (click)="onClickSelect('zip')">ZIP</button>
+  </p>
+  <p>
+    Clear selection : &nbsp;
+    <button mat-raised-button (click)="clear()">Clear</button>
+  </p>
 </div>
 
