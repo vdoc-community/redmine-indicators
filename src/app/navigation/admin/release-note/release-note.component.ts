@@ -5,6 +5,7 @@ import { Version } from 'src/app/services/beans/dto/version';
 import { Project } from 'src/app/services/beans/dto/project';
 import { ProjectService } from 'src/app/services/project.service';
 import { VersionService } from 'src/app/services/version.service';
+import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 
 @Component({
@@ -15,19 +16,111 @@ import { startWith, map } from 'rxjs/operators';
 export class ReleaseNoteComponent implements OnInit {
   public myControlV = new FormControl();
   public myControlP = new FormControl();
-  optionsVersions: Version[] = [];
-  optionsProjects: Project[] = [];
+  filteredVersions: Observable<string[]>;
+  filteredProjects: Observable<string[]>;
   public projects: Array<Project>;
   public versions: Array<Version>;
   idProject: number;
   idVersion: number;
   nameProject: string;
   nameVersion: string;
+  optionsP: string[] = [];
+  optionsV: string[] = [];
 
   constructor(private releaseNoteService: ReleaseNoteService,
               private versionService: VersionService,
               private projectService: ProjectService) {  }
 
+  /**
+   * Au chargement de la page,
+   * Charge les projets existants dans redmine dans l'autocomplete projet
+   */
+  ngOnInit() {
+    this.projectService
+    .findProject('100')
+    .subscribe(
+      pageP => {
+        this.projects = pageP.elements;
+        for (const element of this.projects) {
+          this.optionsP.push(element.name);
+        }
+      }
+    );
+
+    this.filteredProjects = this.myControlP.valueChanges
+      .pipe(
+        startWith(''),
+        map(proj => this._filterProjet(proj))
+      );
+  }
+
+  private _filterProjet(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.optionsP.filter(option => option.toLowerCase().includes(filterValue));
+  }
+  private _filterVersion(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.optionsV.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
+  /**
+   * A la selection du projet :
+   * Charge les versions du projet et les charges dans le deuxieme autocomplete
+   */
+  selectProject() {
+    this.nameProject = (<HTMLInputElement>document.getElementById('project')).value;
+    const it = this;
+    this.idProject = this.projects.find(function(element) {
+      return element.name === it.nameProject; }).id;
+    console.log(this.idProject);
+    this.versionService
+    .findByProject(this.idProject)
+    .subscribe(
+      pageV => {
+        this.versions = pageV.elements;
+        for (const element of this.versions) {
+          this.optionsV.push(element.name);
+        }
+      }
+    );
+
+    this.filteredVersions = this.myControlV.valueChanges
+      .pipe(
+        startWith(''),
+        map(vers => this._filterVersion(vers))
+      );
+  }
+
+  /**
+   * A la selection de la version :
+   * Stockage du nom et de l'id de la version selectionnée
+   */
+  selectVersion() {
+    this.nameVersion = (<HTMLInputElement>document.getElementById('version')).value;
+    const it = this;
+    this.idVersion = this.versions.find(function(element) {
+      return element.name === it.nameVersion;
+    }).id;
+    console.log(this.idVersion);
+  }
+
+  /**
+   * vide les champs et desactive les boutons et l'autocomplete version
+   */
+  clear() {
+    this.filteredVersions = null;
+    this.versions = null;
+    (<HTMLInputElement>document.getElementById('project')).value = null;
+    this.idProject = null;
+    this.idVersion = null;
+  }
+
+  /**
+   * Appel de l'api
+   * Téléchargement du fichier
+   */
   onClickSelect(type: string) {
     const version = this.nameProject;
     console.log(version);
@@ -87,85 +180,5 @@ export class ReleaseNoteComponent implements OnInit {
         }, 100);
       });
     }
-  }
-
-  // blob(type: string, typeMime: string, version: string, product: string) {
-  //   this.releaseNoteService.getDOC(version, product).subscribe(x => {
-  //     const newBlob = new Blob([x], { type: 'application/msword' });
-  //     if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-  //       window.navigator.msSaveOrOpenBlob(newBlob);
-  //       return;
-  //     }
-  //     const data = window.URL.createObjectURL(newBlob);
-  //     const link = document.createElement('a');
-  //     link.href = data;
-  //     link.download = 'RLN.doc';
-  //     link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
-  //     setTimeout(function () {
-  //     window.URL.revokeObjectURL(data);
-  //     link.remove();
-  //     }, 100);
-  //   });
-  // }
-
-  ngOnInit() {
-    this.projectService
-    .findProject('100')
-    .subscribe(
-      pageP => {
-        this.projects = pageP.elements;
-        this.optionsProjects = this.projects;
-      }
-    );
-
-    this.optionsProjects = this.myControlP.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.optionsProjects.filter(option => option.toLowerCase().includes(filterValue));
-  }
-
-  displayFnP(option: Project) {
-    if (option) { return option.name; }
-  }
-
-  displayFnV(option: Version) {
-    if (option) { return option.name; }
-  }
-
-  selectProject() {
-    this.nameProject = (<HTMLInputElement>document.getElementById('project')).value;
-    const it = this;
-    this.idProject = this.optionsProjects.find(function(element) {
-      return element.name === it.nameProject; }).id;
-    console.log(this.idProject);
-    this.versionService
-    .findByProject(this.idProject)
-    .subscribe(
-      pageV => {
-        this.versions = pageV.elements;
-        this.optionsVersions = this.versions;
-      }
-    );
-  }
-
-  selectVersion() {
-    this.nameVersion = (<HTMLInputElement>document.getElementById('version')).value;
-    const it = this;
-    this.idVersion = this.optionsVersions.find(function(element) {
-      return element.name === it.nameVersion;
-    }).id;
-    console.log(this.idVersion);
-  }
-  clear() {
-    this.optionsVersions = [];
-    (<HTMLInputElement>document.getElementById('project')).value = null;
-    this.idProject = null;
-    this.idVersion = null;
   }
 }

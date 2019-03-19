@@ -8,16 +8,12 @@
       <input type="text"
             placeholder="Pick one project"
             aria-label="Project"
-            id = 'project'
-            width="80"
+            id='project'
             matInput [formControl]="myControlP"
             [matAutocomplete]="autoProject">
-      <mat-autocomplete #autoProject="matAutocomplete"
-                        [displayWith]="displayFnP"
-                        (optionSelected)="selectProject()">
-        <mat-option *ngFor="let project of optionsProjects" [value]="project">
-          <span>{{project.name}}</span>
-          <small> | ID: {{project.id}}</small>
+      <mat-autocomplete #autoProject="matAutocomplete" (optionSelected)="selectProject()">
+        <mat-option *ngFor="let project of filteredProjects | async" [value]="project">
+          <span>{{project}}</span>
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
@@ -27,21 +23,18 @@
       <input type="text"
             placeholder="Pick one version"
             aria-label="Version"
-            id= 'version'
-            width="80"
+            id='version'
             [disabled]="!(idProject)"
             matInput [formControl]="myControlV"
             [matAutocomplete]="autoVersion">
-      <mat-autocomplete #autoVersion="matAutocomplete"
-                        [displayWith]="displayFnV"
-                        (optionSelected)="selectVersion()">
-        <mat-option *ngFor="let version of optionsVersions" [value]="version">
-          <span>{{version.name}}</span>
-          <small> | ID: {{version.id}}</small>
+      <mat-autocomplete #autoVersion="matAutocomplete" (optionSelected)="selectVersion()">
+        <mat-option *ngFor="let version of filteredVersions | async" [value]="version">
+          <span>{{version}}</span>
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
   </p>
+
   <p>
     <button mat-raised-button id='pdf' [disabled]="!(idProject && idVersion)" (click)="onClickSelect('pdf')">PDF</button>
     &nbsp;
@@ -49,9 +42,11 @@
     &nbsp;
     <button mat-raised-button id='zip' [disabled]="!(idProject && idVersion)" (click)="onClickSelect('zip')">ZIP</button>
   </p>
+
   <p>
     Clear selection : &nbsp;
     <button mat-raised-button (click)="clear()">Clear</button>
   </p>
+
 </div>
 
