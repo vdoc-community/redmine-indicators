@@ -1,7 +1,6 @@
 import { ChartService } from 'src/app/services/chart.service';
 import { MomentModule } from 'ngx-moment';
 import { BrowserModule } from '@angular/platform-browser';
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -110,7 +109,7 @@ export const ROUTES: Routes = [
     MatProgressSpinnerModule,
     MatSidenavModule,
     MatDatepickerModule,
-    MatMomentDateModule,
+    MatNativeDateModule,
     MatSnackBarModule,
     MatTableModule,
     MatAutocompleteModule,

@@ -9,3 +9,10 @@ export abstract class AbstractBean {
   }
 
 }
+
+export function stringifyAbstractBean(bean: AbstractBean): any {
+  return {
+    'id': bean.id,
+    'name': bean.name
+  };
+}

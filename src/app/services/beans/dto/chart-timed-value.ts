@@ -1,4 +1,5 @@
 import { AbstractBean } from './abstract-bean';
+import { parseLocalDateTime } from './date-io';
 
 export class ChartTimedValue extends AbstractBean {
   date: Date;
@@ -7,7 +8,7 @@ export class ChartTimedValue extends AbstractBean {
 
 export function parseChartTimedValue(json: any): ChartTimedValue {
   const chartTimedValue = new ChartTimedValue(json.id, json.name);
-  chartTimedValue.date = new Date(json.date);
+  chartTimedValue.date = parseLocalDateTime(json.date);
   chartTimedValue.value = json.value;
   return chartTimedValue;
 }
