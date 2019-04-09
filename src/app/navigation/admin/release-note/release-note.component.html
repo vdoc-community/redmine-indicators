@@ -1,19 +1,15 @@
 <div>
-  <!-- <p>
-    <input type="text" name="version" id="version" value="testhtmlv"/>
-    <input type="text" name="product" id="product" value="testhtmlp"/>
-  </p> -->
   <p>
     <mat-form-field>
       <input type="text"
             placeholder="Pick one project"
             aria-label="Project"
             id='project'
-            matInput [formControl]="myControlP"
+            matInput [formControl]="controlProject"
             [matAutocomplete]="autoProject">
       <mat-autocomplete #autoProject="matAutocomplete" (optionSelected)="selectProject()">
-        <mat-option *ngFor="let project of filteredProjects | async" [value]="project">
-          <span>{{project}}</span>
+        <mat-option *ngFor="let project of filteredProjects | async" [value]="project.name">
+          <span> {{project.name}} | {{project.id}} </span>
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
@@ -25,11 +21,11 @@
             aria-label="Version"
             id='version'
             [disabled]="!(idProject)"
-            matInput [formControl]="myControlV"
+            matInput [formControl]="controlVersion"
             [matAutocomplete]="autoVersion">
       <mat-autocomplete #autoVersion="matAutocomplete" (optionSelected)="selectVersion()">
-        <mat-option *ngFor="let version of filteredVersions | async" [value]="version">
-          <span>{{version}}</span>
+        <mat-option *ngFor="let version of filteredVersions | async" [value]="version.name">
+          <span>  {{version.name}} | {{version.id}} </span>
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>

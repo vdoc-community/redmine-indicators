@@ -7,6 +7,7 @@ import { ProjectService } from 'src/app/services/project.service';
 import { VersionService } from 'src/app/services/version.service';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
+import { optimizeGroupPlayer } from '@angular/animations/browser/src/render/shared';
 
 @Component({
   selector: 'app-release-note',
@@ -14,18 +15,18 @@ import { startWith, map } from 'rxjs/operators';
   styleUrls: ['./release-note.component.scss']
 })
 export class ReleaseNoteComponent implements OnInit {
-  public myControlV = new FormControl();
-  public myControlP = new FormControl();
-  filteredVersions: Observable<string[]>;
-  filteredProjects: Observable<string[]>;
+  public controlVersion = new FormControl();
+  filteredVersions: Observable<Version[]>;
+
+  public controlProject = new FormControl();
+  filteredProjects: Observable<Project[]>;
+
   public projects: Array<Project>;
   public versions: Array<Version>;
   idProject: number;
   idVersion: number;
   nameProject: string;
   nameVersion: string;
-  optionsP: string[] = [];
-  optionsV: string[] = [];
 
   constructor(private releaseNoteService: ReleaseNoteService,
               private versionService: VersionService,
@@ -33,36 +34,34 @@ export class ReleaseNoteComponent implements OnInit {
 
   /**
    * Au chargement de la page,
-   * Charge les projets existants dans redmine dans l'autocomplete projet
+   * charge les projets existants dans redmine dans l'autocomplete projet
    */
   ngOnInit() {
     this.projectService
-    .findProject('100')
-    .subscribe(
-      pageP => {
-        this.projects = pageP.elements;
-        for (const element of this.projects) {
-          this.optionsP.push(element.name);
+      .findProject('100')
+      .subscribe(
+        pageP => {
+          this.projects = pageP.elements;
         }
-      }
-    );
+      );
 
-    this.filteredProjects = this.myControlP.valueChanges
+    this.filteredProjects = this.controlProject.valueChanges
       .pipe(
         startWith(''),
-        map(proj => this._filterProjet(proj))
+        map(project => this._filterProject(project))
       );
   }
 
-  private _filterProjet(value: string): string[] {
+  private _filterProject(value: any): Project[] {
     const filterValue = value.toLowerCase();
-
-    return this.optionsP.filter(option => option.toLowerCase().includes(filterValue));
+    return this.projects.filter(option =>
+      option.name.toLowerCase().includes(filterValue));
   }
-  private _filterVersion(value: string): string[] {
-    const filterValue = value.toLowerCase();
 
-    return this.optionsV.filter(option => option.toLowerCase().includes(filterValue));
+  private _filterVersion(value: any): Version[] {
+    const filterValue = value.toLowerCase();
+    return this.versions.filter(option =>
+      option.name.toLowerCase().includes(filterValue));
   }
 
   /**
@@ -74,22 +73,18 @@ export class ReleaseNoteComponent implements OnInit {
     const it = this;
     this.idProject = this.projects.find(function(element) {
       return element.name === it.nameProject; }).id;
-    console.log(this.idProject);
     this.versionService
-    .findByProject(this.idProject)
-    .subscribe(
-      pageV => {
-        this.versions = pageV.elements;
-        for (const element of this.versions) {
-          this.optionsV.push(element.name);
+      .findByProject(this.idProject)
+      .subscribe(
+        pageV => {
+          this.versions = pageV.elements;
         }
-      }
-    );
+      );
 
-    this.filteredVersions = this.myControlV.valueChanges
+    this.filteredVersions = this.controlVersion.valueChanges
       .pipe(
         startWith(''),
-        map(vers => this._filterVersion(vers))
+        map(version => this._filterVersion(version))
       );
   }
 
@@ -103,7 +98,6 @@ export class ReleaseNoteComponent implements OnInit {
     this.idVersion = this.versions.find(function(element) {
       return element.name === it.nameVersion;
     }).id;
-    console.log(this.idVersion);
   }
 
   /**
@@ -123,62 +117,40 @@ export class ReleaseNoteComponent implements OnInit {
    */
   onClickSelect(type: string) {
     const version = this.nameProject;
-    console.log(version);
-    const product = this.nameVersion;
-    console.log(product);
-    const idV = this.idVersion;
-    console.log(idV);
-    if (type === 'pdf') {
-      this.releaseNoteService.getPDF(version, product, idV).subscribe(x => {
-        const newBlob = new Blob([x], { type: 'application/pdf' });
-        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-          window.navigator.msSaveOrOpenBlob(newBlob);
-          return;
-        }
-        const data = window.URL.createObjectURL(newBlob);
-        const link = document.createElement('a');
-        link.href = data;
-        link.download = 'RLN.pdf';
-        link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
-        setTimeout(function () {
-        window.URL.revokeObjectURL(data);
-        link.remove();
-        }, 100);
-      });
-    } else if (type === 'doc') {
-      this.releaseNoteService.getDOC(version, product, idV).subscribe(x => {
-        const newBlob = new Blob([x], { type: 'application/msword' });
-        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-          window.navigator.msSaveOrOpenBlob(newBlob);
-          return;
-        }
-        const data = window.URL.createObjectURL(newBlob);
-        const link = document.createElement('a');
-        link.href = data;
-        link.download = 'RLN.doc';
-        link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
-        setTimeout(function () {
-        window.URL.revokeObjectURL(data);
-        link.remove();
-        }, 100);
-      });
-    } else if (type === 'zip') {
-      this.releaseNoteService.getZIP(version, product, idV).subscribe(x => {
-        const newBlob = new Blob([x], { type: 'application/zip' });
-        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-          window.navigator.msSaveOrOpenBlob(newBlob);
-          return;
-        }
-        const data = window.URL.createObjectURL(newBlob);
-        const link = document.createElement('a');
-        link.href = data;
-        link.download = 'RLN.zip';
-        link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
-        setTimeout(function () {
-        window.URL.revokeObjectURL(data);
-        link.remove();
-        }, 100);
-      });
+    let mime: string;
+    switch (type) {
+      case 'pdf': {
+        mime = 'application/pdf';
+        break;
+      }
+      case 'doc': {
+        mime = 'application/msword';
+        break;
+      }
+      case 'zip': {
+        mime = 'application/zip';
+        break;
+      }
     }
+      this.releaseNoteService.getReleaseNote(version, type).subscribe(x => {
+        this.newBlob(x, type, mime);
+      });
+  }
+
+  private newBlob(x: Blob, type: string, mime: string) {
+    const newBlob = new Blob([x], { type: mime });
+    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+      window.navigator.msSaveOrOpenBlob(newBlob);
+      return;
+    }
+    const data = window.URL.createObjectURL(newBlob);
+    const link = document.createElement('a');
+    link.href = data;
+    link.download = `RLN.${type}`;
+    link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+    setTimeout(function () {
+      window.URL.revokeObjectURL(data);
+      link.remove();
+    }, 100);
   }
 }
