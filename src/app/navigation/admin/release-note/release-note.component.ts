@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ReleaseNoteService} from 'src/app/services/release-note.service';
 import { FormControl } from '@angular/forms';
-import { Version } from 'src/app/services/beans/dto/version';
-import { Project } from 'src/app/services/beans/dto/project';
+import { Project, Version } from 'src/app/services/beans/dto';
 import { ProjectService } from 'src/app/services/project.service';
 import { VersionService } from 'src/app/services/version.service';
 import { Observable } from 'rxjs';
@@ -42,7 +41,7 @@ export class ReleaseNoteComponent implements OnInit {
    */
   ngOnInit() {
     this.projectService
-      .findProject('100')
+      .findAll()
       .subscribe(
         pageP => {
           this.projects = pageP.elements;

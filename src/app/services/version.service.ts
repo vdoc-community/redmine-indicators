@@ -16,7 +16,7 @@ export class VersionService extends AbstractCrudService<Version> {
   }
 
   public findByProject(project: number): Observable<Page<Version>> {
-    return this.redmineClient.get('/version/project/' + project).pipe(map(json => this.pageParser(json, this.parser)));
+    return this.redmineClient.get(`/version/project/${project}`).pipe(map(json => this.pageParser(json, this.parser)));
   }
 
   protected endpoint(): string {
