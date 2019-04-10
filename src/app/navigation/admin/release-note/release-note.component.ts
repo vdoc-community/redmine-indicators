@@ -7,7 +7,7 @@ import { ProjectService } from 'src/app/services/project.service';
 import { VersionService } from 'src/app/services/version.service';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { optimizeGroupPlayer } from '@angular/animations/browser/src/render/shared';
+import { element } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-release-note',
@@ -16,21 +16,25 @@ import { optimizeGroupPlayer } from '@angular/animations/browser/src/render/shar
 })
 export class ReleaseNoteComponent implements OnInit {
   public controlVersion = new FormControl();
-  filteredVersions: Observable<Version[]>;
+  filteredProjects: Observable<Project[]>;
+  public projects: Array<Project> = [];
+  selectedProject: Project = null;
 
   public controlProject = new FormControl();
-  filteredProjects: Observable<Project[]>;
+  filteredVersions: Observable<Version[]>;
+  public versions: Array<Version> = [];
+  selectedVersion: Version = null;
 
-  public projects: Array<Project>;
-  public versions: Array<Version>;
-  idProject: number;
-  idVersion: number;
-  nameProject: string;
-  nameVersion: string;
+  mapping: Map<string, string>;
 
   constructor(private releaseNoteService: ReleaseNoteService,
               private versionService: VersionService,
-              private projectService: ProjectService) {  }
+              private projectService: ProjectService) {
+    this.mapping = new Map();
+    this.mapping.set('pdf', 'application/pdf');
+    this.mapping.set('doc', 'application/msword');
+    this.mapping.set('zip', 'application/zip');
+  }
 
   /**
    * Au chargement de la page,
@@ -52,13 +56,13 @@ export class ReleaseNoteComponent implements OnInit {
       );
   }
 
-  private _filterProject(value: any): Project[] {
+  private _filterProject(value: string): Project[] {
     const filterValue = value.toLowerCase();
     return this.projects.filter(option =>
       option.name.toLowerCase().includes(filterValue));
   }
 
-  private _filterVersion(value: any): Version[] {
+  private _filterVersion(value: string): Version[] {
     const filterValue = value.toLowerCase();
     return this.versions.filter(option =>
       option.name.toLowerCase().includes(filterValue));
@@ -69,12 +73,8 @@ export class ReleaseNoteComponent implements OnInit {
    * Charge les versions du projet et les charges dans le deuxieme autocomplete
    */
   selectProject() {
-    this.nameProject = (<HTMLInputElement>document.getElementById('project')).value;
-    const it = this;
-    this.idProject = this.projects.find(function(element) {
-      return element.name === it.nameProject; }).id;
     this.versionService
-      .findByProject(this.idProject)
+      .findByProject(this.selectedProject.id)
       .subscribe(
         pageV => {
           this.versions = pageV.elements;
@@ -88,53 +88,37 @@ export class ReleaseNoteComponent implements OnInit {
       );
   }
 
-  /**
-   * A la selection de la version :
-   * Stockage du nom et de l'id de la version selectionnée
-   */
-  selectVersion() {
-    this.nameVersion = (<HTMLInputElement>document.getElementById('version')).value;
-    const it = this;
-    this.idVersion = this.versions.find(function(element) {
-      return element.name === it.nameVersion;
-    }).id;
+  displayVersion(version?: Version ): string {
+    if (!version) {
+      return '';
+    }
+    return version.name;
+  }
+  displayProject(project: Project ): string {
+    if (!project) {
+      return '';
+    }
+    return project.name;
   }
 
   /**
    * vide les champs et desactive les boutons et l'autocomplete version
    */
   clear() {
-    this.filteredVersions = null;
     this.versions = null;
-    (<HTMLInputElement>document.getElementById('project')).value = null;
-    this.idProject = null;
-    this.idVersion = null;
+    this.selectedProject = null;
+    this.selectedVersion = null;
   }
 
   /**
    * Appel de l'api
    * Téléchargement du fichier
    */
-  onClickSelect(type: string) {
-    const version = this.nameProject;
-    let mime: string;
-    switch (type) {
-      case 'pdf': {
-        mime = 'application/pdf';
-        break;
-      }
-      case 'doc': {
-        mime = 'application/msword';
-        break;
-      }
-      case 'zip': {
-        mime = 'application/zip';
-        break;
-      }
-    }
-      this.releaseNoteService.getReleaseNote(version, type).subscribe(x => {
-        this.newBlob(x, type, mime);
-      });
+  onClickSelect(type: 'pdf' | 'doc' | 'zip') {
+    const mime: string = this.mapping.get(type);
+    this.releaseNoteService.getReleaseNote(this.selectedVersion.id, type).subscribe(x => {
+      this.newBlob(x, type, mime);
+    });
   }
 
   private newBlob(x: Blob, type: string, mime: string) {
@@ -148,9 +132,5 @@ export class ReleaseNoteComponent implements OnInit {
     link.href = data;
     link.download = `RLN.${type}`;
     link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
-    setTimeout(function () {
-      window.URL.revokeObjectURL(data);
-      link.remove();
-    }, 100);
   }
 }

@@ -1,42 +1,44 @@
 <div>
-  <p>
+  <form>
     <mat-form-field>
       <input type="text"
             placeholder="Pick one project"
+            [(ngModel)]="selectedProject"
             aria-label="Project"
             id='project'
             matInput [formControl]="controlProject"
             [matAutocomplete]="autoProject">
-      <mat-autocomplete #autoProject="matAutocomplete" (optionSelected)="selectProject()">
-        <mat-option *ngFor="let project of filteredProjects | async" [value]="project.name">
-          <span> {{project.name}} | {{project.id}} </span>
-        </mat-option>
-      </mat-autocomplete>
     </mat-form-field>
-  </p>
-  <p>
+    <mat-autocomplete #autoProject="matAutocomplete"
+                      (optionSelected)="selectProject()"
+                      [displayWith]="displayProject">
+      <mat-option *ngFor="let project of filteredProjects | async" [value]="project">
+        <span> {{project.name}} </span>
+      </mat-option>
+    </mat-autocomplete>
+  </form>
+
+  <form>
     <mat-form-field>
       <input type="text"
             placeholder="Pick one version"
+            [(ngModel)]="selectedVersion"
             aria-label="Version"
-            id='version'
-            [disabled]="!(idProject)"
             matInput [formControl]="controlVersion"
             [matAutocomplete]="autoVersion">
-      <mat-autocomplete #autoVersion="matAutocomplete" (optionSelected)="selectVersion()">
-        <mat-option *ngFor="let version of filteredVersions | async" [value]="version.name">
-          <span>  {{version.name}} | {{version.id}} </span>
-        </mat-option>
-      </mat-autocomplete>
     </mat-form-field>
-  </p>
+    <mat-autocomplete #autoVersion="matAutocomplete"
+                      [displayWith]="displayVersion">
+      <mat-option *ngFor="let version of filteredVersions | async" [value]="version">
+        {{version.name}}
+      </mat-option>
+    </mat-autocomplete>
+  </form>
 
   <p>
-    <button mat-raised-button id='pdf' [disabled]="!(idProject && idVersion)" (click)="onClickSelect('pdf')">PDF</button>
-    &nbsp;
-    <button mat-raised-button id='doc' [disabled]="!(idProject && idVersion)" (click)="onClickSelect('doc')">DOC</button>
-    &nbsp;
-    <button mat-raised-button id='zip' [disabled]="!(idProject && idVersion)" (click)="onClickSelect('zip')">ZIP</button>
+    <button mat-raised-button id='pdf' [disabled]="!(selectedProject && selectedVersion)" (click)="onClickSelect('pdf')">PDF</button> &nbsp;
+    <button mat-raised-button id='doc' [disabled]="!(selectedProject && selectedVersion)" (click)="onClickSelect('doc')">DOC</button> &nbsp;
+    <button mat-raised-button id='zip' [disabled]="!(selectedProject && selectedVersion)" (click)="onClickSelect('zip')">ZIP</button>
   </p>
 
   <p>
@@ -44,5 +46,9 @@
     <button mat-raised-button (click)="clear()">Clear</button>
   </p>
 
+  Projet :
+  {{selectedProject | json}}
+  Version :
+  {{selectedVersion | json}}
 </div>
 
