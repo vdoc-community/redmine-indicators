@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ReleaseNoteService} from 'src/app/services/release-note.service';
 import { FormControl } from '@angular/forms';
-import { Project, Version } from 'src/app/services/beans/dto';
+import { Project, Version, Pager } from 'src/app/services/beans/dto';
 import { ProjectService } from 'src/app/services/project.service';
 import { VersionService } from 'src/app/services/version.service';
 import { Observable } from 'rxjs';
@@ -36,63 +36,77 @@ export class ReleaseNoteComponent implements OnInit {
   }
 
   /**
-   * Au chargement de la page,
-   * charge les projets existants dans redmine dans l'autocomplete projet
+   * Au chargement de la page, charge les projets existants dans redmine dans l'autocomplete projet
    */
   ngOnInit() {
+    const pager = new Pager(0, 200);
     this.projectService
-      .findAll()
+      .findAll(pager)
       .subscribe(
-        pageP => {
-          this.projects = pageP.elements;
+        pageProject => {
+          pageProject.elements.sort((a, b) => a.name.localeCompare(b.name));
+          this.projects = pageProject.elements;
         }
       );
 
     this.filteredProjects = this.controlProject.valueChanges
       .pipe(
         startWith(''),
-        map(project => this._filterProject(project))
+        map(project => project ? this._filterProject(project) : this.projects.slice())
       );
   }
 
-  private _filterProject(value: string): Project[] {
+  private _filterProject(value: string | Project): Project[] {
+    if ( value instanceof Project) {
+      return [value];
+    }
     const filterValue = value.toLowerCase();
     return this.projects.filter(option =>
       option.name.toLowerCase().includes(filterValue));
   }
 
-  private _filterVersion(value: string): Version[] {
+  private _filterVersion(value: string | Version): Version[] {
+    if ( value instanceof Version) {
+      return [value];
+    }
     const filterValue = value.toLowerCase();
     return this.versions.filter(option =>
       option.name.toLowerCase().includes(filterValue));
   }
 
   /**
-   * A la selection du projet :
-   * Charge les versions du projet et les charges dans le deuxieme autocomplete
+   * A la selection du projet, appelle les versions du projet et les chargent dans le deuxieme autocomplete
    */
   selectProject() {
     this.versionService
       .findByProject(this.selectedProject.id)
       .subscribe(
-        pageV => {
-          this.versions = pageV.elements;
+        pageVersion => {
+          pageVersion.elements.sort((a, b) => a.name.localeCompare(b.name));
+          this.versions = pageVersion.elements;
         }
       );
 
     this.filteredVersions = this.controlVersion.valueChanges
       .pipe(
         startWith(''),
-        map(version => this._filterVersion(version))
+        map(version => version ? this._filterVersion(version) : this.versions.slice())
       );
   }
-
+  /**
+   * Affichage du nom de la version selectionnée
+   * @param version: Version
+   */
   displayVersion(version?: Version ): string {
     if (!version) {
       return '';
     }
     return version.name;
   }
+  /**
+   * Affichage du nom du projet selectionné
+   * @param project: Project
+   */
   displayProject(project: Project ): string {
     if (!project) {
       return '';
@@ -107,11 +121,12 @@ export class ReleaseNoteComponent implements OnInit {
     this.versions = null;
     this.selectedProject = null;
     this.selectedVersion = null;
+    this.controlProject.reset();
   }
 
   /**
-   * Appel de l'api
-   * Téléchargement du fichier
+   * Appel de l'api Release Note
+   * @param type 'pdf' | 'doc' | 'zip'
    */
   onClickSelect(type: 'pdf' | 'doc' | 'zip') {
     const mime: string = this.mapping.get(type);
@@ -119,7 +134,12 @@ export class ReleaseNoteComponent implements OnInit {
       this.newBlob(x, type, mime);
     });
   }
-
+  /**
+   * Téléchargement du fichier
+   * @param x: Blob
+   * @param type: string
+   * @param mime: string
+   */
   private newBlob(x: Blob, type: string, mime: string) {
     const newBlob = new Blob([x], { type: mime });
     if (window.navigator && window.navigator.msSaveOrOpenBlob) {

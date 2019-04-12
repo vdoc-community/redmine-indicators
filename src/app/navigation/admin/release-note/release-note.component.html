@@ -1,6 +1,6 @@
 <div>
   <form>
-    <mat-form-field>
+    <mat-form-field class='autocomplete-full-width'>
       <input type="text"
             placeholder="Pick one project"
             [(ngModel)]="selectedProject"
@@ -16,10 +16,11 @@
         <span> {{project.name}} </span>
       </mat-option>
     </mat-autocomplete>
+    Projet : {{selectedProject | json}}
   </form>
 
   <form>
-    <mat-form-field>
+    <mat-form-field class='autocomplete-full-width'>
       <input type="text"
             placeholder="Pick one version"
             [(ngModel)]="selectedVersion"
@@ -33,6 +34,7 @@
         {{version.name}}
       </mat-option>
     </mat-autocomplete>
+    Version : {{selectedVersion | json}}
   </form>
 
   <p>
@@ -45,10 +47,4 @@
     Clear selection : &nbsp;
     <button mat-raised-button (click)="clear()">Clear</button>
   </p>
-
-  Projet :
-  {{selectedProject | json}}
-  Version :
-  {{selectedVersion | json}}
 </div>
-

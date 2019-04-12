@@ -15,7 +15,7 @@ export class ProjectService extends AbstractCrudService<Project> {
     super(redmineClient);
   }
 
-  public findProject(limit: string): Observable<Page<Project>> {
+  public findProjects(limit: string): Observable<Page<Project>> {
     return this.redmineClient.get(`/project?limit=${limit}`).pipe(map(json => this.pageParser(json, this.parser)));
   }
 

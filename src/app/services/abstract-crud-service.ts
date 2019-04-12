@@ -1,6 +1,6 @@
 import { HttpResponse } from '@angular/common/http';
 import { map, switchMap } from 'rxjs/operators';
-import { Page } from './beans/dto';
+import { Page, Pager } from './beans/dto';
 import { RedmineClient } from './http/redmine-client.service';
 import { Observable } from 'rxjs';
 import { AbstractBean } from './beans/dto/abstract-bean';
@@ -30,8 +30,12 @@ export abstract class AbstractCrudService<T extends AbstractBean> {
     return this.redmineClient.delete(`/${this.endpoint()}/${bean.id}`);
   }
 
-  public findAll(): Observable<Page<T>> {
-    return this.redmineClient.get(`/${this.endpoint()}`).pipe(map(json => this.pageParser(json, this.parser)));
+  public findAll(pager?: Pager): Observable<Page<T>> {
+    let uri = `/${this.endpoint()}`;
+    if (pager) {
+      uri += `?offset=${pager.offset}&limit=${pager.limit}`;
+    }
+    return this.redmineClient.get(uri).pipe(map(json => this.pageParser(json, this.parser)));
   }
 
   protected abstract endpoint(): string;

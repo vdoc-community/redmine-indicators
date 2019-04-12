@@ -10,5 +10,6 @@ export { BurndownChart, parseBurndownChart } from './burndown-chart';
 export { ChartTimedValue, parseChartTimedValue } from './chart-timed-value';
 export { Version } from './version';
 export { Project } from './project';
+export { Pager } from './pager';
 
 
