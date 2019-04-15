@@ -6,7 +6,6 @@ import { ProjectService } from 'src/app/services/project.service';
 import { VersionService } from 'src/app/services/version.service';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { element } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-release-note',
