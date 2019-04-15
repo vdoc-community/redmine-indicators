@@ -15,15 +15,15 @@ export abstract class AbstractCrudService<T extends AbstractBean> {
   }
 
   public findById(id: number): Observable<T> {
-    return this.redmineClient.get<T>(`/${this.endpoint()}/${id}`);
+    return this.redmineClient.get(`/${this.endpoint()}/${id}`).pipe(map(json => this.parser(json)));
   }
 
   public save(bean: T): Observable<T> {
-    return this.redmineClient.post(`/${this.endpoint()}`, bean);
+    return this.redmineClient.post(`/${this.endpoint()}`, this.stringify(bean));
   }
 
   public update(bean: T): Observable<T> {
-    return this.redmineClient.put(`/${this.endpoint()}/${bean.id}`, bean);
+    return this.redmineClient.put(`/${this.endpoint()}/${bean.id}`, this.stringify(bean));
   }
 
   public delete(bean: T): Observable<HttpResponse<any>> {
@@ -39,6 +39,9 @@ export abstract class AbstractCrudService<T extends AbstractBean> {
   }
 
   protected abstract endpoint(): string;
+  protected stringify(bean: T): any {
+    return bean;
+  }
   protected abstract parser(json: any): T;
 
   protected pageParser(json: any, parser: (item: any) => T): Page<T> {
