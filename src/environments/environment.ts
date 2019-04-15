@@ -8,7 +8,7 @@ export const environment = {
     projectId: 1032,
     openIssuesQuery: 1762
   },
-  backendUrl: 'http://127.0.0.1:8080/redmine-ng-api'
+  backendUrl: 'http://localhost:8080/redmine-ng-api'
 };
 
 /*

@@ -1,6 +1,6 @@
 import { HttpResponse } from '@angular/common/http';
 import { map, switchMap } from 'rxjs/operators';
-import { Page } from './beans/dto';
+import { Page, Pager } from './beans/dto';
 import { RedmineClient } from './http/redmine-client.service';
 import { Observable } from 'rxjs';
 import { AbstractBean } from './beans/dto/abstract-bean';
@@ -15,26 +15,33 @@ export abstract class AbstractCrudService<T extends AbstractBean> {
   }
 
   public findById(id: number): Observable<T> {
-    return this.redmineClient.get<T>(`/${this.endpoint()}/${id}`);
+    return this.redmineClient.get(`/${this.endpoint()}/${id}`).pipe(map(json => this.parser(json)));
   }
 
   public save(bean: T): Observable<T> {
-    return this.redmineClient.post(`/${this.endpoint()}`, bean);
+    return this.redmineClient.post(`/${this.endpoint()}`, this.stringify(bean));
   }
 
   public update(bean: T): Observable<T> {
-    return this.redmineClient.put(`/${this.endpoint()}/${bean.id}`, bean);
+    return this.redmineClient.put(`/${this.endpoint()}/${bean.id}`, this.stringify(bean));
   }
 
   public delete(bean: T): Observable<HttpResponse<any>> {
     return this.redmineClient.delete(`/${this.endpoint()}/${bean.id}`);
   }
 
-  public findAll(): Observable<Page<T>> {
-    return this.redmineClient.get(`/${this.endpoint()}`).pipe(map(json => this.pageParser(json, this.parser)));
+  public findAll(pager?: Pager): Observable<Page<T>> {
+    let uri = `/${this.endpoint()}`;
+    if (pager) {
+      uri += `?offset=${pager.offset}&limit=${pager.limit}`;
+    }
+    return this.redmineClient.get(uri).pipe(map(json => this.pageParser(json, this.parser)));
   }
 
   protected abstract endpoint(): string;
+  protected stringify(bean: T): any {
+    return bean;
+  }
   protected abstract parser(json: any): T;
 
   protected pageParser(json: any, parser: (item: any) => T): Page<T> {

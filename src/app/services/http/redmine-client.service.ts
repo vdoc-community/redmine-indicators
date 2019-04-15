@@ -23,6 +23,13 @@ export class RedmineClient {
     });
   }
 
+  public getBlob(url: string): Observable<Blob> {
+    return this.httpClient.get(this.buildUrl(url), {
+      headers: this.buildDefaultHeaders(),
+      responseType: 'blob'
+    });
+  }
+
   public post<T>(url: string, body: any): Observable<T> {
     return this.httpClient.post<T>(this.buildUrl(url), body, {
       headers: this.buildDefaultHeaders()

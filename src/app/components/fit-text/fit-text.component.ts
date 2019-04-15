@@ -24,7 +24,7 @@ export class FitTextComponent implements OnInit {
 
   @Input()
   set text(text: any) {
-    this._text = text;
+    this._text = text == null ? 'null' : text;
     this.update();
   }
 
