@@ -118,10 +118,11 @@ export class ReleaseNoteComponent implements OnInit {
    * vide les champs et desactive les boutons et l'autocomplete version
    */
   clear() {
-    this.versions = null;
+    this.versions = [];
     this.selectedProject = null;
     this.selectedVersion = null;
     this.controlProject.reset();
+    this.controlVersion.reset();
   }
 
   /**
