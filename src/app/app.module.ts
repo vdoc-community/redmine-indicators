@@ -43,6 +43,8 @@ import { ObjectiveEditComponent } from './navigation/admin/objectives/objective-
 import { FitTextComponent } from './components/fit-text/fit-text.component';
 import { SimpleIndicatorComponent } from './navigation/dashboard/indicator/simple-indicator/simple-indicator.component';
 import { ReleaseNoteComponent } from './navigation/admin/release-note/release-note.component';
+import { ProjectComponent } from './navigation/admin/release-note/project/project.component';
+import { VersionComponent } from './navigation/admin/release-note/version/version.component';
 
 export const ROUTES: Routes = [
   {
@@ -89,7 +91,9 @@ export const ROUTES: Routes = [
     ObjectiveEditComponent,
     FitTextComponent,
     SimpleIndicatorComponent,
-    ReleaseNoteComponent
+    ReleaseNoteComponent,
+    ProjectComponent,
+    VersionComponent
   ],
   imports: [
     RouterModule.forRoot(ROUTES),

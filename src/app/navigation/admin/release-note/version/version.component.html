@@ -1,0 +1,17 @@
+<form>
+  <mat-form-field class='autocomplete-full-width'>
+    <input type="text"
+          placeholder="Pick one version"
+          [(ngModel)]="selectedVersion"
+          aria-label="Version"
+          matInput [formControl]="controlVersion"
+          [matAutocomplete]="autoVersion">
+  </mat-form-field>
+  <mat-autocomplete #autoVersion="matAutocomplete"
+                    (optionSelected)="versionSelect()"
+                    [displayWith]="displayVersion">
+    <mat-option *ngFor="let version of filteredVersions | async" [value]="version">
+      {{version.name}}
+    </mat-option>
+  </mat-autocomplete>
+</form>
