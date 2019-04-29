@@ -21,7 +21,7 @@ export class VersionComponent implements OnInit, ControlValueAccessor  {
   private _project: Project;
   private changed = new Array<(value: Version) => void>();
 
-  writeValue(version: Project): void {
+  writeValue(version: Version): void {
     this.selectedVersion = version;
   }
 

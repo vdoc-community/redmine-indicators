@@ -45,6 +45,8 @@ import { SimpleIndicatorComponent } from './navigation/dashboard/indicator/simpl
 import { ReleaseNoteComponent } from './navigation/admin/release-note/release-note.component';
 import { ProjectComponent } from './navigation/admin/release-note/project/project.component';
 import { VersionComponent } from './navigation/admin/release-note/version/version.component';
+import { IssueScopeViewComponent } from './navigation/admin/release-note/issue-scope-view/issue-scope-view.component';
+import { IssueContextViewComponent } from './navigation/admin/release-note/issue-context-view/issue-context-view.component';
 
 export const ROUTES: Routes = [
   {
@@ -93,7 +95,9 @@ export const ROUTES: Routes = [
     SimpleIndicatorComponent,
     ReleaseNoteComponent,
     ProjectComponent,
-    VersionComponent
+    VersionComponent,
+    IssueScopeViewComponent,
+    IssueContextViewComponent
   ],
   imports: [
     RouterModule.forRoot(ROUTES),

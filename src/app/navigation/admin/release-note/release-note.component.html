@@ -10,3 +10,17 @@
     <button mat-raised-button id='zip' [disabled]="!(selectedProject && selectedVersion)" (click)="onClickSelect('zip')">ZIP</button>
   </p>
 </div>
+
+<div>
+  <mat-toolbar color="secondary" class="mat-elevation-z6">
+    <mat-toolbar-row>
+      Scopes
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <app-issue-scope-view class="full-width full-height" [(ngModel)]="selectedScope"></app-issue-scope-view>
+  {{selectedScope | json}}
+  <app-issue-context-view class="full-width full-height" [scope]="selectedScope" [(ngModel)]="selectedContext"></app-issue-context-view>
+  {{selectedContext | json}}
+
+</div>

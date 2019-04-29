@@ -2,6 +2,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ReleaseNoteService } from 'src/app/services/release-note.service';
 import { Project, Version } from 'src/app/services/beans/dto';
+import { IssueScope } from 'src/app/services/beans/dto/issue-scope';
+import { IssueContext } from 'src/app/services/beans/dto/issue-context';
 
 @Component({
   selector: 'app-release-note',
@@ -12,6 +14,8 @@ export class ReleaseNoteComponent implements OnInit {
   mapping: Map<string, string>;
   selectedProject: Project = null;
   selectedVersion: Version = null;
+  selectedScope: IssueScope = null;
+  selectedContext: IssueContext = null;
 
   constructor(private releaseNoteService: ReleaseNoteService) {
     this.mapping = new Map();
