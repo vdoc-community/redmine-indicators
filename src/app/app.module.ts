@@ -22,7 +22,8 @@ import {
   MatNativeDateModule,
   MatSnackBarModule,
   MatTableModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatDialogModule
 } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ObjectivesService } from './services/objectives.service';
@@ -47,6 +48,7 @@ import { ProjectComponent } from './navigation/admin/release-note/project/projec
 import { VersionComponent } from './navigation/admin/release-note/version/version.component';
 import { IssueScopeViewComponent } from './navigation/admin/release-note/issue-scope-view/issue-scope-view.component';
 import { IssueContextViewComponent } from './navigation/admin/release-note/issue-context-view/issue-context-view.component';
+import { IssueScopeEditComponent } from './navigation/admin/release-note/issue-scope-edit/issue-scope-edit.component';
 
 export const ROUTES: Routes = [
   {
@@ -97,7 +99,8 @@ export const ROUTES: Routes = [
     ProjectComponent,
     VersionComponent,
     IssueScopeViewComponent,
-    IssueContextViewComponent
+    IssueContextViewComponent,
+    IssueScopeEditComponent
   ],
   imports: [
     RouterModule.forRoot(ROUTES),
@@ -124,9 +127,11 @@ export const ROUTES: Routes = [
     MomentModule,
     ChartsModule,
     LayoutModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule
   ],
   providers: [ObjectivesService, ChartService, IssuesService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [IssueScopeEditComponent]
 })
 export class AppModule {}

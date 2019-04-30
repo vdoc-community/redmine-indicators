@@ -17,7 +17,7 @@ import { IssueContextService } from 'src/app/services/issue-context.service';
 })
 export class IssueContextViewComponent implements OnInit {
   public controlContext = new FormControl();
-  filteredIssueContext: Observable<IssueContext[]>;
+  filteredIssueContexts: Observable<IssueContext[]>;
   public issueContexts: Array<IssueContext> = [];
   showAddButton = false;
   selectedContext: IssueContext = null;
@@ -61,14 +61,14 @@ export class IssueContextViewComponent implements OnInit {
         }
       );
 
-    this.filteredIssueContext = this.controlContext.valueChanges
+    this.filteredIssueContexts = this.controlContext.valueChanges
       .pipe(
         startWith(''),
-        map(context => context ? this._filterContexts(context) : this.issueContexts.slice())
+        map(context => context ? this._filterContext(context) : this.issueContexts.slice())
       );
   }
 
-  _filterContexts(value: string | IssueContext): IssueContext[] {
+  private _filterContext(value: string | IssueContext): IssueContext[] {
     if ( value instanceof IssueContext) {
       return [value];
     }
@@ -82,10 +82,6 @@ export class IssueContextViewComponent implements OnInit {
     }
 
     return results;
-  }
-
-  optionSelected(option) {
-    console.log(option.value);
   }
 
   addOption() {

@@ -4,7 +4,6 @@
           placeholder="Pick one scope"
           [(ngModel)]="selectedScope"
           aria-label="Scope"
-          id='scope'
           matInput [formControl]="controlScope"
           [matAutocomplete]="autoScope"
           (keyup.enter)="addOption()">
@@ -17,3 +16,4 @@
     </mat-option>
   </mat-autocomplete>
 </form>
+<button mat-raised-button [disabled]="!(editOK)" (click)="openDialog()">Edit</button>

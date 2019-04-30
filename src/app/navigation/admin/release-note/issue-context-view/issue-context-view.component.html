@@ -4,7 +4,6 @@
             placeholder="Pick one context"
             [(ngModel)]="selectedContext"
             aria-label="Context"
-            id='context'
             matInput [formControl]="controlContext"
             [matAutocomplete]="autoContext"
             (keyup.enter)="addOption()">
@@ -12,8 +11,8 @@
     <mat-autocomplete #autoContext="matAutocomplete"
                       (optionSelected)="contextSelect()"
                       [displayWith]="displayContext">
-      <mat-option *ngFor="let context of filteredIssueContext | async" [value]="context">
-        <span> {{context.description}} </span>
+      <mat-option *ngFor="let context of filteredIssueContexts | async" [value]="context">
+        {{context.description}}
       </mat-option>
     </mat-autocomplete>
   </form>

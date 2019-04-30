@@ -38,7 +38,7 @@ export class ProjectComponent implements OnInit, ControlValueAccessor {
    * Ordre : alphabétique
    */
   ngOnInit() {
-    const pager = new Pager(0, 500);
+    const pager = new Pager(0, 250);
     this.projectService
       .findAll(pager)
       .subscribe(
