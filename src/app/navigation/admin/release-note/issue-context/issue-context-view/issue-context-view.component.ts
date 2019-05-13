@@ -1,11 +1,12 @@
-import { IssueScope } from './../../../../services/beans/dto/issue-scope';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MatTableDataSource } from '@angular/material';
+import { MatDialogConfig, MatDialog } from '@angular/material';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { IssueContext } from 'src/app/services/beans/dto/issue-context';
 import { IssueContextService } from 'src/app/services/issue-context.service';
+import { IssueScope } from 'src/app/services/beans/dto/issue-scope';
+import { IssueContextEditComponent } from '../issue-context-edit/issue-context-edit.component';
 
 @Component({
   selector: 'app-issue-context-view',
@@ -20,6 +21,7 @@ export class IssueContextViewComponent implements OnInit {
   filteredIssueContexts: Observable<IssueContext[]>;
   public issueContexts: Array<IssueContext> = [];
   showAddButton = false;
+  editOK = false;
   selectedContext: IssueContext = null;
   private _scope: IssueScope;
   private changed = new Array<(value: IssueContext) => void>();
@@ -46,7 +48,7 @@ export class IssueContextViewComponent implements OnInit {
     return this._scope;
   }
 
-  constructor(private issueContextService: IssueContextService) {}
+  constructor(private issueContextService: IssueContextService, private dialog: MatDialog) {}
 
   ngOnInit() {
   }
@@ -70,8 +72,10 @@ export class IssueContextViewComponent implements OnInit {
 
   private _filterContext(value: string | IssueContext): IssueContext[] {
     if ( value instanceof IssueContext) {
+      this.editOK = true;
       return [value];
     }
+    this.editOK = false;
     const filterValue = value.toLowerCase();
     let results = this.issueContexts.filter(option =>
       option.description.toLowerCase().includes(filterValue));
@@ -85,9 +89,10 @@ export class IssueContextViewComponent implements OnInit {
   }
 
   addOption() {
-    let newContext: IssueContext;
-    if (!this.issueContexts.some(entry => entry.description === this.controlContext.value)) {
-      newContext = new IssueContext(null, null, this.controlContext.value, this._scope);
+    if (this.controlContext.value !== '' &&
+        this.controlContext.value !== null &&
+        !this.issueContexts.some(entry => entry.description === this.controlContext.value)) {
+      const newContext = new IssueContext(null, null, this.controlContext.value, this._scope);
       this.issueContextService.save(newContext).subscribe(context => this.issueContexts.push(context));
     }
   }
@@ -101,5 +106,13 @@ export class IssueContextViewComponent implements OnInit {
 
   contextSelect() {
     this.changed.forEach(f => f(this.selectedContext));
+  }
+
+  openDialog(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = this.selectedContext;
+    this.dialog.open(IssueContextEditComponent, dialogConfig);
   }
 }

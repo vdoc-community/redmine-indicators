@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { IssueScopeService } from 'src/app/services/issue-scope.service';
 import { IssueScope } from 'src/app/services/beans/dto/issue-scope';
+import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-issue-scope-edit',
@@ -14,7 +15,8 @@ export class IssueScopeEditComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<IssueScopeEditComponent>,
-    @Inject(MAT_DIALOG_DATA) data, private issueScopeService: IssueScopeService) {
+    @Inject(MAT_DIALOG_DATA) data, private issueScopeService: IssueScopeService,
+    public dialog: MatDialog) {
       this.scopeToEdit = data;
     }
 
@@ -26,6 +28,17 @@ export class IssueScopeEditComponent implements OnInit {
     this.issueScopeService
        .update(this.scopeToEdit)
        .subscribe();
+  }
+
+  deleteScope() {
+    const dialogdelete = this.dialog.open(ConfirmationDialogComponent, {
+      maxWidth: '400px'
+    });
+    dialogdelete.afterClosed().subscribe(dialogResult => {
+      if (dialogResult) {
+        this.issueScopeService.delete(this.scopeToEdit).subscribe();
+      }
+    });
   }
 
 }

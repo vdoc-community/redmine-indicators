@@ -72,10 +72,6 @@ export class IssueScopeViewComponent implements OnInit {
     return results;
   }
 
-  optionSelected(option) {
-    console.log(option.value);
-  }
-
   addOption() {
     if (this.controlScope.value !== '' &&
         this.controlScope.value !== null &&

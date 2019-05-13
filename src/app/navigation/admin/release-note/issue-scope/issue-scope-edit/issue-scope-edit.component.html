@@ -1,0 +1,14 @@
+<h1 matDialogTitle>Edit scope : {{scopeToEdit.name}}</h1>
+
+<mat-dialog-content>
+  <mat-form-field>
+    <input matInput [(ngModel)]="newName" placeholder="Enter a new name">
+  </mat-form-field>
+  {{ scopeToEdit | json }}
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close dialog</button>
+    <button mat-button (click)="editScope()">Edit</button>
+    <button mat-button mat-dialog-close (click)="deleteScope()">Delete</button>
+</mat-dialog-actions>

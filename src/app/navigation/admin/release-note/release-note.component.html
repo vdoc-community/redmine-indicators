@@ -1,7 +1,7 @@
-<div>
-    <app-project class="full-width full-height" [(ngModel)]="selectedProject"></app-project>
+<!-- <div>
+    <app-project [(ngModel)]="selectedProject"></app-project>
+    <app-version [project]="selectedProject" [(ngModel)]="selectedVersion"></app-version>
     {{selectedProject | json}}
-    <app-version class="full-width full-height" [project]="selectedProject" [(ngModel)]="selectedVersion"></app-version>
     {{selectedVersion | json}}
 
   <p>
@@ -9,7 +9,7 @@
     <button mat-raised-button id='doc' [disabled]="!(selectedProject && selectedVersion)" (click)="onClickSelect('doc')">DOC</button> &nbsp;
     <button mat-raised-button id='zip' [disabled]="!(selectedProject && selectedVersion)" (click)="onClickSelect('zip')">ZIP</button>
   </p>
-</div>
+</div> -->
 
 <div>
   <mat-toolbar color="secondary" class="mat-elevation-z6">
@@ -22,5 +22,4 @@
   {{selectedScope | json}}
   <app-issue-context-view class="full-width full-height" [scope]="selectedScope" [(ngModel)]="selectedContext"></app-issue-context-view>
   {{selectedContext | json}}
-
 </div>

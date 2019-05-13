@@ -46,9 +46,11 @@ import { SimpleIndicatorComponent } from './navigation/dashboard/indicator/simpl
 import { ReleaseNoteComponent } from './navigation/admin/release-note/release-note.component';
 import { ProjectComponent } from './navigation/admin/release-note/project/project.component';
 import { VersionComponent } from './navigation/admin/release-note/version/version.component';
-import { IssueScopeViewComponent } from './navigation/admin/release-note/issue-scope-view/issue-scope-view.component';
-import { IssueContextViewComponent } from './navigation/admin/release-note/issue-context-view/issue-context-view.component';
-import { IssueScopeEditComponent } from './navigation/admin/release-note/issue-scope-edit/issue-scope-edit.component';
+import { IssueScopeViewComponent } from './navigation/admin/release-note/issue-scope/issue-scope-view/issue-scope-view.component';
+import { IssueContextViewComponent } from './navigation/admin/release-note/issue-context/issue-context-view/issue-context-view.component';
+import { IssueScopeEditComponent } from './navigation/admin/release-note/issue-scope/issue-scope-edit/issue-scope-edit.component';
+import { IssueContextEditComponent } from './navigation/admin/release-note/issue-context/issue-context-edit/issue-context-edit.component';
+import { ConfirmationDialogComponent } from './navigation/admin/release-note/confirmation-dialog/confirmation-dialog.component';
 
 export const ROUTES: Routes = [
   {
@@ -100,7 +102,9 @@ export const ROUTES: Routes = [
     VersionComponent,
     IssueScopeViewComponent,
     IssueContextViewComponent,
-    IssueScopeEditComponent
+    IssueScopeEditComponent,
+    IssueContextEditComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     RouterModule.forRoot(ROUTES),
@@ -132,6 +136,6 @@ export const ROUTES: Routes = [
   ],
   providers: [ObjectivesService, ChartService, IssuesService],
   bootstrap: [AppComponent],
-  entryComponents: [IssueScopeEditComponent]
+  entryComponents: [IssueScopeEditComponent, IssueContextEditComponent, ConfirmationDialogComponent]
 })
 export class AppModule {}

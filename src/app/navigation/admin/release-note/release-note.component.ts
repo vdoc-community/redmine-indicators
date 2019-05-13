@@ -4,6 +4,7 @@ import { ReleaseNoteService } from 'src/app/services/release-note.service';
 import { Project, Version } from 'src/app/services/beans/dto';
 import { IssueScope } from 'src/app/services/beans/dto/issue-scope';
 import { IssueContext } from 'src/app/services/beans/dto/issue-context';
+import { Issue } from 'src/app/services/beans/dto/issue';
 
 @Component({
   selector: 'app-release-note',
@@ -16,6 +17,7 @@ export class ReleaseNoteComponent implements OnInit {
   selectedVersion: Version = null;
   selectedScope: IssueScope = null;
   selectedContext: IssueContext = null;
+  dataSourceIssue: Array<Issue>;
 
   constructor(private releaseNoteService: ReleaseNoteService) {
     this.mapping = new Map();
