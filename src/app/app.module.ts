@@ -23,7 +23,8 @@ import {
   MatSnackBarModule,
   MatTableModule,
   MatAutocompleteModule,
-  MatDialogModule
+  MatDialogModule,
+  MatCheckboxModule
 } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ObjectivesService } from './services/objectives.service';
@@ -51,6 +52,9 @@ import { IssueContextViewComponent } from './navigation/admin/release-note/issue
 import { IssueScopeEditComponent } from './navigation/admin/release-note/issue-scope/issue-scope-edit/issue-scope-edit.component';
 import { IssueContextEditComponent } from './navigation/admin/release-note/issue-context/issue-context-edit/issue-context-edit.component';
 import { ConfirmationDialogComponent } from './navigation/admin/release-note/confirmation-dialog/confirmation-dialog.component';
+import { ReleaseNoteEditComponent } from './navigation/admin/release-note/release-note-edit/release-note-edit.component';
+import { ReleaseNoteViewComponent } from './navigation/admin/release-note/release-note-view/release-note-view.component';
+import { CdkTableModule } from '@angular/cdk/table';
 
 export const ROUTES: Routes = [
   {
@@ -78,6 +82,10 @@ export const ROUTES: Routes = [
       {
         path: 'release-note',
         component: ReleaseNoteComponent
+      },
+      {
+        path: 'release-note/:id',
+        component: ReleaseNoteEditComponent
       }
     ]
   }
@@ -104,7 +112,9 @@ export const ROUTES: Routes = [
     IssueContextViewComponent,
     IssueScopeEditComponent,
     IssueContextEditComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    ReleaseNoteEditComponent,
+    ReleaseNoteViewComponent
   ],
   imports: [
     RouterModule.forRoot(ROUTES),
@@ -132,7 +142,9 @@ export const ROUTES: Routes = [
     ChartsModule,
     LayoutModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCheckboxModule,
+    CdkTableModule
   ],
   providers: [ObjectivesService, ChartService, IssuesService],
   bootstrap: [AppComponent],
