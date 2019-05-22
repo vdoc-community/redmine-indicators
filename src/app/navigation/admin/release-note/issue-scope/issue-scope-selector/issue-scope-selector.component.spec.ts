@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IssueScopeViewComponent } from './issue-scope-view.component';
+import { IssueScopeSelectorComponent } from './issue-scope-selector.component';
 
-describe('IssueScopeViewComponent', () => {
-  let component: IssueScopeViewComponent;
-  let fixture: ComponentFixture<IssueScopeViewComponent>;
+describe('IssueScopeSelectorComponent', () => {
+  let component: IssueScopeSelectorComponent;
+  let fixture: ComponentFixture<IssueScopeSelectorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IssueScopeViewComponent ]
+      declarations: [ IssueScopeSelectorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(IssueScopeViewComponent);
+    fixture = TestBed.createComponent(IssueScopeSelectorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

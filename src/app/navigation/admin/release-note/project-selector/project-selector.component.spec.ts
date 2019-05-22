@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReleaseNoteViewComponent } from './release-note-view.component';
+import { ProjectSelectorComponent } from './project-selector.component';
 
-describe('ReleaseNoteViewComponent', () => {
-  let component: ReleaseNoteViewComponent;
-  let fixture: ComponentFixture<ReleaseNoteViewComponent>;
+describe('ProjectSelectorComponent', () => {
+  let component: ProjectSelectorComponent;
+  let fixture: ComponentFixture<ProjectSelectorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReleaseNoteViewComponent ]
+      declarations: [ ProjectSelectorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ReleaseNoteViewComponent);
+    fixture = TestBed.createComponent(ProjectSelectorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

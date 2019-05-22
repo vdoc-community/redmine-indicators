@@ -6,14 +6,14 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-version',
-  templateUrl: './version.component.html',
-  styleUrls: ['./version.component.scss'],
+  selector: 'app-version-selector',
+  templateUrl: './version-selector.component.html',
+  styleUrls: ['./version-selector.component.scss'],
   providers: [
-    {provide: NG_VALUE_ACCESSOR, useExisting: VersionComponent, multi: true}
+    {provide: NG_VALUE_ACCESSOR, useExisting: VersionSelectorComponent, multi: true}
   ]
 })
-export class VersionComponent implements OnInit, ControlValueAccessor  {
+export class VersionSelectorComponent implements OnInit, ControlValueAccessor  {
   public controlVersion = new FormControl();
   filteredVersions: Observable<Version[]>;
   public versions: Array<Version> = [];

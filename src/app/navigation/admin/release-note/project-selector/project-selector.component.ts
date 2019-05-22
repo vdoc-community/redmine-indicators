@@ -6,14 +6,14 @@ import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/f
 import { startWith, map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-project',
-  templateUrl: './project.component.html',
-  styleUrls: ['./project.component.scss'],
+  selector: 'app-project-selector',
+  templateUrl: './project-selector.component.html',
+  styleUrls: ['./project-selector.component.scss'],
   providers: [
-    {provide: NG_VALUE_ACCESSOR, useExisting: ProjectComponent, multi: true}
+    {provide: NG_VALUE_ACCESSOR, useExisting: ProjectSelectorComponent, multi: true}
   ]
 })
-export class ProjectComponent implements OnInit, ControlValueAccessor {
+export class ProjectSelectorComponent implements OnInit, ControlValueAccessor {
   public controlProject = new FormControl();
   filteredProjects: Observable<Project[]>;
   public projects: Array<Project> = [];
@@ -78,5 +78,4 @@ export class ProjectComponent implements OnInit, ControlValueAccessor {
   projectSelect() {
     this.changed.forEach(f => f(this.selectedProject));
   }
-
 }

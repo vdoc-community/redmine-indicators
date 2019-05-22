@@ -6,20 +6,20 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { IssueScopeEditComponent } from '../issue-scope-edit/issue-scope-edit.component';
+import { QuickCreateComponent } from '../../quick-create/quick-create.component';
 
 @Component({
-  selector: 'app-issue-scope-view',
-  templateUrl: './issue-scope-view.component.html',
-  styleUrls: ['./issue-scope-view.component.scss'],
+  selector: 'app-issue-scope-selector',
+  templateUrl: './issue-scope-selector.component.html',
+  styleUrls: ['./issue-scope-selector.component.scss'],
   providers: [
-    {provide: NG_VALUE_ACCESSOR, useExisting: IssueScopeViewComponent, multi: true}
+    {provide: NG_VALUE_ACCESSOR, useExisting: IssueScopeSelectorComponent, multi: true}
   ]
 })
-export class IssueScopeViewComponent implements OnInit {
+export class IssueScopeSelectorComponent implements OnInit {
   public controlScope = new FormControl();
   filteredIssueScopes: Observable<IssueScope[]>;
   public issueScopes: Array<IssueScope> = [];
-  showAddButton = false;
   editOK = false;
   selectedScope: IssueScope = null;
   private changed = new Array<(value: IssueScope) => void>();
@@ -54,30 +54,16 @@ export class IssueScopeViewComponent implements OnInit {
       );
   }
 
-  private _filterScopes(value: string | IssueScope): IssueScope[] {
+  private _filterScopes(value: string | IssueScope | any): IssueScope[] {
     if ( value instanceof IssueScope) {
-      this.editOK = true;
       return [value];
-    }
+    } else if (value === null) {
+      return null;
+    } else {
     this.editOK = false;
     const filterValue = value.toLowerCase();
-    let results = this.issueScopes.filter(option =>
+    return this.issueScopes.filter(option =>
       option.name.toLowerCase().includes(filterValue));
-
-    this.showAddButton = results.length === 0;
-    if (this.showAddButton) {
-      results = null;
-    }
-
-    return results;
-  }
-
-  addOption() {
-    if (this.controlScope.value !== '' &&
-        this.controlScope.value !== null &&
-        !this.issueScopes.some(entry => entry.name === this.controlScope.value)) {
-      const newScope = new IssueScope(null, this.controlScope.value);
-      this.issueScopeService.save(newScope).subscribe(scope => this.issueScopes.push(scope));
     }
   }
 
@@ -96,7 +82,7 @@ export class IssueScopeViewComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.data = this.selectedScope;
-    this.dialog.open(IssueScopeEditComponent, dialogConfig);
+    dialogConfig.data = new IssueScope(null, null);
+    this.dialog.open(QuickCreateComponent, dialogConfig);
   }
 }

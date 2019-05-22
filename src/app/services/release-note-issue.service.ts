@@ -5,7 +5,6 @@ import { RedmineClient } from './http/redmine-client.service';
 import { Page } from './beans/dto';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ReleaseNote } from './beans/dto/release-note';
 
 @Injectable({
   providedIn: 'root'

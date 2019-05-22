@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IssueContextViewComponent } from './issue-context-view.component';
+import { QuickCreateComponent } from './quick-create.component';
 
-describe('IssueContextViewComponent', () => {
-  let component: IssueContextViewComponent;
-  let fixture: ComponentFixture<IssueContextViewComponent>;
+describe('QuickCreateComponent', () => {
+  let component: QuickCreateComponent;
+  let fixture: ComponentFixture<QuickCreateComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IssueContextViewComponent ]
+      declarations: [ QuickCreateComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(IssueContextViewComponent);
+    fixture = TestBed.createComponent(QuickCreateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

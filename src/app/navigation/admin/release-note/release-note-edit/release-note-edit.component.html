@@ -4,45 +4,67 @@
       Release Note
     </mat-toolbar-row>
   </mat-toolbar>
-<table mat-table [dataSource]="releaseNoteIssues" class="full-width mat-elevation-z8">
-
+<!-- <table mat-table [dataSource]="releaseNoteIssues" class="full-width mat-elevation-z8">
   <ng-container matColumnDef="scope">
     <th mat-header-cell *matHeaderCellDef width="15%"> Scope </th>
     <td mat-cell *matCellDef="let element">
-      <app-issue-scope-view class="full-width full-height" [(ngModel)]="selectedScope"></app-issue-scope-view>
+      <app-issue-scope-selector class="full-width full-height" [(ngModel)]="selectedScope"></app-issue-scope-selector>
     </td>
   </ng-container>
-
   <ng-container matColumnDef="context">
     <th mat-header-cell *matHeaderCellDef width="15%">Context</th>
     <td mat-cell *matCellDef="let element">
-      <app-issue-context-view class="full-width full-height" [scope]="selectedScope" [(ngModel)]="selectedContext"></app-issue-context-view>
+      <app-issue-context-selector class="full-width full-height" [scope]="selectedScope" [(ngModel)]="selectedContext"></app-issue-context-selector>
     </td>
   </ng-container>
-
   <ng-container matColumnDef="problem">
     <th mat-header-cell *matHeaderCellDef width="60%">Problem</th>
     <td mat-cell *matCellDef="let element">
         <textarea matInput placeholder="Leave a comment">{{element.problem}}</textarea>
     </td>
   </ng-container>
-
   <ng-container matColumnDef="ref">
     <th mat-header-cell *matHeaderCellDef width="7%">Ref.</th>
     <td mat-cell *matCellDef="let element">{{ element.issueId }}</td>
   </ng-container>
-
   <ng-container matColumnDef="add">
       <th mat-header-cell *matHeaderCellDef width="3%">Add</th>
       <td mat-cell *matCellDef="let element">
         <mat-checkbox> </mat-checkbox>
       </td>
     </ng-container>
-
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table> -->
+<table>
+  <thead>
+    <tr>
+      <td width="3%">Ref.</td>
+      <td width="50%">Subject</td>
+      <td width="20%">Scope</td>
+      <td width="20%">Context</td>
+      <td width="7%">Select</td>
+    </tr>
+  </thead>
 
-
+  <tbody>
+    <tr *ngFor="let releaseNoteIssue of releaseNoteIssues; let i= index;">
+      <td>
+        <input type="number" [(ngModel)]="releaseNoteIssue.issueId">
+      </td>
+      <td>
+        <textarea matInput [(ngModel)]="releaseNoteIssue.problem"></textarea>
+      </td>
+      <td>
+        <app-issue-scope-selector class="full-width full-height" [(ngModel)]="releaseNoteIssue.scope" [(ngModel)]="selectedScope"></app-issue-scope-selector>
+      </td>
+      <td>
+        <app-issue-context-selector class="full-width full-height" [(ngModel)]="releaseNoteIssue.context" [scope]="selectedScope" [(ngModel)]="selectedContext"></app-issue-context-selector>
+      </td>
+      <td>
+        <mat-checkbox [(ngModel)]="releaseNoteIssue.add"></mat-checkbox>
+      </td>
+    </tr>
+  </tbody>
 </table>
-
 <button mat-raised-button (click)="save()">Save</button>

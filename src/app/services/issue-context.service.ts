@@ -1,4 +1,4 @@
-import { IssueScopeRef } from './beans/refs/issueScope-ref';
+import { IssueScopeRef } from './beans/refs/issue-scope-ref';
 import { IssueScope } from 'src/app/services/beans/dto/issue-scope';
 import { Injectable } from '@angular/core';
 import { AbstractCrudService } from './abstract-crud-service';

@@ -1,17 +1,9 @@
 <div>
+    <app-project-selector [(ngModel)]="selectedProject"></app-project-selector>
+    <app-version-selector [project]="selectedProject" [(ngModel)]="selectedVersion"></app-version-selector>
   <p>
-      <app-project [(ngModel)]="selectedProject"></app-project>
-      <app-version [project]="selectedProject" [(ngModel)]="selectedVersion"></app-version>
-      <button mat-raised-button [disabled]="!(selectedProject && selectedVersion)" (click)="createRLN()">Create RLN</button>
-      {{selectedVersion | json}}
+    <button mat-raised-button [disabled]="!(selectedProject && selectedVersion)" (click)="createRLN()">Create RLN</button>
   </p>
 </div>
 
-<table mat-table [dataSource]="releaseNotes" class="full-width mat-elevation-z8">
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef>Name</th>
-    <td mat-cell *matCellDef="let element"><a [routerLink]="[element.id ]">{{ element.name }}</a></td>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-</table>
+<app-release-note-selector></app-release-note-selector>

@@ -2,7 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReleaseNoteService } from 'src/app/services/release-note.service';
 import { Project, Version } from 'src/app/services/beans/dto';
-import { Issue } from 'src/app/services/beans/dto/issue';
 import { ReleaseNote } from 'src/app/services/beans/dto/release-note';
 import { Router } from '@angular/router';
 
@@ -17,8 +16,6 @@ export class ReleaseNoteComponent implements OnInit {
   selectedReleaseNote: ReleaseNote;
   existing: boolean;
   releaseNotes: Array<ReleaseNote>;
-  dataSourceIssue: Array<Issue>;
-  public displayedColumns: string[] = ['name'];
 
   constructor(private releaseNoteService: ReleaseNoteService,
               private router: Router) {
@@ -34,6 +31,7 @@ export class ReleaseNoteComponent implements OnInit {
         }
       );
   }
+
   createRLN() {
     const name = this.selectedProject.name + ' ' + this.selectedVersion.name;
     this.releaseNotes.forEach((releaseNote) => {

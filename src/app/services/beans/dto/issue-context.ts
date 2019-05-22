@@ -1,4 +1,4 @@
-import { IssueScopeRef, parseIssueScopeRef } from './../refs/issueScope-ref';
+import { IssueScopeRef, parseIssueScopeRef } from '../refs/issue-scope-ref';
 import {AbstractBean} from './abstract-bean';
 
 export class IssueContext extends AbstractBean {

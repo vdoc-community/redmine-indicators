@@ -6,17 +6,17 @@ import { startWith, map } from 'rxjs/operators';
 import { IssueContext } from 'src/app/services/beans/dto/issue-context';
 import { IssueContextService } from 'src/app/services/issue-context.service';
 import { IssueScope } from 'src/app/services/beans/dto/issue-scope';
-import { IssueContextEditComponent } from '../issue-context-edit/issue-context-edit.component';
+import { QuickCreateComponent } from '../../quick-create/quick-create.component';
 
 @Component({
-  selector: 'app-issue-context-view',
-  templateUrl: './issue-context-view.component.html',
-  styleUrls: ['./issue-context-view.component.scss'],
+  selector: 'app-issue-context-selector',
+  templateUrl: './issue-context-selector.component.html',
+  styleUrls: ['./issue-context-selector.component.scss'],
   providers: [
-    {provide: NG_VALUE_ACCESSOR, useExisting: IssueContextViewComponent, multi: true}
+    {provide: NG_VALUE_ACCESSOR, useExisting: IssueContextSelectorComponent, multi: true}
   ]
 })
-export class IssueContextViewComponent implements OnInit {
+export class IssueContextSelectorComponent implements OnInit {
   public controlContext = new FormControl();
   filteredIssueContexts: Observable<IssueContext[]>;
   public issueContexts: Array<IssueContext> = [];
@@ -70,22 +70,18 @@ export class IssueContextViewComponent implements OnInit {
       );
   }
 
-  private _filterContext(value: string | IssueContext): IssueContext[] {
+  private _filterContext(value: string | any | IssueContext): IssueContext[] {
     if ( value instanceof IssueContext) {
       this.editOK = true;
       return [value];
+    } else if (value === null) {
+      return null;
+    } else {
+      this.editOK = false;
+      const filterValue = value.toLowerCase();
+      return this.issueContexts.filter(option =>
+        option.description.toLowerCase().includes(filterValue));
     }
-    this.editOK = false;
-    const filterValue = value.toLowerCase();
-    let results = this.issueContexts.filter(option =>
-      option.description.toLowerCase().includes(filterValue));
-
-    this.showAddButton = results.length === 0;
-    if (this.showAddButton) {
-      results = null;
-    }
-
-    return results;
   }
 
   addOption() {
@@ -112,7 +108,7 @@ export class IssueContextViewComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.data = this.selectedContext;
-    this.dialog.open(IssueContextEditComponent, dialogConfig);
+    dialogConfig.data = new IssueContext(null, null);
+    this.dialog.open(QuickCreateComponent, dialogConfig);
   }
 }

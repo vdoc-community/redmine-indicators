@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
-import { IssueScopeService } from 'src/app/services/issue-scope.service';
-import { IssueScope } from 'src/app/services/beans/dto/issue-scope';
 import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
+import { IssueScope } from 'src/app/services/beans/dto/issue-scope';
+import { IssueScopeService } from 'src/app/services/issue-scope.service';
 
 @Component({
   selector: 'app-issue-scope-edit',

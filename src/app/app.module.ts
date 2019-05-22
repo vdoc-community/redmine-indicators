@@ -45,16 +45,17 @@ import { ObjectiveEditComponent } from './navigation/admin/objectives/objective-
 import { FitTextComponent } from './components/fit-text/fit-text.component';
 import { SimpleIndicatorComponent } from './navigation/dashboard/indicator/simple-indicator/simple-indicator.component';
 import { ReleaseNoteComponent } from './navigation/admin/release-note/release-note.component';
-import { ProjectComponent } from './navigation/admin/release-note/project/project.component';
-import { VersionComponent } from './navigation/admin/release-note/version/version.component';
-import { IssueScopeViewComponent } from './navigation/admin/release-note/issue-scope/issue-scope-view/issue-scope-view.component';
-import { IssueContextViewComponent } from './navigation/admin/release-note/issue-context/issue-context-view/issue-context-view.component';
+import { ProjectSelectorComponent } from './navigation/admin/release-note/project-selector/project-selector.component';
+import { VersionSelectorComponent } from './navigation/admin/release-note/version-selector/version-selector.component';
 import { IssueScopeEditComponent } from './navigation/admin/release-note/issue-scope/issue-scope-edit/issue-scope-edit.component';
 import { IssueContextEditComponent } from './navigation/admin/release-note/issue-context/issue-context-edit/issue-context-edit.component';
 import { ConfirmationDialogComponent } from './navigation/admin/release-note/confirmation-dialog/confirmation-dialog.component';
 import { ReleaseNoteEditComponent } from './navigation/admin/release-note/release-note-edit/release-note-edit.component';
-import { ReleaseNoteViewComponent } from './navigation/admin/release-note/release-note-view/release-note-view.component';
+import { ReleaseNoteSelectorComponent } from './navigation/admin/release-note/release-note-selector/release-note-selector.component';
 import { CdkTableModule } from '@angular/cdk/table';
+import { QuickCreateComponent } from './navigation/admin/release-note/quick-create/quick-create.component';
+import { IssueScopeSelectorComponent } from './navigation/admin/release-note/issue-scope/issue-scope-selector/issue-scope-selector.component';
+import { IssueContextSelectorComponent } from './navigation/admin/release-note/issue-context/issue-context-selector/issue-context-selector.component';
 
 export const ROUTES: Routes = [
   {
@@ -106,15 +107,16 @@ export const ROUTES: Routes = [
     FitTextComponent,
     SimpleIndicatorComponent,
     ReleaseNoteComponent,
-    ProjectComponent,
-    VersionComponent,
-    IssueScopeViewComponent,
-    IssueContextViewComponent,
+    ProjectSelectorComponent,
+    VersionSelectorComponent,
+    IssueScopeSelectorComponent,
+    IssueContextSelectorComponent,
     IssueScopeEditComponent,
     IssueContextEditComponent,
     ConfirmationDialogComponent,
     ReleaseNoteEditComponent,
-    ReleaseNoteViewComponent
+    ReleaseNoteSelectorComponent,
+    QuickCreateComponent
   ],
   imports: [
     RouterModule.forRoot(ROUTES),
@@ -148,6 +150,6 @@ export const ROUTES: Routes = [
   ],
   providers: [ObjectivesService, ChartService, IssuesService],
   bootstrap: [AppComponent],
-  entryComponents: [IssueScopeEditComponent, IssueContextEditComponent, ConfirmationDialogComponent]
+  entryComponents: [IssueScopeEditComponent, QuickCreateComponent, IssueContextEditComponent, ConfirmationDialogComponent]
 })
 export class AppModule {}
