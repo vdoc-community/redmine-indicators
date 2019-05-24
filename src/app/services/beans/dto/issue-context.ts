@@ -17,8 +17,12 @@ export class IssueContext extends AbstractBean {
 }
 
 export function parseIssueContext(json: any): IssueContext {
-  const issueContext = new IssueContext(json.id, json.name);
-  issueContext.description = json.description;
-  issueContext.scope = parseIssueScopeRef(json.scope);
-  return issueContext;
+  if (json === undefined) {
+    return null;
+  } else {
+    const issueContext = new IssueContext(json.id, json.name);
+    issueContext.description = json.description;
+    issueContext.scope = parseIssueScopeRef(json.scope);
+    return issueContext;
+  }
 }

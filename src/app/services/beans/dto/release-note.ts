@@ -1,6 +1,4 @@
 import {AbstractBean} from './abstract-bean';
-import { Project } from './project';
-import { Version } from './version';
 
 export class ReleaseNote extends AbstractBean {
   projectId: number;

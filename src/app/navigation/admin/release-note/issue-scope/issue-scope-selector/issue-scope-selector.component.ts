@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { IssueScopeEditComponent } from '../issue-scope-edit/issue-scope-edit.component';
 import { QuickCreateComponent } from '../../quick-create/quick-create.component';
+import { IssueScopeRef } from 'src/app/services/beans/refs/issue-scope-ref';
 
 @Component({
   selector: 'app-issue-scope-selector',
@@ -52,15 +53,13 @@ export class IssueScopeSelectorComponent implements OnInit {
       startWith(''),
       map(scope => scope ? this._filterScopes(scope) : this.issueScopes.slice())
       );
+
   }
 
-  private _filterScopes(value: string | IssueScope | any): IssueScope[] {
-    if ( value instanceof IssueScope) {
+  private _filterScopes(value: string | IssueScope | IssueScopeRef): IssueScope[] {
+    if (value instanceof IssueScope || value instanceof IssueScopeRef) {
       return [value];
-    } else if (value === null) {
-      return null;
     } else {
-    this.editOK = false;
     const filterValue = value.toLowerCase();
     return this.issueScopes.filter(option =>
       option.name.toLowerCase().includes(filterValue));

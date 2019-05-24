@@ -1,13 +1,10 @@
-import { IssueScope } from './issue-scope';
-import { IssueScopeRef, parseIssueScopeRef } from './../refs/issue-scope-ref';
-import {AbstractBean} from './abstract-bean';
-import { IssueContextRef, parseIssueContextRef } from '../refs/issue-context-ref';
-import { ReleaseNoteRef, parseReleaseNoteRef } from '../refs/release-note-ref';
-import { ReleaseNote } from './release-note';
+import { AbstractBean } from './abstract-bean';
+import { IssueScopeRef, ReleaseNoteRef, parseIssueScopeRef, parseReleaseNoteRef } from '../refs';
+import { IssueScope, IssueContext, ReleaseNote, parseIssueContext } from '.';
 
 export class ReleaseNoteIssue extends AbstractBean {
   scope: IssueScopeRef | IssueScope;
-  context: IssueContextRef | IssueScope;
+  context: IssueContext;
   releaseNote: ReleaseNoteRef | ReleaseNote;
   problem: string;
   issueId: number;
@@ -21,7 +18,7 @@ export class ReleaseNoteIssue extends AbstractBean {
 export function parseReleaseNoteIssue(json: any): ReleaseNoteIssue {
   const releaseNoteIssue = new ReleaseNoteIssue(json.id, json.name);
   releaseNoteIssue.scope = parseIssueScopeRef(json.scope);
-  releaseNoteIssue.context = parseIssueContextRef(json.context);
+  releaseNoteIssue.context = parseIssueContext(json.context);
   releaseNoteIssue.problem = json.problem;
   releaseNoteIssue.issueId = json.issueId;
   releaseNoteIssue.releaseNote = parseReleaseNoteRef(json.releaseNote);

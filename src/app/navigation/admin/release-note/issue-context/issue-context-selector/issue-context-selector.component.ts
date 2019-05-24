@@ -1,12 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MatDialogConfig, MatDialog } from '@angular/material';
+import { NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
-import { IssueContext } from 'src/app/services/beans/dto/issue-context';
+import { IssueContext, IssueScope } from 'src/app/services/beans/dto';
 import { IssueContextService } from 'src/app/services/issue-context.service';
-import { IssueScope } from 'src/app/services/beans/dto/issue-scope';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { startWith, map } from 'rxjs/operators';
 import { QuickCreateComponent } from '../../quick-create/quick-create.component';
+
 
 @Component({
   selector: 'app-issue-context-selector',
@@ -70,26 +70,13 @@ export class IssueContextSelectorComponent implements OnInit {
       );
   }
 
-  private _filterContext(value: string | any | IssueContext): IssueContext[] {
+  private _filterContext(value: string | IssueContext): IssueContext[] {
     if ( value instanceof IssueContext) {
-      this.editOK = true;
       return [value];
-    } else if (value === null) {
-      return null;
     } else {
-      this.editOK = false;
       const filterValue = value.toLowerCase();
       return this.issueContexts.filter(option =>
         option.description.toLowerCase().includes(filterValue));
-    }
-  }
-
-  addOption() {
-    if (this.controlContext.value !== '' &&
-        this.controlContext.value !== null &&
-        !this.issueContexts.some(entry => entry.description === this.controlContext.value)) {
-      const newContext = new IssueContext(null, null, this.controlContext.value, this._scope);
-      this.issueContextService.save(newContext).subscribe(context => this.issueContexts.push(context));
     }
   }
 

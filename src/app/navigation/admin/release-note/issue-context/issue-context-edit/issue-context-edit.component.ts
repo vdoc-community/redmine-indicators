@@ -1,8 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { IssueContext } from 'src/app/services/beans/dto/issue-context';
+import { IssueContext } from 'src/app/services/beans/dto';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { IssueContextService } from 'src/app/services/issue-context.service';
 import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
+
 
 @Component({
   selector: 'app-issue-context-edit',

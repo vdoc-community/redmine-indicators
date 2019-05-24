@@ -5,6 +5,9 @@
         aria-label="Scope"
         matInput [formControl]="controlScope"
         [matAutocomplete]="autoScope">
+  <button mat-button matSuffix mat-icon-button (click)="openDialog()">
+    <mat-icon>add</mat-icon>
+  </button>
 </mat-form-field>
 <mat-autocomplete #autoScope="matAutocomplete"
                   (optionSelected)="scopeSelect()"
@@ -13,6 +16,3 @@
     <span> {{scope.name}} </span>
   </mat-option>
 </mat-autocomplete>
-<button mat-mini-fab color="primary" (click)="openDialog()">
-    <mat-icon aria-label="">add</mat-icon>
-</button>

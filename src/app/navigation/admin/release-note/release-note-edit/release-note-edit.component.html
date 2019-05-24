@@ -24,11 +24,11 @@
     </td>
   </ng-container>
   <ng-container matColumnDef="ref">
-    <th mat-header-cell *matHeaderCellDef width="7%">Ref.</th>
+    <th mat-header-cell *matHeaderCellDef width="5%">Ref.</th>
     <td mat-cell *matCellDef="let element">{{ element.issueId }}</td>
   </ng-container>
   <ng-container matColumnDef="add">
-      <th mat-header-cell *matHeaderCellDef width="3%">Add</th>
+      <th mat-header-cell *matHeaderCellDef width="5%">Add</th>
       <td mat-cell *matCellDef="let element">
         <mat-checkbox> </mat-checkbox>
       </td>
@@ -39,18 +39,18 @@
 <table>
   <thead>
     <tr>
-      <td width="3%">Ref.</td>
+      <td width="5%">Ref.</td>
       <td width="50%">Subject</td>
       <td width="20%">Scope</td>
       <td width="20%">Context</td>
-      <td width="7%">Select</td>
+      <td width="5%">Select</td>
     </tr>
   </thead>
 
   <tbody>
     <tr *ngFor="let releaseNoteIssue of releaseNoteIssues; let i= index;">
       <td>
-        <input type="number" [(ngModel)]="releaseNoteIssue.issueId">
+        <input matInput type="number" [(ngModel)]="releaseNoteIssue.issueId">
       </td>
       <td>
         <textarea matInput [(ngModel)]="releaseNoteIssue.problem"></textarea>

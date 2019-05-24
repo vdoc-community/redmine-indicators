@@ -1,12 +1,9 @@
-import { IssueContextRef } from './../../../../services/beans/refs/issue-context-ref';
-import { IssueScopeRef } from './../../../../services/beans/refs/issue-scope-ref';
 import { Component, OnInit } from '@angular/core';
-import { ReleaseNoteIssue } from 'src/app/services/beans/dto/release-note-issue';
-import { IssueScope } from 'src/app/services/beans/dto/issue-scope';
-import { IssueContext } from 'src/app/services/beans/dto/issue-context';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { ReleaseNote } from 'src/app/services/beans/dto/release-note';
+import { ReleaseNoteIssue, IssueScope, IssueContext, ReleaseNote } from 'src/app/services/beans/dto';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { ReleaseNoteIssueService } from 'src/app/services/release-note-issue.service';
+import { IssueScopeRef } from 'src/app/services/beans/refs';
+
 
 @Component({
   selector: 'app-release-note-edit',
@@ -47,8 +44,6 @@ export class ReleaseNoteEditComponent implements OnInit {
   save() {
     this.releaseNoteIssues.forEach(releaseNoteIssue => {
       releaseNoteIssue.scope = new IssueScopeRef(releaseNoteIssue.scope);
-      releaseNoteIssue.context = new IssueContextRef(releaseNoteIssue.context);
-      console.log(releaseNoteIssue);
       this.releaseNoteIssueService.update(releaseNoteIssue).subscribe();
       this.router.navigate([`/admin/release-note/`]);
     });
