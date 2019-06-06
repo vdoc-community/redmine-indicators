@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { IssueScopeService } from 'src/app/services/issue-scope.service';
 import { IssueScope } from 'src/app/services/beans/dto/issue-scope';
 import { FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { IssueScopeEditComponent } from '../issue-scope-edit/issue-scope-edit.component';
 import { QuickCreateComponent } from '../../quick-create/quick-create.component';
 import { IssueScopeRef } from 'src/app/services/beans/refs/issue-scope-ref';
+import { QuickEditComponent } from '../../quick-edit/quick-edit.component';
 
 @Component({
   selector: 'app-issue-scope-selector',
@@ -21,7 +21,7 @@ export class IssueScopeSelectorComponent implements OnInit {
   public controlScope = new FormControl();
   filteredIssueScopes: Observable<IssueScope[]>;
   public issueScopes: Array<IssueScope> = [];
-  editOK = false;
+  edit = false;
   selectedScope: IssueScope = null;
   private changed = new Array<(value: IssueScope) => void>();
 
@@ -58,11 +58,13 @@ export class IssueScopeSelectorComponent implements OnInit {
 
   private _filterScopes(value: string | IssueScope | IssueScopeRef): IssueScope[] {
     if (value instanceof IssueScope || value instanceof IssueScopeRef) {
+      this.edit = true;
       return [value];
     } else {
+      this.edit = false;
     const filterValue = value.toLowerCase();
     return this.issueScopes.filter(option =>
-      option.name.toLowerCase().includes(filterValue));
+      option.name.toLowerCase().indexOf(filterValue) === 0);
     }
   }
 
@@ -83,5 +85,13 @@ export class IssueScopeSelectorComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.data = new IssueScope(null, null);
     this.dialog.open(QuickCreateComponent, dialogConfig);
+  }
+
+  editScope(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = this.selectedScope;
+    this.dialog.open(QuickEditComponent, dialogConfig);
   }
 }

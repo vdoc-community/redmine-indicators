@@ -48,14 +48,15 @@ import { ReleaseNoteComponent } from './navigation/admin/release-note/release-no
 import { ProjectSelectorComponent } from './navigation/admin/release-note/project-selector/project-selector.component';
 import { VersionSelectorComponent } from './navigation/admin/release-note/version-selector/version-selector.component';
 import { IssueScopeEditComponent } from './navigation/admin/release-note/issue-scope/issue-scope-edit/issue-scope-edit.component';
+import { IssueScopeSelectorComponent } from './navigation/admin/release-note/issue-scope/issue-scope-selector/issue-scope-selector.component';
 import { IssueContextEditComponent } from './navigation/admin/release-note/issue-context/issue-context-edit/issue-context-edit.component';
+import { IssueContextSelectorComponent } from './navigation/admin/release-note/issue-context/issue-context-selector/issue-context-selector.component';
 import { ConfirmationDialogComponent } from './navigation/admin/release-note/confirmation-dialog/confirmation-dialog.component';
 import { ReleaseNoteEditComponent } from './navigation/admin/release-note/release-note-edit/release-note-edit.component';
 import { ReleaseNoteSelectorComponent } from './navigation/admin/release-note/release-note-selector/release-note-selector.component';
 import { CdkTableModule } from '@angular/cdk/table';
 import { QuickCreateComponent } from './navigation/admin/release-note/quick-create/quick-create.component';
-import { IssueScopeSelectorComponent } from './navigation/admin/release-note/issue-scope/issue-scope-selector/issue-scope-selector.component';
-import { IssueContextSelectorComponent } from './navigation/admin/release-note/issue-context/issue-context-selector/issue-context-selector.component';
+import { QuickEditComponent } from './navigation/admin/release-note/quick-edit/quick-edit.component';
 
 export const ROUTES: Routes = [
   {
@@ -116,7 +117,8 @@ export const ROUTES: Routes = [
     ConfirmationDialogComponent,
     ReleaseNoteEditComponent,
     ReleaseNoteSelectorComponent,
-    QuickCreateComponent
+    QuickCreateComponent,
+    QuickEditComponent
   ],
   imports: [
     RouterModule.forRoot(ROUTES),
@@ -150,6 +152,11 @@ export const ROUTES: Routes = [
   ],
   providers: [ObjectivesService, ChartService, IssuesService],
   bootstrap: [AppComponent],
-  entryComponents: [IssueScopeEditComponent, QuickCreateComponent, IssueContextEditComponent, ConfirmationDialogComponent]
+  entryComponents: [
+    IssueScopeEditComponent,
+    QuickCreateComponent,
+    QuickEditComponent,
+    IssueContextEditComponent,
+    ConfirmationDialogComponent]
 })
 export class AppModule {}

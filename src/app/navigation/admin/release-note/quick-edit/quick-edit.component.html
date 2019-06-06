@@ -1,0 +1,20 @@
+<h1 matDialogTitle>Edit</h1>
+
+<mat-dialog-content>
+    <input matInput [(ngModel)]="name" placeholder="Enter a new name">
+    <app-issue-scope-selector *ngIf='contextToEdit' class="full-width full-height"
+                            [(ngModel)]="selectedScope">
+    </app-issue-scope-selector>
+    {{ scopeToEdit | json }}
+    {{ contextToEdit | json }}
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <div >
+    <button *ngIf='contextToEdit'mat-button (click)="edit(contextToEdit)">Edit context</button>
+    <button *ngIf='contextToEdit'mat-button mat-dialog-close (click)="delete(contextToEdit)">Delete</button>
+    <button *ngIf='scopeToEdit' mat-button (click)="edit(scopeToEdit)">Edit scope</button>
+    <button *ngIf='scopeToEdit' mat-button mat-dialog-close (click)="delete(scopeToEdit)">Delete</button>
+    <button mat-button mat-dialog-close>Close dialog</button>
+  </div>
+</mat-dialog-actions>

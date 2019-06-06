@@ -6,6 +6,7 @@ import { IssueContextService } from 'src/app/services/issue-context.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { startWith, map } from 'rxjs/operators';
 import { QuickCreateComponent } from '../../quick-create/quick-create.component';
+import { QuickEditComponent } from '../../quick-edit/quick-edit.component';
 
 
 @Component({
@@ -20,8 +21,7 @@ export class IssueContextSelectorComponent implements OnInit {
   public controlContext = new FormControl();
   filteredIssueContexts: Observable<IssueContext[]>;
   public issueContexts: Array<IssueContext> = [];
-  showAddButton = false;
-  editOK = false;
+  edit = false;
   selectedContext: IssueContext = null;
   private _scope: IssueScope;
   private changed = new Array<(value: IssueContext) => void>();
@@ -72,8 +72,10 @@ export class IssueContextSelectorComponent implements OnInit {
 
   private _filterContext(value: string | IssueContext): IssueContext[] {
     if ( value instanceof IssueContext) {
+      this.edit = true;
       return [value];
     } else {
+      this.edit = false;
       const filterValue = value.toLowerCase();
       return this.issueContexts.filter(option =>
         option.description.toLowerCase().includes(filterValue));
@@ -97,5 +99,13 @@ export class IssueContextSelectorComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.data = new IssueContext(null, null);
     this.dialog.open(QuickCreateComponent, dialogConfig);
+  }
+
+  editContext(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = this.selectedContext;
+    this.dialog.open(QuickEditComponent, dialogConfig);
   }
 }

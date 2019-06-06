@@ -1,11 +1,11 @@
 import { AbstractBean } from './abstract-bean';
 import { IssueScopeRef, ReleaseNoteRef, parseIssueScopeRef, parseReleaseNoteRef } from '../refs';
-import { IssueScope, IssueContext, ReleaseNote, parseIssueContext } from '.';
+import { IssueContext, parseIssueContext } from './issue-context';
 
 export class ReleaseNoteIssue extends AbstractBean {
-  scope: IssueScopeRef | IssueScope;
+  scope: IssueScopeRef;
   context: IssueContext;
-  releaseNote: ReleaseNoteRef | ReleaseNote;
+  releaseNote: ReleaseNoteRef;
   problem: string;
   issueId: number;
   add: boolean;
