@@ -1,22 +1,25 @@
-<div>
+
   <mat-toolbar color="secondary" class="mat-elevation-z6">
     <mat-toolbar-row>
       Release Note
     </mat-toolbar-row>
   </mat-toolbar>
-<!-- <table mat-table [dataSource]="releaseNoteIssues" class="full-width mat-elevation-z8">
+<table mat-table [dataSource]="releaseNoteIssues" class="full-width mat-elevation-z8">
+
   <ng-container matColumnDef="scope">
     <th mat-header-cell *matHeaderCellDef width="15%"> Scope </th>
     <td mat-cell *matCellDef="let element">
       <app-issue-scope-selector class="full-width full-height" [(ngModel)]="selectedScope"></app-issue-scope-selector>
     </td>
   </ng-container>
+
   <ng-container matColumnDef="context">
     <th mat-header-cell *matHeaderCellDef width="15%">Context</th>
     <td mat-cell *matCellDef="let element">
       <app-issue-context-selector class="full-width full-height" [scope]="selectedScope" [(ngModel)]="selectedContext"></app-issue-context-selector>
     </td>
   </ng-container>
+
   <ng-container matColumnDef="problem">
     <th mat-header-cell *matHeaderCellDef width="60%">Problem</th>
     <td mat-cell *matCellDef="let element">
@@ -35,7 +38,7 @@
     </ng-container>
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-</table> -->
+</table>
 <table>
   <thead>
     <tr>

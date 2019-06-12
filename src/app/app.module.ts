@@ -24,7 +24,10 @@ import {
   MatTableModule,
   MatAutocompleteModule,
   MatDialogModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatStepperModule,
+  MatPaginatorModule,
+  MatSortModule
 } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ObjectivesService } from './services/objectives.service';
@@ -57,6 +60,8 @@ import { ReleaseNoteSelectorComponent } from './navigation/admin/release-note/re
 import { CdkTableModule } from '@angular/cdk/table';
 import { QuickCreateComponent } from './navigation/admin/release-note/quick-create/quick-create.component';
 import { QuickEditComponent } from './navigation/admin/release-note/quick-edit/quick-edit.component';
+import { ReleaseNoteIssueViewComponent } from './navigation/admin/release-note/release-note-issue/release-note-issue-view/release-note-issue-view.component';
+import { ReleaseNoteIssueEditComponent } from './navigation/admin/release-note/release-note-issue/release-note-issue-edit/release-note-issue-edit.component';
 
 export const ROUTES: Routes = [
   {
@@ -87,7 +92,7 @@ export const ROUTES: Routes = [
       },
       {
         path: 'release-note/:id',
-        component: ReleaseNoteEditComponent
+        component: ReleaseNoteIssueViewComponent
       }
     ]
   }
@@ -118,7 +123,9 @@ export const ROUTES: Routes = [
     ReleaseNoteEditComponent,
     ReleaseNoteSelectorComponent,
     QuickCreateComponent,
-    QuickEditComponent
+    QuickEditComponent,
+    ReleaseNoteIssueViewComponent,
+    ReleaseNoteIssueEditComponent
   ],
   imports: [
     RouterModule.forRoot(ROUTES),
@@ -148,12 +155,16 @@ export const ROUTES: Routes = [
     ReactiveFormsModule,
     MatDialogModule,
     MatCheckboxModule,
-    CdkTableModule
+    CdkTableModule,
+    MatStepperModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [ObjectivesService, ChartService, IssuesService],
   bootstrap: [AppComponent],
   entryComponents: [
     IssueScopeEditComponent,
+    ReleaseNoteIssueEditComponent,
     QuickCreateComponent,
     QuickEditComponent,
     IssueContextEditComponent,

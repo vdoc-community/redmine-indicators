@@ -1,0 +1,18 @@
+table {
+  width: 100%;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: #f5f5f5;
+  cursor: pointer;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+button.mat-fab.floating {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+}

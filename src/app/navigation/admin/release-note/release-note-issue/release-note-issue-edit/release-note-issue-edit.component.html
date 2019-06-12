@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>Edit Issue : {{issueToEdit.issueId}}</h1>
+<div mat-dialog-content>
+  <mat-card-content>
+    <div class="form-field-container" >
+      <mat-form-field>
+          <textarea matInput type="text" placeholder="Problem" [(ngModel)]="issueToEdit.problem"></textarea>
+      </mat-form-field>
+      <div>
+        <app-issue-scope-selector [(ngModel)]="selectedScope"></app-issue-scope-selector>
+        <button mat-raised-button class="dialog-button" (click)="clearScope()">Clear Scope</button>
+      </div>
+      <div>
+        <app-issue-context-selector [scope]="selectedScope" [(ngModel)]="selectedContext"></app-issue-context-selector>
+        <button mat-raised-button class="dialog-button" (click)="clearContext()">Clear Context</button>
+      </div>
+    </div>
+  </mat-card-content>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button class="dialog-button" color="primary" (click)="edit()">Save Issue</button>
+  <button mat-raised-button class="dialog-button" mat-button mat-dialog-close>Close</button>
+</div>

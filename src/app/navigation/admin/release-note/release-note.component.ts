@@ -4,6 +4,7 @@ import { ReleaseNoteService } from 'src/app/services/release-note.service';
 import { Project, Version } from 'src/app/services/beans/dto';
 import { ReleaseNote } from 'src/app/services/beans/dto/release-note';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-release-note',
@@ -15,10 +16,14 @@ export class ReleaseNoteComponent implements OnInit {
   selectedVersion: Version = null;
   selectedReleaseNote: ReleaseNote;
   existing: boolean;
+  isLinear = true;
   releaseNotes: Array<ReleaseNote>;
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
 
   constructor(private releaseNoteService: ReleaseNoteService,
-              private router: Router) {
+              private router: Router,
+              private _formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
@@ -30,6 +35,12 @@ export class ReleaseNoteComponent implements OnInit {
           this.releaseNotes = page.elements;
         }
       );
+    this.firstFormGroup = this._formBuilder.group({
+        firstCtrl: ['', Validators.required]
+      });
+    this.secondFormGroup = this._formBuilder.group({
+        secondCtrl: ['', Validators.required]
+      });
   }
 
   createRLN() {

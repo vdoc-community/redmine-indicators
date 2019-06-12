@@ -1,9 +1,47 @@
-<div>
-    <app-project-selector [(ngModel)]="selectedProject"></app-project-selector>
-    <app-version-selector [project]="selectedProject" [(ngModel)]="selectedVersion"></app-version-selector>
-  <p>
-    <button mat-raised-button [disabled]="!(selectedProject && selectedVersion)" (click)="createRLN()">Create RLN</button>
-  </p>
+<div class="main">
+  <mat-toolbar color="secondary" class="mat-elevation-z6">
+    <mat-toolbar-row>
+      Create a new release note :
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <div>
+    <mat-horizontal-stepper [linear]="isLinear" #stepper>
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Select one project</ng-template>
+            <app-project-selector [(ngModel)]="selectedProject" formControlName="firstCtrl"></app-project-selector>
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Select one version</ng-template>
+            <div>
+              <label *ngIf="selectedProject">Project selected : {{selectedProject.name}}</label>
+            </div>
+            <app-version-selector [project]="selectedProject" [(ngModel)]="selectedVersion" formControlName="secondCtrl"></app-version-selector>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Generate</ng-template>
+          <button mat-raised-button color="primary" [disabled]="!(selectedProject && selectedVersion)" (click)="createRLN()">Create RLN</button>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+  <mat-toolbar color="secondary" class="mat-elevation-z6">
+      <mat-toolbar-row>
+        Or select an existing release note :
+      </mat-toolbar-row>
+    </mat-toolbar>
+  <app-release-note-selector></app-release-note-selector>
 </div>
-
-<app-release-note-selector></app-release-note-selector>
