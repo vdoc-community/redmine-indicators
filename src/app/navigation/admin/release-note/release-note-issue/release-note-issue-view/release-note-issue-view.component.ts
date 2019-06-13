@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ReleaseNoteIssueService } from 'src/app/services/release-note-issue.service';
 import { ReleaseNoteIssue, IssueScope, IssueContext, ReleaseNote } from 'src/app/services/beans/dto';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -7,6 +7,7 @@ import { MatDialog, MatPaginator, MatTableDataSource, MatSort } from '@angular/m
 import { ReleaseNoteIssueEditComponent } from '../release-note-issue-edit/release-note-issue-edit.component';
 import { ReleaseNoteService } from 'src/app/services/release-note.service';
 import { IssueScopeRef } from 'src/app/services/beans/refs';
+import { ReleaseNoteIssueSelectorComponent } from '../release-note-issue-selector/release-note-issue-selector.component';
 
 @Component({
   selector: 'app-release-note-issue-view',
@@ -14,27 +15,39 @@ import { IssueScopeRef } from 'src/app/services/beans/refs';
   styleUrls: ['./release-note-issue-view.component.scss']
 })
 export class ReleaseNoteIssueViewComponent implements OnInit {
-  displayedColumns: string[] = ['select', 'scope', 'context', 'problem', 'issueId', 'edit'];
+  displayedColumns: string[] = ['issueId', 'problem', 'scope', 'context'];
   private id: number;
   public releaseNote: ReleaseNote;
-  releaseNoteIssues = new MatTableDataSource<ReleaseNoteIssue>(ELEMENT_DATA);
-  selection = new SelectionModel<ReleaseNoteIssue>(true, []);
+  private releaseNoteIssues = new MatTableDataSource<ReleaseNoteIssue>();
+  selectedReleaseNoteIssues = new MatTableDataSource<ReleaseNoteIssue>();
+  first = true;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               public dialog: MatDialog,
               private releaseNoteIssueService: ReleaseNoteIssueService,
               private releaseNoteService: ReleaseNoteService) { }
 
   ngOnInit() {
+    this.reset();
+    this.selectedReleaseNoteIssues = new MatTableDataSource<ReleaseNoteIssue>();
     this.route.params.subscribe((params: Params) => {
       this.id = params['id'];
       this.releaseNoteIssueService
         .findAllByReleaseNoteId(this.id)
-        .subscribe(releaseNoteIssue => {
-          this.releaseNoteIssues.data = releaseNoteIssue.elements;
+        .subscribe(result => {
+          this.releaseNoteIssues.data = result.elements;
+          this.selectedReleaseNoteIssues = new MatTableDataSource<ReleaseNoteIssue>();
+          result.elements.forEach(element => {
+            if (element.add) {
+              console.log(element);
+              this.selectedReleaseNoteIssues.data.push(element);
+              this.first = false;
+            }
+          });
         });
       this.releaseNoteService
         .findById(this.id)
@@ -55,25 +68,7 @@ export class ReleaseNoteIssueViewComponent implements OnInit {
     return item[property];
   }
 
-  masterToggle() {
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.releaseNoteIssues.data.forEach(row => this.selection.select(row));
-  }
-
-
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.releaseNoteIssues.data.length;
-    return numSelected === numRows;
-  }
-
-  checkboxLabel(row?: ReleaseNoteIssue): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.issueId + 1}`;
-  }
+  private reset(): void {}
 
   openDialog(row?: ReleaseNoteIssue): void {
     const dialogRef = this.dialog.open(ReleaseNoteIssueEditComponent, {
@@ -86,6 +81,7 @@ export class ReleaseNoteIssueViewComponent implements OnInit {
     });
   }
 
+  // TODO : Possibilité de grouper les 2 fonctions display?
   displayScope(scope?: IssueScope ): string {
     if (!scope) {
       return '';
@@ -106,6 +102,23 @@ export class ReleaseNoteIssueViewComponent implements OnInit {
       this.releaseNoteIssueService.save(releaseNoteIssue).subscribe();
     });
   }
-}
 
-const ELEMENT_DATA: ReleaseNoteIssue[] = [];
+  addIssue() {
+    const dialogRef = this.dialog.open(ReleaseNoteIssueSelectorComponent, {
+      width: '800px',
+      data: this.releaseNoteIssues
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.releaseNoteIssueService.update(result).subscribe(issue => {
+        this.selectedReleaseNoteIssues.data.push(issue);
+      });
+      this.first = false;
+    });
+  }
+
+  edit(row: ReleaseNoteIssue) {
+    this.router.navigate([`/side/release-note/edit-issue/${row.id}`]);
+  }
+
+}

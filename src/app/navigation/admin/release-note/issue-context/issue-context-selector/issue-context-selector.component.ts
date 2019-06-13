@@ -5,8 +5,6 @@ import { IssueContext, IssueScope } from 'src/app/services/beans/dto';
 import { IssueContextService } from 'src/app/services/issue-context.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { startWith, map } from 'rxjs/operators';
-import { QuickCreateComponent } from '../../quick-create/quick-create.component';
-import { QuickEditComponent } from '../../quick-edit/quick-edit.component';
 
 
 @Component({
@@ -93,19 +91,19 @@ export class IssueContextSelectorComponent implements OnInit {
     this.changed.forEach(f => f(this.selectedContext));
   }
 
-  openDialog(): void {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = new IssueContext(null, null);
-    this.dialog.open(QuickCreateComponent, dialogConfig);
-  }
+  // openDialog(): void {
+  //   const dialogConfig = new MatDialogConfig();
+  //   dialogConfig.disableClose = true;
+  //   dialogConfig.autoFocus = true;
+  //   dialogConfig.data = new IssueContext(null, null);
+  //   this.dialog.open(QuickCreateComponent, dialogConfig);
+  // }
 
-  editContext(): void {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = this.selectedContext;
-    this.dialog.open(QuickEditComponent, dialogConfig);
-  }
+  // editContext(): void {
+  //   const dialogConfig = new MatDialogConfig();
+  //   dialogConfig.disableClose = true;
+  //   dialogConfig.autoFocus = true;
+  //   dialogConfig.data = this.selectedContext;
+  //   this.dialog.open(QuickEditComponent, dialogConfig);
+  // }
 }

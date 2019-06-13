@@ -1,9 +1,9 @@
-import { ReleaseNote } from '../../../../services/beans/dto/release-note';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ReleaseNoteService } from 'src/app/services/release-note.service';
 import { startWith, map } from 'rxjs/operators';
+import { ReleaseNote } from 'src/app/services/beans/dto';
 
 @Component({
   selector: 'app-release-note-selector',
@@ -15,6 +15,7 @@ export class ReleaseNoteSelectorComponent implements OnInit {
   filteredReleaseNote: Observable<ReleaseNote[]>;
   public releaseNotes: Array<ReleaseNote> = [];
   public displayedColumns: string[] = ['name'];
+  public first = true;
 
   constructor(private releaseNoteService: ReleaseNoteService) {}
 
@@ -23,8 +24,13 @@ export class ReleaseNoteSelectorComponent implements OnInit {
       .findAll()
       .subscribe(
         page => {
-          page.elements.sort((a, b) => a.name.localeCompare(b.name));
-          this.releaseNotes = page.elements;
+          if (page.elements.length === 0) {
+            this.first = true;
+          } else {
+            page.elements.sort((a, b) => a.name.localeCompare(b.name));
+            this.releaseNotes = page.elements;
+            this.first = false;
+          }
         }
       );
 

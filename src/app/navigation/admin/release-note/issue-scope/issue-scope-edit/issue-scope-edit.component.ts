@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
-import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 import { IssueScope } from 'src/app/services/beans/dto/issue-scope';
 import { IssueScopeService } from 'src/app/services/issue-scope.service';
 
@@ -30,15 +29,15 @@ export class IssueScopeEditComponent implements OnInit {
        .subscribe();
   }
 
-  deleteScope() {
-    const dialogdelete = this.dialog.open(ConfirmationDialogComponent, {
-      maxWidth: '400px'
-    });
-    dialogdelete.afterClosed().subscribe(dialogResult => {
-      if (dialogResult) {
-        this.issueScopeService.delete(this.scopeToEdit).subscribe();
-      }
-    });
-  }
+  // deleteScope() {
+  //   const dialogdelete = this.dialog.open(ConfirmationDialogComponent, {
+  //     maxWidth: '400px'
+  //   });
+  //   dialogdelete.afterClosed().subscribe(dialogResult => {
+  //     if (dialogResult) {
+  //       this.issueScopeService.delete(this.scopeToEdit).subscribe();
+  //     }
+  //   });
+  // }
 
 }
