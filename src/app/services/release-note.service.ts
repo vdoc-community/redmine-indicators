@@ -11,11 +11,6 @@ import { map } from 'rxjs/operators';
 })
 export class ReleaseNoteService extends AbstractCrudService<ReleaseNote>  {
 
-  public getReleaseNote(versionId: number, type: 'pdf' | 'doc' | 'zip'): Observable<Blob> {
-    const uri = `/apo/releaseNote/${type}?version=${versionId}`;
-    return this.redmineClient.getBlob(uri);
-  }
-
   constructor(redmineClient: RedmineClient) {
     super(redmineClient);
   }
@@ -26,8 +21,13 @@ export class ReleaseNoteService extends AbstractCrudService<ReleaseNote>  {
     return parseReleaseNote(json);
   }
 
+  public getReleaseNote(releaseNoteId: number, type: 'pdf' | 'doc' | 'zip'): Observable<Blob> {
+    const uri = `/apo/release-note?id=${releaseNoteId}&type=${type}`;
+    return this.redmineClient.getBlob(uri);
+  }
+
   public createRLN(versionId: number): Observable<ReleaseNote> {
-    return this.redmineClient.get(`/apo/releaseNote/new?version=${versionId}`)
+    return this.redmineClient.get(`/apo/release-note/new?version=${versionId}`)
     .pipe(map(json => this.parser(json)));
   }
 }

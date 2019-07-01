@@ -2,8 +2,10 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { IterationService } from 'src/app/services/iteration.service';
 import { Iteration } from 'src/app/services/beans/dto';
+import { IterationsObjectivesViewComponent } from '../iterations-objectives-view/iterations-objectives-view.component';
 
 @Component({
+  providers: [IterationsObjectivesViewComponent],
   selector: 'app-iterations-edit',
   templateUrl: './iterations-edit.component.html',
   styleUrls: ['./iterations-edit.component.scss']
@@ -17,7 +19,8 @@ export class IterationsEditComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private iterationService: IterationService
+    private iterationService: IterationService,
+    private objective: IterationsObjectivesViewComponent
   ) {}
 
   ngOnInit() {
@@ -55,4 +58,6 @@ export class IterationsEditComponent implements OnInit {
   public cancel() {
     this.router.navigate(['..'], { relativeTo: this.route });
   }
+
+  // TODO : Enlever le bouton ajout d'objectifs pour le mettre dans la barre de menu
 }

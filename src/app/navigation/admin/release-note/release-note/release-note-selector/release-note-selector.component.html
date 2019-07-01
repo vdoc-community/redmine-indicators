@@ -1,32 +1,48 @@
 <mat-toolbar color="secondary" class="mat-elevation-z6">
   <mat-toolbar-row>
-    <span>Release Note</span>
+    <span>Release Notes</span>
+    <!-- TODO : Supprimer bouton-->
     <span class="flex-spacer"></span>
-    <button mat-button [routerLink]="['new']">ADD</button>
+    <button mat-raised-button color="primary" (click)="this.first = !this.first;">Switch</button>
+
   </mat-toolbar-row>
 </mat-toolbar>
-<div *ngIf="first; then thenBlock else elseBlock"></div>
-<!-- Cas : Liste vide-->
-<ng-template #thenBlock>
-  <div class="mat-elevation-z8">
-    <mat-card class="example-card">
-      <mat-card-header>
-        <mat-card-title>Create a first release Note</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <button mat-button [routerLink]="['new']">Add</button>
-      </mat-card-content>
-    </mat-card>
-  </div>
-</ng-template>
 
-<ng-template #elseBlock>
-  <table mat-table [dataSource]="releaseNotes" class="full-width mat-elevation-z8">
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let element"><a [routerLink]="['edit', element.id]">{{ element.name }}</a></td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-</ng-template>
+<div class="horizontal-centred-content">
+  <div class="screen" >
+    <!-- Cas : Liste vide -->
+    <div [hidden]="!first">
+      <div>
+        <mat-card class="centred-card">
+          <mat-card-title>
+            No release note created yet.
+          </mat-card-title>
+          <mat-card-content>
+            <p>
+              Create your first release note by using the following button
+            </p>
+            <button mat-raised-button color="primary" [routerLink]="['new']">Create the first note</button>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <!-- Cas : Liste non-vide -->
+    <div [hidden]="first">
+      <div class="header-button">
+        <button class="header-button" mat-raised-button color="primary" [routerLink]="['new']">Create a release note</button>
+      </div>
+      <mat-card>
+        <mat-list>
+          <h1 mat-subheader>
+            <mat-icon>event_note</mat-icon>Release Notes
+          </h1>
+          <mat-list-item *ngFor="let releasenote of releaseNotes">
+            <a [routerLink]="['edit', releasenote.id]" mat-line>{{releasenote.name}}</a>
+            <p mat-line>By : {{releasenote.author}} - {{releasenote.date_creation}}</p>
+          </mat-list-item>
+        </mat-list>
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource, MatPaginator } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { ReleaseNoteIssue } from 'src/app/services/beans/dto';
 
@@ -8,31 +8,32 @@ import { ReleaseNoteIssue } from 'src/app/services/beans/dto';
   styleUrls: ['./release-note-issue-selector.component.scss']
 })
 export class ReleaseNoteIssueSelectorComponent implements OnInit {
-  releaseNoteIssues = new MatTableDataSource<ReleaseNoteIssue>(ELEMENT_DATA);
-  displayedColumns: string[] = ['problem', 'issueId'];
+  displayedColumns: string[] = ['issueId', 'problem'];
   selectedIssue: ReleaseNoteIssue;
+  selectedRowIndex = -1;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort2: MatSort;
+  @ViewChild(MatPaginator) paginator2: MatPaginator;
 
   constructor(public dialogRef: MatDialogRef<ReleaseNoteIssueSelectorComponent>,
-              @Inject(MAT_DIALOG_DATA) public data) { }
+              @Inject(MAT_DIALOG_DATA) public data) {
+  }
 
   ngOnInit() {
-    this.releaseNoteIssues = this.data;
-    this.releaseNoteIssues.paginator = this.paginator;
+    this.data.sort = this.sort2;
+    this.data.paginator = this.paginator2;
   }
 
   applyFilter(filterValue: string) {
-    this.releaseNoteIssues.filter = filterValue.trim().toLowerCase();
+    this.data.filter = filterValue.trim().toLowerCase();
   }
 
   select(row: ReleaseNoteIssue) {
     if (this.selectedIssue) {
       this.selectedIssue.add = false;
     }
+    this.selectedRowIndex = row.id;
     this.selectedIssue = row;
     this.selectedIssue.add = true;
   }
 }
-
-const ELEMENT_DATA: ReleaseNoteIssue[] = [];

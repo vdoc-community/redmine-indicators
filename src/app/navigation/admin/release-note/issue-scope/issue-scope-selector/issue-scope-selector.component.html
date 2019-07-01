@@ -1,16 +1,13 @@
 <mat-form-field class='autocomplete-full-width'>
   <input type="text"
-        placeholder="Pick one scope"
+        placeholder="Pick a module"
         [(ngModel)]="selectedScope"
         aria-label="Scope"
         matInput [formControl]="controlScope"
         [matAutocomplete]="autoScope">
-  <!-- <button mat-button matSuffix mat-icon-button (click)="openDialog()">
-    <mat-icon>add</mat-icon>
-  </button>
-  <button *ngIf="edit" matSuffix mat-icon-button (click)="editScope()">
-    <mat-icon>create</mat-icon>
-  </button> -->
+        <button mat-button *ngIf="selectedScope" matSuffix mat-icon-button aria-label="Clear" (click)="selectedScope=null">
+          <mat-icon>close</mat-icon>
+        </button>
 </mat-form-field>
 <mat-autocomplete #autoScope="matAutocomplete"
                   (optionSelected)="scopeSelect()"

@@ -18,6 +18,7 @@ export class ReleaseNoteCreateComponent implements OnInit {
   existing: boolean;
   releaseNotes: Array<ReleaseNote>;
   isLinear = true;
+  loading = false;
 
   constructor(private router: Router,
               private _formBuilder: FormBuilder,
@@ -40,6 +41,7 @@ export class ReleaseNoteCreateComponent implements OnInit {
   }
 
   createRLN() {
+    this.loading = true;
     const name = this.selectedProject.name + ' ' + this.selectedVersion.name;
     this.releaseNotes.forEach((releaseNote) => {
       if (releaseNote.name === name) {
@@ -48,10 +50,10 @@ export class ReleaseNoteCreateComponent implements OnInit {
       }}
     );
     if (this.existing) {
-      this.router.navigate([`/side/release-note/edit/${this.selectedReleaseNote.id}`]);
+      this.router.navigate([`/release-note/edit/${this.selectedReleaseNote.id}`]);
     } else {
       this.releaseNoteService.createRLN(this.selectedVersion.id).subscribe(x => {
-        this.router.navigate([`/side/release-note/edit/${x.id}`]);
+        this.router.navigate([`/release-note/edit/${x.id}`]);
       });
     }
   }

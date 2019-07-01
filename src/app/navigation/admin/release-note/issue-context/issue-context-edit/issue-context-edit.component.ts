@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { IssueContext } from 'src/app/services/beans/dto';
+import { IssueContext, IssueScope } from 'src/app/services/beans/dto';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { IssueContextService } from 'src/app/services/issue-context.service';
 
@@ -11,33 +11,26 @@ import { IssueContextService } from 'src/app/services/issue-context.service';
 })
 export class IssueContextEditComponent implements OnInit {
   contextToEdit: IssueContext;
+  scope: IssueScope;
+  newContext: IssueContext;
   newName: string;
 
   constructor(
     public dialogRef: MatDialogRef<IssueContextEditComponent>,
     @Inject(MAT_DIALOG_DATA) data, private issueContextService: IssueContextService,
     public dialog: MatDialog) {
-      this.contextToEdit = data;
+      this.scope = data;
     }
 
   ngOnInit() {
   }
 
-  editContext() {
-    this.contextToEdit.description = this.newName;
+  createContext() {
+    this.contextToEdit = new IssueContext(null, null, this.newName, this.scope);
     this.issueContextService
-       .update(this.contextToEdit)
-       .subscribe();
+       .save(this.contextToEdit)
+       .subscribe(result => {
+         this.newContext = result;
+       });
   }
-
-  // deleteContext() {
-  //   const dialogdelete = this.dialog.open(ConfirmationDialogComponent, {
-  //     maxWidth: '400px'
-  //   });
-  //   dialogdelete.afterClosed().subscribe(dialogResult => {
-  //     if (dialogResult) {
-  //       this.issueContextService.delete(this.contextToEdit).subscribe();
-  //     }
-  //   });
-  // }
 }

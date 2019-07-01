@@ -1,0 +1,25 @@
+<mat-drawer-container class="full-height">
+  <mat-drawer mode="side" opened>
+    <div class="side-menu">
+      <mat-nav-list>
+        <a [routerLink]="'/dashboard'" mat-list-item routerLinkActive="active-list-item">
+          <mat-icon matListIcon >dashboard</mat-icon>
+          <span>Dashboard support</span>
+        </a>
+        <a [routerLink]="'/release-note'" mat-list-item routerLinkActive="active-list-item">
+          <mat-icon matListIcon >event_note</mat-icon>
+          <span>Release notes</span>
+        </a>
+      </mat-nav-list>
+      <mat-nav-list>
+      <a [routerLink]="'/administration'" mat-list-item routerLinkActive="active-list-item">
+          <mat-icon matListIcon >build</mat-icon>
+          <span>Administration</span>
+        </a>
+      </mat-nav-list>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

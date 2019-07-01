@@ -17,6 +17,12 @@
     width: 75%;
     margin: 32px;
   }
+  .screen-mat-card {
+    align-items: stretch;
+    width: 75%;
+    margin: 32px;
+    cursor: pointer;
+  }
 }
 
 .centred-content {
@@ -24,6 +30,14 @@
     align-items: center;
     justify-content: center;
   }
+
+.centred-card {
+  text-align: center;
+  .header {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
 
 .full-width {
   width: 100%;
@@ -42,3 +56,46 @@
   }
 }
 
+.side-menu {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.logo{
+  padding-top: 7px;
+  height: 50px;
+}
+
+.active-list-item {
+  background-color: whitesmoke !important;
+  color: #3F51B5 !important;
+}
+
+.header-button {
+  margin-bottom: 10px;
+}
+
+table {
+  width: 100%;
+  .ref {
+    width: 10%;
+  }
+  .delete {
+    width: 5%;
+  }
+  .scope {
+    width: 15%;
+  }
+}
+
+.breadcrumb::before {
+  content: "/";
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.red-snackbar {
+  background: #D81111
+}

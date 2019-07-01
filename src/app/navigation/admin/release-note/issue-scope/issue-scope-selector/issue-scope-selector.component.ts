@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IssueScopeService } from 'src/app/services/issue-scope.service';
 import { IssueScope } from 'src/app/services/beans/dto/issue-scope';
 import { FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MatDialog, MatDialogConfig } from '@angular/material';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { IssueScopeRef } from 'src/app/services/beans/refs/issue-scope-ref';
@@ -34,7 +33,7 @@ export class IssueScopeSelectorComponent implements OnInit {
   registerOnTouched(fn: any): void {
   }
 
-  constructor(private issueScopeService: IssueScopeService, public dialog: MatDialog) {}
+  constructor(private issueScopeService: IssueScopeService) {}
 
   ngOnInit() {
     this.issueScopeService
@@ -76,20 +75,4 @@ export class IssueScopeSelectorComponent implements OnInit {
   scopeSelect() {
     this.changed.forEach(f => f(this.selectedScope));
   }
-
-  // openDialog(): void {
-  //   const dialogConfig = new MatDialogConfig();
-  //   dialogConfig.disableClose = true;
-  //   dialogConfig.autoFocus = true;
-  //   dialogConfig.data = new IssueScope(null, null);
-  //   this.dialog.open(QuickCreateComponent, dialogConfig);
-  // }
-
-  // editScope(): void {
-  //   const dialogConfig = new MatDialogConfig();
-  //   dialogConfig.disableClose = true;
-  //   dialogConfig.autoFocus = true;
-  //   dialogConfig.data = this.selectedScope;
-  //   this.dialog.open(QuickEditComponent, dialogConfig);
-  // }
 }

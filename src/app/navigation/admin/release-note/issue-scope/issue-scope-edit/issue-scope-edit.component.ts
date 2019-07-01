@@ -10,34 +10,27 @@ import { IssueScopeService } from 'src/app/services/issue-scope.service';
 })
 export class IssueScopeEditComponent implements OnInit {
   scopeToEdit: IssueScope;
+  newScope: IssueScope;
   newName: string;
 
   constructor(
     public dialogRef: MatDialogRef<IssueScopeEditComponent>,
     @Inject(MAT_DIALOG_DATA) data, private issueScopeService: IssueScopeService,
     public dialog: MatDialog) {
-      this.scopeToEdit = data;
+      if (data !== null) {
+        this.scopeToEdit = data;
+      }
     }
 
   ngOnInit() {
   }
 
-  editScope() {
-    this.scopeToEdit.name = this.newName;
+  createScope() {
+    this.scopeToEdit = new IssueScope(null, this.newName);
     this.issueScopeService
-       .update(this.scopeToEdit)
-       .subscribe();
+       .save(this.scopeToEdit)
+       .subscribe(result => {
+         this.newScope = result;
+       });
   }
-
-  // deleteScope() {
-  //   const dialogdelete = this.dialog.open(ConfirmationDialogComponent, {
-  //     maxWidth: '400px'
-  //   });
-  //   dialogdelete.afterClosed().subscribe(dialogResult => {
-  //     if (dialogResult) {
-  //       this.issueScopeService.delete(this.scopeToEdit).subscribe();
-  //     }
-  //   });
-  // }
-
 }

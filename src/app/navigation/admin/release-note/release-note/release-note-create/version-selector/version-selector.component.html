@@ -1,9 +1,10 @@
 <mat-form-field class='autocomplete-full-width'>
 <input type="text"
-      placeholder="Pick one version"
+      placeholder="Pick a version"
       [(ngModel)]="selectedVersion"
       aria-label="Version"
       matInput [formControl]="controlVersion"
+      required
       [matAutocomplete]="autoVersion">
 </mat-form-field>
 <mat-autocomplete #autoVersion="matAutocomplete"

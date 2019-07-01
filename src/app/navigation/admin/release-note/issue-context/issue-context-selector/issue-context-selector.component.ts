@@ -3,7 +3,6 @@ import { NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { IssueContext, IssueScope } from 'src/app/services/beans/dto';
 import { IssueContextService } from 'src/app/services/issue-context.service';
-import { MatDialog, MatDialogConfig } from '@angular/material';
 import { startWith, map } from 'rxjs/operators';
 
 
@@ -46,7 +45,7 @@ export class IssueContextSelectorComponent implements OnInit {
     return this._scope;
   }
 
-  constructor(private issueContextService: IssueContextService, private dialog: MatDialog) {}
+  constructor(private issueContextService: IssueContextService) {}
 
   ngOnInit() {
   }
@@ -91,19 +90,7 @@ export class IssueContextSelectorComponent implements OnInit {
     this.changed.forEach(f => f(this.selectedContext));
   }
 
-  // openDialog(): void {
-  //   const dialogConfig = new MatDialogConfig();
-  //   dialogConfig.disableClose = true;
-  //   dialogConfig.autoFocus = true;
-  //   dialogConfig.data = new IssueContext(null, null);
-  //   this.dialog.open(QuickCreateComponent, dialogConfig);
-  // }
-
-  // editContext(): void {
-  //   const dialogConfig = new MatDialogConfig();
-  //   dialogConfig.disableClose = true;
-  //   dialogConfig.autoFocus = true;
-  //   dialogConfig.data = this.selectedContext;
-  //   this.dialog.open(QuickEditComponent, dialogConfig);
-  // }
+  clear() {
+    this.selectedContext = null;
+  }
 }

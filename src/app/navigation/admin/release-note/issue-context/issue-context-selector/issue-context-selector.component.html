@@ -1,16 +1,13 @@
 <mat-form-field class='autocomplete-full-width'>
   <input type="text"
-        placeholder="Pick one context"
+        placeholder="Pick a context"
         [(ngModel)]="selectedContext"
         aria-label="Context"
         matInput [formControl]="controlContext"
         [matAutocomplete]="autoContext">
-  <button mat-button matSuffix mat-icon-button (click)="openDialog()">
-    <mat-icon>add</mat-icon>
-  </button>
-  <button *ngIf="edit" matSuffix mat-icon-button (click)="editContext()">
-    <mat-icon>create</mat-icon>
-  </button>
+        <button mat-button *ngIf="selectedContext" matSuffix mat-icon-button aria-label="Clear" (click)="clear()">
+          <mat-icon>close</mat-icon>
+        </button>
 </mat-form-field>
 <mat-autocomplete #autoContext="matAutocomplete"
                   (optionSelected)="contextSelect()"

@@ -1,9 +1,10 @@
   <mat-form-field class='autocomplete-full-width'>
   <input type="text"
-        placeholder="Pick one project"
+        placeholder="Pick a project"
         [(ngModel)]="selectedProject"
         aria-label="Project"
         matInput [formControl]="controlProject"
+        required
         [matAutocomplete]="autoProject">
   </mat-form-field>
   <mat-autocomplete #autoProject="matAutocomplete"

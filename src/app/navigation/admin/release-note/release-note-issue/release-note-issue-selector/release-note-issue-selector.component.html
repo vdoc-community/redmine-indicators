@@ -1,40 +1,37 @@
-<h1 matDialogTitle>Add an item</h1>
+<h1 matDialogTitle>Pick issue from bugtracker</h1>
 
 
   <mat-dialog-content>
-    <div class="mat-elevation-z8">
+    <div>
       <mat-form-field>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Issue label, reference">
       </mat-form-field>
       <table mat-table [dataSource]="data" matSort>
-        <!-- Ref. Issue Redmine Column -->
+
         <ng-container matColumnDef="issueId">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Ref. </th>
-          <td mat-cell *matCellDef="let element"> {{element.issueId}} </td>
+          <th class="ref" mat-header-cell *matHeaderCellDef mat-sort-header> Ref. </th>
+          <td class="ref" mat-cell *matCellDef="let element"> {{element.issueId}} </td>
         </ng-container>
 
-        <!-- Sujet Issue Column -->
         <ng-container matColumnDef="problem">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Problem </th>
-          <td mat-cell *matCellDef="let element"> {{element.problem}} </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+          <td mat-cell *matCellDef="let element">{{element.problem}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+            [ngClass]="{'highlight': selectedRowIndex == row.id}"
             class="example-element-row"
             (click)="select(row)">
         </tr>
       </table>
-      <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons></mat-paginator>
-    </div>
-    <div>
-      You selected: {{selectedIssue?.issueId}} - {{selectedIssue?.problem}}
+      <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]"></mat-paginator>
     </div>
   </mat-dialog-content>
 
   <mat-dialog-actions>
     <div >
-      <button mat-button color="primary" [mat-dialog-close]='selectedIssue'>Valid</button>
-      <button mat-button mat-dialog-close>Close dialog</button>
+      <button mat-raised-button mat-dialog-close>Cancel</button>
+      <button mat-raised-button color="primary" [mat-dialog-close]='selectedIssue'>Link issue</button>
     </div>
   </mat-dialog-actions>
