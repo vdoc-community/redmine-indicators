@@ -21,7 +21,7 @@
         <form [formGroup]="secondFormGroup">
           <ng-template matStepLabel>Select one version</ng-template>
           <div>
-            <label *ngIf="selectedProject">You selected the project <b>{{selectedProject | json}}</b></label>
+            <label *ngIf="selectedProject">You selected the project <b>{{selectedProject.name}}</b></label>
           </div>
           <app-version-selector [project]="selectedProject" [(ngModel)]="selectedVersion" formControlName="secondCtrl"></app-version-selector>
           <div>
