@@ -58,6 +58,4 @@ export class IterationsEditComponent implements OnInit {
   public cancel() {
     this.router.navigate(['..'], { relativeTo: this.route });
   }
-
-  // TODO : Enlever le bouton ajout d'objectifs pour le mettre dans la barre de menu
 }

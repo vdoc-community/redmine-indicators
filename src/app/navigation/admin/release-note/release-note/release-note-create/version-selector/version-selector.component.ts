@@ -15,11 +15,12 @@ import { startWith, map } from 'rxjs/operators';
 })
 export class VersionSelectorComponent implements OnInit, ControlValueAccessor  {
   public controlVersion = new FormControl();
-  filteredVersions: Observable<Version[]>;
+  filteredVersions: Version[];
   public versions: Array<Version> = [];
   selectedVersion: Version = null;
   private _project: Project;
   private changed = new Array<(value: Version) => void>();
+  loading: boolean;
 
   writeValue(version: Version): void {
     this.selectedVersion = version;
@@ -36,7 +37,6 @@ export class VersionSelectorComponent implements OnInit, ControlValueAccessor  {
   set project(project: Project | undefined) {
     if (project) {
       this._project = project;
-      this.importVersion(this._project);
     }
   }
   get project(): Project {
@@ -48,21 +48,13 @@ export class VersionSelectorComponent implements OnInit, ControlValueAccessor  {
   ngOnInit() {
   }
 
-  importVersion(project: Project) {
-    this.versionService
-      .findByProject(project.id)
-      .subscribe(
-        pageVersion => {
-          pageVersion.elements.sort((a, b) => a.name.localeCompare(b.name));
-          this.versions = pageVersion.elements;
-        }
-      );
-
-    this.filteredVersions = this.controlVersion.valueChanges
-      .pipe(
-        startWith(''),
-        map(version => version ? this._filterVersion(version) : this.versions.slice())
-      );
+  onKeyUp(event: any) {
+      this.loading = true;
+      this.versionService.getFilteredVersions(event.target.value, this._project.id).subscribe(page => {
+        this.filteredVersions = page.elements;
+        this.filteredVersions.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+        this.loading = false;
+      });
   }
 
   /**
@@ -74,15 +66,6 @@ export class VersionSelectorComponent implements OnInit, ControlValueAccessor  {
       return '';
     }
     return version.name;
-  }
-
-  private _filterVersion(value: string | Version): Version[] {
-    if ( value instanceof Version) {
-      return [value];
-    }
-    const filterValue = value.toLowerCase();
-    return this.versions.filter(option =>
-      option.name.toLowerCase().includes(filterValue));
   }
 
   versionSelect() {

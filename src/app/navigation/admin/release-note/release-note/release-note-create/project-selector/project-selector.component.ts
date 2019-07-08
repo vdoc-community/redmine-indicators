@@ -15,10 +15,11 @@ import { startWith, map } from 'rxjs/operators';
 })
 export class ProjectSelectorComponent implements OnInit, ControlValueAccessor {
   public controlProject = new FormControl();
-  filteredProjects: Observable<Project[]>;
+  filteredProjects: Project[];
   public projects: Array<Project> = [];
   selectedProject: Project = null;
   private changed = new Array<(value: Project) => void>();
+  loading: boolean;
 
   writeValue(project: Project): void {
     this.selectedProject = project;
@@ -33,26 +34,18 @@ export class ProjectSelectorComponent implements OnInit, ControlValueAccessor {
 
   constructor(private projectService: ProjectService) { }
 
-  /**
-   * Au chargement de la page, charge les projets existants dans redmine dans l'autocomplete projet
-   * Ordre : alphabétique
-   */
   ngOnInit() {
-    const pager = new Pager(0, 250);
-    this.projectService
-      .findAll(pager)
-      .subscribe(
-        pageProject => {
-          pageProject.elements.sort((a, b) => a.name.localeCompare(b.name));
-          this.projects = pageProject.elements;
-        }
-      );
+  }
 
-    this.filteredProjects = this.controlProject.valueChanges
-      .pipe(
-        startWith(''),
-        map(project => project ? this._filterProject(project) : this.projects.slice())
-      );
+  onKeyUp(event: any) {
+    if (event.target.value.length > 2) {
+      this.loading = true;
+      this.projectService.getFilteredProjects(event.target.value).subscribe(page => {
+        this.filteredProjects = page.elements;
+        this.filteredProjects.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+        this.loading = false;
+      });
+    }
   }
 
   private _filterProject(value: string | Project): Project[] {

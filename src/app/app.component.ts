@@ -5,6 +5,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { UserService } from './services/user.service';
 import { User } from './services/beans/dto/user';
+import { ConfigurationService } from './services/configuration/configuration.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +21,9 @@ export class AppComponent implements OnInit {
   constructor(public snackBar: MatSnackBar,
     private eventsService: EventsService,
     private iterationService: IterationService,
-    private userService: UserService) {
+    private userService: UserService,
+    private configurationService: ConfigurationService,
+    private router: Router) {
   }
 
   ngOnInit(): void {
@@ -30,5 +34,13 @@ export class AppComponent implements OnInit {
     });
     this.iterationService.findCurrent().subscribe(iteration => this.iteration = iteration);
     this.userService.getCurrent().subscribe(user => this.user = user);
+  }
+
+  logOut() {
+    this.configurationService.setXRedmineApiKey('');
+    this.user = null;
+    this.iteration = null;
+    localStorage.clear();
+    this.router.navigate(['settings']);
   }
 }

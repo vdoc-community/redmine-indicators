@@ -12,16 +12,17 @@ import { ReleaseNoteIssueSelectorComponent } from '../release-note-issue-selecto
   styleUrls: ['./release-note-issue-view.component.scss']
 })
 export class ReleaseNoteIssueViewComponent implements OnInit {
-  displayedColumns: string[] = ['delete', 'issueId', 'problem', 'scope', 'context'];
-  clickableColumns: string[] = ['issueId', 'problem', 'scope', 'context'];
-  id: number;
-  releaseNote: ReleaseNote;
-  selectedData: Array<ReleaseNoteIssue> = [];
-  selectedIssues: MatTableDataSource<ReleaseNoteIssue>;
-  notSelectedData: Array<ReleaseNoteIssue> = [];
-  notSelectedIssues: MatTableDataSource<ReleaseNoteIssue>;
-  first = true;
-  mapping: Map<string, string>;
+  public displayedColumns: string[] = ['delete', 'issueId', 'problem', 'scope', 'context'];
+  public clickableColumns: string[] = ['issueId', 'problem', 'scope', 'context'];
+  private id: number;
+  public releaseNote: ReleaseNote;
+  private selectedData: Array<ReleaseNoteIssue> = [];
+  public selectedIssues: MatTableDataSource<ReleaseNoteIssue>;
+  private notSelectedData: Array<ReleaseNoteIssue> = [];
+  private notSelectedIssues: MatTableDataSource<ReleaseNoteIssue>;
+  public first = true;
+  public loader = true;
+  private mapping: Map<string, string>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -56,6 +57,7 @@ export class ReleaseNoteIssueViewComponent implements OnInit {
           this.selectedIssues = new MatTableDataSource<ReleaseNoteIssue>(this.selectedData);
           this.selectedIssues.paginator = this.paginator;
           this.selectedIssues.sort = this.sort;
+          this.loader = false;
         });
       this.releaseNoteService
         .findById(this.id)
@@ -66,7 +68,7 @@ export class ReleaseNoteIssueViewComponent implements OnInit {
 
   }
 
-  sortingDataAccessor(item, property) {
+  sortingDataAccessor(item, property): any {
     if (property.includes('.')) {
       return property.split('.')
         .reduce((object, key) => object[key], item);
@@ -76,7 +78,7 @@ export class ReleaseNoteIssueViewComponent implements OnInit {
 
 
   // Ouvre la dialog pour l'ajout d'une nouvelle issue.
-  addIssue() {
+  public addIssue(): void {
     const dialogRef = this.dialog.open(ReleaseNoteIssueSelectorComponent, {
       width: '800px',
       data: this.notSelectedIssues,
@@ -103,11 +105,11 @@ export class ReleaseNoteIssueViewComponent implements OnInit {
   }
 
   // Ouvre l'issue du tableau pour l'éditer
-  edit(row: ReleaseNoteIssue) {
+  public edit(row: ReleaseNoteIssue): void {
     this.router.navigate([`/release-note/edit-issue/${row.id}`]);
   }
 
-  delete(issue: ReleaseNoteIssue) {
+  public delete(issue: ReleaseNoteIssue): void {
     issue.add = false;
     this.releaseNoteIssueService.update(issue).subscribe();
     this.notSelectedData.push(issue);
@@ -128,7 +130,7 @@ export class ReleaseNoteIssueViewComponent implements OnInit {
     }
   }
 
-  openSnackBar(issue: ReleaseNoteIssue) {
+  public openSnackBar(issue: ReleaseNoteIssue): void {
     const snackBarRef = this._snackbar.open(`Issue n°${issue.issueId} deleted`, 'Cancel', {
       duration: 5000
     });
@@ -148,7 +150,7 @@ export class ReleaseNoteIssueViewComponent implements OnInit {
     });
   }
 
-  onClickSelect(type: 'pdf' | 'doc' | 'zip') {
+  public onClickSelect(type: 'pdf' | 'doc' | 'zip'): void {
     let counter = 0;
     this.selectedData.forEach(issue => {
       if (issue.scope === null || issue.context === null) {
@@ -167,7 +169,7 @@ export class ReleaseNoteIssueViewComponent implements OnInit {
       });
     }
   }
-  private newBlob(x: Blob, type: string, mime: string) {
+  private newBlob(x: Blob, type: string, mime: string): void {
     const newBlob = new Blob([x], { type: mime });
     if (window.navigator && window.navigator.msSaveOrOpenBlob) {
       window.navigator.msSaveOrOpenBlob(newBlob);
@@ -179,8 +181,8 @@ export class ReleaseNoteIssueViewComponent implements OnInit {
     link.download = `RLN.${type}`;
     link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
   }
-   // TODO : Pourquoi ça fonctionne pas?
-   private refreshSelectedTab(data: ReleaseNoteIssue[]): void {
+  // TODO : Pourquoi ça fonctionne pas?
+  private refreshSelectedTab(data: ReleaseNoteIssue[]): void {
     this.selectedIssues = new MatTableDataSource<ReleaseNoteIssue>(data);
     this.selectedIssues.paginator = this.paginator;
     this.selectedIssues.sort = this.sort;
@@ -188,14 +190,14 @@ export class ReleaseNoteIssueViewComponent implements OnInit {
       this.paginator.length = this.selectedData.length;
     }
   }
-  // TODO : Possibilité de grouper les 2 fonctions display?
-  displayScope(scope?: IssueScope): string {
+
+  public displayScope(scope?: IssueScope): string {
     if (!scope) {
       return '';
     }
     return scope.name;
   }
-  displayContext(context?: IssueContext): string {
+  public displayContext(context?: IssueContext): string {
     if (!context) {
       return '';
     }

@@ -65,6 +65,7 @@ import { ScopeEditComponent } from './navigation/admin/administration/scope-cont
 import { ScopeCreateComponent } from './navigation/admin/administration/scope-context-edit/create/scope-create/scope-create.component';
 import { ContextCreateComponent } from './navigation/admin/administration/scope-context-edit/create/context-create/context-create.component';
 import { ScopeDisplayComponent } from './navigation/admin/administration/scope-context-edit/scope-display/scope-display.component';
+import { LoaderComponent } from './navigation/admin/loader/loader.component';
 
 export const ROUTES: Routes = [
   {
@@ -163,7 +164,8 @@ export const ROUTES: Routes = [
     ScopeEditComponent,
     ScopeCreateComponent,
     ContextCreateComponent,
-    ScopeDisplayComponent
+    ScopeDisplayComponent,
+    LoaderComponent
   ],
   imports: [
     RouterModule.forRoot(ROUTES),

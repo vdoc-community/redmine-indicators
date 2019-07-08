@@ -52,7 +52,7 @@ export class ReleaseNoteCreateComponent implements OnInit {
     if (this.existing) {
       this.router.navigate([`/release-note/edit/${this.selectedReleaseNote.id}`]);
     } else {
-      this.releaseNoteService.createRLN(this.selectedVersion.id).subscribe(x => {
+      this.releaseNoteService.createRLN(this.selectedVersion.id, this.selectedProject.id).subscribe(x => {
         this.router.navigate([`/release-note/edit/${x.id}`]);
       });
     }

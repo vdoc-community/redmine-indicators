@@ -4,9 +4,10 @@
     <mat-card-content>
       <div class="form-field-container">
         <mat-form-field>
-          <input matInput placeholder="Redmine api Key" [(ngModel)]="xRedmineApiKey" >
+          <input matInput placeholder="Redmine api Key" [(ngModel)]="xRedmineApiKey">
         </mat-form-field>
       </div>
+      <button mat-raised-button color="primary" (click)="logIn()">Validate</button>
     </mat-card-content>
   </mat-card>
 </div>

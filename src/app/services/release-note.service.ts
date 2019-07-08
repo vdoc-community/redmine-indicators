@@ -26,8 +26,8 @@ export class ReleaseNoteService extends AbstractCrudService<ReleaseNote>  {
     return this.redmineClient.getBlob(uri);
   }
 
-  public createRLN(versionId: number): Observable<ReleaseNote> {
-    return this.redmineClient.get(`/apo/release-note/new?version=${versionId}`)
+  public createRLN(versionId: number, projectId: number): Observable<ReleaseNote> {
+    return this.redmineClient.get(`/apo/release-note/new?version=${versionId}&project=${projectId}`)
     .pipe(map(json => this.parser(json)));
   }
 }

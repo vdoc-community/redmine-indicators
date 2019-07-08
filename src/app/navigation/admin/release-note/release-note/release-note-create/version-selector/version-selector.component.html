@@ -5,14 +5,20 @@
       aria-label="Version"
       matInput [formControl]="controlVersion"
       required
-      [matAutocomplete]="autoVersion">
+      [matAutocomplete]="autoVersion"
+      (keyup)="onKeyUp($event)">
 </mat-form-field>
 <mat-autocomplete #autoVersion="matAutocomplete"
                   (optionSelected)="versionSelect()"
                   [displayWith]="displayVersion">
-  <mat-option *ngFor="let version of filteredVersions | async" [value]="version">
-    {{version.name}}
+  <mat-option *ngIf="loading" class="is-loading">
+    <mat-spinner diameter="50"></mat-spinner>
   </mat-option>
+  <ng-container *ngIf="!loading">
+    <mat-option *ngFor="let version of filteredVersions" [value]="version">
+      {{version.name}}
+    </mat-option>
+  </ng-container>
 </mat-autocomplete>
 
 

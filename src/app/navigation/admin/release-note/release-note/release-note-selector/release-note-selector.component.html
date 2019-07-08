@@ -1,14 +1,15 @@
 <mat-toolbar color="secondary" class="mat-elevation-z6">
   <mat-toolbar-row>
     <span>Release Notes</span>
-    <!-- TODO : Supprimer bouton-->
-    <span class="flex-spacer"></span>
-    <button mat-raised-button color="primary" (click)="this.first = !this.first;">Switch</button>
 
   </mat-toolbar-row>
 </mat-toolbar>
 
-<div class="horizontal-centred-content">
+<ng-container *ngIf='loader'>
+  <app-loader></app-loader>
+</ng-container>
+
+<div class="horizontal-centred-content" *ngIf='!loader'>
   <div class="screen" >
     <!-- Cas : Liste vide -->
     <div [hidden]="!first">

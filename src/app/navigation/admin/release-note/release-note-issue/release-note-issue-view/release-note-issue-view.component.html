@@ -12,11 +12,12 @@
     </mat-menu>
   </mat-toolbar-row>
 </mat-toolbar>
+<ng-container *ngIf='loader'>
+  <app-loader></app-loader>
+</ng-container>
 
-
-<div class="horizontal-centred-content">
-  <div class="screen" >
-
+<div class="horizontal-centred-content" *ngIf='!loader'>
+  <div class="screen">
     <!-- Cas : Liste vide-->
     <div [hidden]="!first">
       <div>
@@ -34,7 +35,6 @@
         </mat-card>
       </div>
     </div>
-
     <!-- Cas : Liste non-vide-->
     <div [hidden]="first">
       <div class="header-button">
@@ -82,5 +82,4 @@
       </div>
     </div>
   </div>
-
 </div>

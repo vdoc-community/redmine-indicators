@@ -17,6 +17,7 @@ export class ReleaseNoteSelectorComponent implements OnInit {
   public releaseNotes: Array<ReleaseNote> = [];
   public displayedColumns: string[] = ['name'];
   public first = true;
+  loader = true;
 
   constructor(private releaseNoteService: ReleaseNoteService) {}
 
@@ -32,6 +33,7 @@ export class ReleaseNoteSelectorComponent implements OnInit {
             this.releaseNotes = page.elements;
             this.first = false;
           }
+          this.loader = false;
         }
       );
 
