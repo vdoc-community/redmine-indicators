@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IssueScopeService } from 'src/app/services/issue-scope.service';
 import { IssueScope } from 'src/app/services/beans/dto/issue-scope';
 

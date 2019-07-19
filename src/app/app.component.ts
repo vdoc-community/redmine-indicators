@@ -2,7 +2,7 @@ import { Iteration } from 'src/app/services/beans/dto';
 import { IterationService } from 'src/app/services/iteration.service';
 import { EventsService } from './services/events.service';
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 
 @Component({

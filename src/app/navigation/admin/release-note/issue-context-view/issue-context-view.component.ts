@@ -1,7 +1,7 @@
 import { IssueScope } from './../../../../services/beans/dto/issue-scope';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { IssueContext } from 'src/app/services/beans/dto/issue-context';

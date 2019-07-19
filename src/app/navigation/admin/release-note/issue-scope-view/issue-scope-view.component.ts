@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IssueScopeService } from 'src/app/services/issue-scope.service';
 import { IssueScope } from 'src/app/services/beans/dto/issue-scope';
 import { FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { IssueScopeEditComponent } from '../issue-scope-edit/issue-scope-edit.component';
