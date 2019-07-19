@@ -24,8 +24,8 @@ export class ReleaseNoteIssueViewComponent implements OnInit {
   public loader = true;
   private mapping: Map<string, string>;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static : false}) paginator !: MatPaginator;
+  @ViewChild(MatSort, {static : false}) sort !: MatSort;
 
   constructor(private route: ActivatedRoute,
               private router: Router,

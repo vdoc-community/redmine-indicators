@@ -12,8 +12,8 @@ export class ReleaseNoteIssueSelectorComponent implements OnInit {
   selectedIssue: ReleaseNoteIssue;
   selectedRowIndex = -1;
 
-  @ViewChild(MatSort) sort2: MatSort;
-  @ViewChild(MatPaginator) paginator2: MatPaginator;
+  @ViewChild(MatSort, {static : false}) sort2 !: MatSort;
+  @ViewChild(MatPaginator, {static : false}) paginator2 !: MatPaginator;
 
   constructor(public dialogRef: MatDialogRef<ReleaseNoteIssueSelectorComponent>,
               @Inject(MAT_DIALOG_DATA) public data) {

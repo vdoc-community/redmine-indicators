@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { ReleaseNoteService } from 'src/app/services/release-note.service';
 import { startWith, map } from 'rxjs/operators';
 import { ReleaseNote } from 'src/app/services/beans/dto';
-import { element } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-release-note-selector',
