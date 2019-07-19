@@ -1,18 +1,33 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { RedmineClient } from './http/redmine-client.service';
+import { ReleaseNote, parseReleaseNote } from './beans/dto/release-note';
+import { AbstractCrudService } from './abstract-crud-service';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class ReleaseNoteService {
-  constructor(private redmineClient: RedmineClient) {
+export class ReleaseNoteService extends AbstractCrudService<ReleaseNote>  {
+
+  constructor(redmineClient: RedmineClient) {
+    super(redmineClient);
+  }
+  protected endpoint(): string {
+    return 'apo';
+  }
+  protected parser(json: any): ReleaseNote {
+    return parseReleaseNote(json);
   }
 
-  public getReleaseNote(versionId: number, type: 'pdf' | 'doc' | 'zip'): Observable<Blob> {
-    const uri = `/apo/releaseNote/${type}?version=${versionId}`;
+  public getReleaseNote(releaseNoteId: number, type: 'pdf' | 'doc' | 'zip'): Observable<Blob> {
+    const uri = `/apo/release-note?id=${releaseNoteId}&type=${type}`;
     return this.redmineClient.getBlob(uri);
+  }
+
+  public createRLN(versionId: number, projectId: number): Observable<ReleaseNote> {
+    return this.redmineClient.get(`/apo/release-note/new?version=${versionId}&project=${projectId}`)
+    .pipe(map(json => this.parser(json)));
   }
 }

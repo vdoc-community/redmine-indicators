@@ -1,0 +1,35 @@
+<mat-toolbar color="secondary" class="mat-elevation-z6">
+  <mat-toolbar-row>
+    <a [routerLink]="'/release-note'">Release Notes</a>
+    <span class="breadcrumb"><a [routerLink]="'/release-note/edit/'+ issueToEdit.releaseNote.id" *ngIf="issueToEdit">{{issueToEdit?.releaseNote.name}}</a></span>
+    <span class="breadcrumb">Issue n°{{issueToEdit?.issueId}}</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="horizontal-centred-content" *ngIf="issueToEdit">
+  <mat-card class="screen">
+    <mat-card-content>
+      <div class="form-field-container" >
+        <h2>Edit issue</h2>
+        <p>
+          You can edit the issue title as it should appear in the release note.
+        </p>
+        <mat-form-field>
+          <textarea matInput type="text" placeholder="Title" [(ngModel)]="issueToEdit.problem"></textarea>
+        </mat-form-field>
+        <div>
+          <app-issue-scope-selector [(ngModel)]="issueToEdit.scope"></app-issue-scope-selector>
+          <button mat-mini-fab color="primary" (click)="createScope()"><mat-icon>add</mat-icon></button>
+        </div>
+        <div>
+          <app-issue-context-selector [scope]="issueToEdit.scope" [(ngModel)]="issueToEdit.context"></app-issue-context-selector>
+          <button [disabled]="issueToEdit.scope === null" mat-mini-fab color="primary" (click)="createContext()"><mat-icon>add</mat-icon></button>
+        </div>
+      </div>
+    </mat-card-content>
+    <div>
+      <button mat-raised-button (click)="cancel()">Back</button>
+      <button mat-raised-button color="primary" (click)="edit()">Save Issue</button>
+    </div>
+  </mat-card>
+</div>

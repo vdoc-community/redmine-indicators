@@ -1,0 +1,11 @@
+    <h1 matDialogTitle>Create new context</h1>
+    <mat-dialog-content>
+      <div>This context will be link to the followind module : {{newScope.name}}</div>
+      <mat-form-field>
+        <input matInput [(ngModel)]="name" placeholder="Enter a new name">
+      </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button mat-raised-button mat-dialog-close>Cancel</button>
+      <button mat-raised-button color="primary" (click)="createContext()" #thenContext>Create context</button>
+    </mat-dialog-actions>

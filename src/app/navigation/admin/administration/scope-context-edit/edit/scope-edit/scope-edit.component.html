@@ -1,0 +1,36 @@
+<mat-toolbar color="secondary" class="mat-elevation-z6">
+  <mat-toolbar-row>
+    <a [routerLink]="'/administration'">Administration</a>
+    <span class="breadcrumb"><a [routerLink]="'/administration/scope-context'">Edit modules & contexts</a></span>
+    <span class="breadcrumb">{{title}}</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="horizontal-centred-content">
+  <div class="screen">
+    <mat-card *ngIf="scopeToEdit">
+      <h2>Edit module</h2>
+      <mat-card-content>
+        <div class="form-field-container" >
+          <mat-form-field>
+            <input matInput placeholder="Name" [(ngModel)]="scopeToEdit.name">
+          </mat-form-field>
+        </div>
+        <div class="header-button">
+          <h4>Contexts</h4>
+          <button class="header-button" mat-raised-button color="primary" (click)="createContext()">Create a new context</button>
+        </div>
+        <div *ngFor="let context of contexts">
+          <mat-form-field>
+            <input matInput placeholder="Context" [(ngModel)]="context.description">
+          </mat-form-field>
+          <button mat-icon-button (click)="deleteContext(context)"><mat-icon>delete</mat-icon></button>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button (click)="cancel()">Cancel</button>
+        <button mat-raised-button color="primary" (click)="save()">Save</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

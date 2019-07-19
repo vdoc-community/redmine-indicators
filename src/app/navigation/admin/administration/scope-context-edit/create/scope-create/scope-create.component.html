@@ -1,0 +1,11 @@
+
+    <h1 matDialogTitle>Create new module</h1>
+    <mat-dialog-content>
+      <mat-form-field>
+        <input matInput [(ngModel)]="name" placeholder="Enter a new name">
+      </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button mat-raised-button mat-dialog-close>Cancel</button>
+      <button mat-raised-button color="primary" (click)="createScope()" mat-dialog-close>Create module</button>
+    </mat-dialog-actions>

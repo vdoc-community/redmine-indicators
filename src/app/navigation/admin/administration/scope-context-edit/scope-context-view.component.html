@@ -1,0 +1,19 @@
+<mat-toolbar color="secondary" class="mat-elevation-z6">
+  <mat-toolbar-row>
+    <a [routerLink]="'/administration'">Administration</a>
+    <span class="breadcrumb">Edit modules & contexts</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="horizontal-centred-content">
+  <div class="screen">
+    <div class="header-button">
+      <button class="header-button" mat-raised-button color="primary" (click)="createScope()">Create a new module</button>
+    </div>
+    <mat-card class="container">
+      <div *ngFor="let scope of scopes" class="item">
+        <app-scope-display [scope]="scope"></app-scope-display>
+      </div>
+    </mat-card>
+  </div>
+</div>

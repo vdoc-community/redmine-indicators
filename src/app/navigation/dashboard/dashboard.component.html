@@ -1,6 +1,12 @@
+<mat-toolbar color="secondary" class="mat-elevation-z6">
+  <mat-toolbar-row>
+    <span>Dashboard support</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
 <div class="dashboard-container" >
 
-  <mat-grid-list [cols]="objectivesRowLength" rowHeight="120px">
+  <mat-grid-list [cols]="objectivesRowLength" rowHeight="120px" *ngIf="(objectives | async)?.elements.length > 0">
     <!-- Objectifs -->
     <mat-grid-tile *ngFor="let objective of (objectives | async)?.elements" [colspan]="1" [rowspan]="1">
       <app-objective [objective]="objective" ></app-objective>

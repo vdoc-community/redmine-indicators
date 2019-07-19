@@ -1,0 +1,24 @@
+<mat-form-field class='autocomplete-full-width'>
+<input type="text"
+      placeholder="Pick a version"
+      [(ngModel)]="selectedVersion"
+      aria-label="Version"
+      matInput [formControl]="controlVersion"
+      required
+      [matAutocomplete]="autoVersion"
+      (keyup)="onKeyUp($event)">
+</mat-form-field>
+<mat-autocomplete #autoVersion="matAutocomplete"
+                  (optionSelected)="versionSelect()"
+                  [displayWith]="displayVersion">
+  <mat-option *ngIf="loading" class="is-loading">
+    <mat-spinner diameter="50"></mat-spinner>
+  </mat-option>
+  <ng-container *ngIf="!loading">
+    <mat-option *ngFor="let version of filteredVersions" [value]="version">
+      {{version.name}}
+    </mat-option>
+  </ng-container>
+</mat-autocomplete>
+
+

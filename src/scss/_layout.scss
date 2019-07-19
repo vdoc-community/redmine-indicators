@@ -9,6 +9,10 @@ button.mat-mini-fab.mat-accent.floating {
   max-width: 300px;
 }
 
+.mat-drawer-container.full-height {
+  height: calc(100% - 64px);
+}
+
 .fit-text {
   svg {
     .fit-text-content {

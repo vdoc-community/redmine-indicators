@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfigurationService } from 'src/app/services/configuration/configuration.service';
+import { Router } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-configuration',
@@ -7,7 +9,6 @@ import { ConfigurationService } from 'src/app/services/configuration/configurati
   styleUrls: ['./configuration.component.scss']
 })
 export class ConfigurationComponent implements OnInit {
-
   private _xRedmineApiKey: string;
 
   get xRedmineApiKey() {
@@ -19,12 +20,16 @@ export class ConfigurationComponent implements OnInit {
     this.configurationService.setXRedmineApiKey(this._xRedmineApiKey);
   }
 
-  constructor(private configurationService: ConfigurationService) {
+  constructor(private configurationService: ConfigurationService,
+    private router: Router) {
   }
 
   ngOnInit() {
     this._xRedmineApiKey = this.configurationService.getXRedmineApiKey();
   }
 
+  logIn() {
+    this.router.navigate(['dashboard']);
+  }
 
 }

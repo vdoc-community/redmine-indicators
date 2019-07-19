@@ -1,0 +1,23 @@
+  <mat-form-field class='autocomplete-full-width'>
+  <input type="text"
+        placeholder="Pick a project"
+        [(ngModel)]="selectedProject"
+        aria-label="Project"
+        matInput [formControl]="controlProject"
+        required
+        [matAutocomplete]="autoProject"
+        (keyup)="onKeyUp($event)">
+  </mat-form-field>
+  <mat-autocomplete #autoProject="matAutocomplete"
+                    (optionSelected)="projectSelect()"
+                    [displayWith]="displayProject">
+    <mat-option *ngIf="loading" class="is-loading">
+      <mat-spinner diameter="50"></mat-spinner>
+    </mat-option>
+    <ng-container *ngIf="!loading">
+      <mat-option *ngFor="let project of filteredProjects" [value]="project">
+        <span> {{project.name}} </span>
+      </mat-option>
+    </ng-container>
+  </mat-autocomplete>
+

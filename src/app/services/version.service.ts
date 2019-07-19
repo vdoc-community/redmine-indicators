@@ -26,4 +26,9 @@ export class VersionService extends AbstractCrudService<Version> {
   protected parser(json: any): Version {
     return parseVersion(json);
   }
+
+  public getFilteredVersions(filter: string, project: number): Observable<Page<Version>> {
+    return this.redmineClient.get(`/version/filter?filter=${filter}&project_id=${project}`)
+    .pipe(map(json => this.pageParser(json, this.parser)));
+  }
 }

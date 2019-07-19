@@ -49,5 +49,4 @@ export class IterationsObjectivesViewComponent implements OnInit {
       this.objectives = [];
     }
   }
-
 }

@@ -1,0 +1,53 @@
+<mat-toolbar color="secondary" class="mat-elevation-z6">
+  <mat-toolbar-row>
+    <a [routerLink]="'/release-note'">Release Notes</a>
+    <span class="breadcrumb">Create</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="horizontal-centred-content">
+  <mat-card class="screen">
+    <mat-horizontal-stepper [linear]="isLinear" #stepper>
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Select one project</ng-template>
+            <app-project-selector [(ngModel)]="selectedProject" formControlName="firstCtrl"></app-project-selector>
+          <div>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Select one version</ng-template>
+          <div>
+            <label *ngIf="selectedProject">You selected the project <b>{{selectedProject.name}}</b></label>
+          </div>
+          <app-version-selector [project]="selectedProject" [(ngModel)]="selectedVersion" formControlName="secondCtrl"></app-version-selector>
+          <div>
+            <button mat-raised-button matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Generate</ng-template>
+        <div *ngIf='!loading'>
+          <div>
+            <label *ngIf="(selectedProject && selectedVersion)">You selected the project <b>{{selectedProject.name}}</b> on <b>{{selectedVersion.name}}</b></label>
+          </div>
+          <p>
+            Use the following button to start editing the new release note about this product's version
+          </p>
+          <div>
+            <button mat-raised-button matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" [disabled]="!(selectedProject && selectedVersion)" (click)="createRLN()">Create RLN</button>
+          </div>
+        </div>
+        <div *ngIf='loading'>
+          <mat-spinner></mat-spinner>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </mat-card>
+</div>

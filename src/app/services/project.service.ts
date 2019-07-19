@@ -26,4 +26,8 @@ export class ProjectService extends AbstractCrudService<Project> {
   protected parser(json: any): Project {
     return parseProject(json);
   }
+
+  public getFilteredProjects(filter: string): Observable<Page<Project>> {
+    return this.redmineClient.get(`/project/filter?filter=${filter}`).pipe(map(json => this.pageParser(json, this.parser)));
+  }
 }

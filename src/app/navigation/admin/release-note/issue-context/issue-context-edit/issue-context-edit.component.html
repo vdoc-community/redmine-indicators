@@ -1,0 +1,12 @@
+<h1 matDialogTitle>New context for the scope {{scope.name}}</h1>
+
+<mat-dialog-content>
+  <mat-form-field>
+    <input matInput [(ngModel)]="newName" placeholder="Enter a new name">
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close>Close dialog</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="newContext" (click)="createContext()">Create context</button>
+</mat-dialog-actions>

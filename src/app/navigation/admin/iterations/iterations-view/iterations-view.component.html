@@ -1,48 +1,55 @@
 <mat-toolbar color="secondary" class="mat-elevation-z6">
   <mat-toolbar-row>
-    Iterations
+    <a [routerLink]="'/administration'">Administration</a>
+    <span class="breadcrumb">Iterations</span>
+    <span class="flex-spacer"></span>
+    <button mat-button [routerLink]="['new']">ADD</button>
   </mat-toolbar-row>
 </mat-toolbar>
-<button mat-mini-fab class="floating" color="accent" [routerLink]="['.', 'new']">
+<!-- <button mat-mini-fab class="floating" color="accent" [routerLink]="['.', 'new']">
   <mat-icon class="mat-32">add</mat-icon>
-</button>
+</button> -->
+<div class="horizontal-centred-content">
+  <div class="screen">
+    <table mat-table [dataSource]="iterations" class="full-width mat-elevation-z8">
 
-<table mat-table [dataSource]="iterations" class="full-width mat-elevation-z8">
+      <ng-container matColumnDef="number">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element"> {{element.number}} </td>
+      </ng-container>
 
-  <ng-container matColumnDef="number">
-    <th mat-header-cell *matHeaderCellDef> No. </th>
-    <td mat-cell *matCellDef="let element"> {{element.number}} </td>
-  </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element"><a [routerLink]="[element.id ]">{{ element.name }}</a></td>
+      </ng-container>
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef>Name</th>
-    <td mat-cell *matCellDef="let element"><a [routerLink]="[element.id ]">{{ element.name }}</a></td>
-  </ng-container>
+      <!-- Weight Column -->
+      <ng-container matColumnDef="start">
+        <th mat-header-cell *matHeaderCellDef>Start</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.start | amDateFormat:'L' }}
+        </td>
+      </ng-container>
 
-  <!-- Weight Column -->
-  <ng-container matColumnDef="start">
-    <th mat-header-cell *matHeaderCellDef>Start</th>
-    <td mat-cell *matCellDef="let element">
-      {{ element.start | amDateFormat:'L' }}
-    </td>
-  </ng-container>
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="end">
+        <th mat-header-cell *matHeaderCellDef>End</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.end | amDateFormat:'L' }}
+        </td>
+      </ng-container>
 
-  <!-- Symbol Column -->
-  <ng-container matColumnDef="end">
-    <th mat-header-cell *matHeaderCellDef>End</th>
-    <td mat-cell *matCellDef="let element">
-      {{ element.end | amDateFormat:'L' }}
-    </td>
-  </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <!-- <mat-list>
+      <mat-list-item *ngFor="let iteration of iterations"  (swiperight)="delete(iteration)">
+        <mat-icon mat-list-icon>autorenew</mat-icon>
+        <h4 mat-line [routerLink]="['.', iteration.id]" mat-button >Iteration - {{iteration.name}}</h4>
+        <p mat-line> {{iteration.start | date:'shortDate'}} to {{iteration.end | date:'shortDate'}}</p>
+      </mat-list-item>
+    </mat-list> -->
+  </div>
+</div>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-</table>
-<!-- <mat-list>
-  <mat-list-item *ngFor="let iteration of iterations"  (swiperight)="delete(iteration)">
-    <mat-icon mat-list-icon>autorenew</mat-icon>
-    <h4 mat-line [routerLink]="['.', iteration.id]" mat-button >Iteration - {{iteration.name}}</h4>
-    <p mat-line> {{iteration.start | date:'shortDate'}} to {{iteration.end | date:'shortDate'}}</p>
-  </mat-list-item>
-</mat-list> -->

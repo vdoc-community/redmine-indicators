@@ -1,0 +1,5 @@
+<a [routerLink]="['.', 'scope', _scope.id]" mat-line><span>{{_scope?.name}}</span></a><br>
+<span *ngIf="!loading">
+    <span mat-line *ngFor="let context of contexts">- {{context?.description}}<br></span>
+</span>
+<mat-spinner *ngIf="loading"></mat-spinner>

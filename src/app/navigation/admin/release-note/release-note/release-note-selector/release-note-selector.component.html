@@ -1,0 +1,49 @@
+<mat-toolbar color="secondary" class="mat-elevation-z6">
+  <mat-toolbar-row>
+    <span>Release Notes</span>
+
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<ng-container *ngIf='loader'>
+  <app-loader></app-loader>
+</ng-container>
+
+<div class="horizontal-centred-content" *ngIf='!loader'>
+  <div class="screen" >
+    <!-- Cas : Liste vide -->
+    <div [hidden]="!first">
+      <div>
+        <mat-card class="centred-card">
+          <mat-card-title>
+            No release note created yet.
+          </mat-card-title>
+          <mat-card-content>
+            <p>
+              Create your first release note by using the following button
+            </p>
+            <button mat-raised-button color="primary" [routerLink]="['new']">Create the first note</button>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <!-- Cas : Liste non-vide -->
+    <div [hidden]="first">
+      <div class="header-button">
+        <button class="header-button" mat-raised-button color="primary" [routerLink]="['new']">Create a release note</button>
+      </div>
+      <mat-card>
+        <mat-list>
+          <h1 mat-subheader>
+            <mat-icon>event_note</mat-icon>Release Notes
+          </h1>
+          <mat-list-item *ngFor="let releasenote of releaseNotes">
+            <a [routerLink]="['edit', releasenote.id]" mat-line>{{releasenote.name}}</a>
+            <p mat-line>By : {{releasenote.author}} - {{releasenote.date_creation}}</p>
+          </mat-list-item>
+        </mat-list>
+      </mat-card>
+    </div>
+  </div>
+</div>
