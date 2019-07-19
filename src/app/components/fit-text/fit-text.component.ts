@@ -7,12 +7,9 @@ import { Component, OnInit, Input, ViewChild, ViewChildren, ElementRef, HostList
 })
 export class FitTextComponent implements OnInit {
 
-  @ViewChild('containerRef')
-  private containerRef: ElementRef;
-  @ViewChild('imageRef')
-  private imageRef: ElementRef;
-  @ViewChild('textRef')
-  private textRef: ElementRef;
+  @ViewChild('containerRef', {static: false}) containerRef !: ElementRef;
+  @ViewChild('imageRef', {static: false}) imageRef !: ElementRef;
+  @ViewChild('textRef', {static: false}) textRef !: ElementRef;
 
   @Input()
   public fontSize = 13;
@@ -31,8 +28,7 @@ export class FitTextComponent implements OnInit {
   @Input()
   public color = 'none';
 
-  @ViewChild('txtView')
-  public txtView: ElementRef;
+  @ViewChild('txtView', {static: false}) txtView !: ElementRef;
 
 
   constructor() {

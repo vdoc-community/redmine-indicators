@@ -7,6 +7,8 @@ import { UserService } from './services/user.service';
 import { User } from './services/beans/dto/user';
 import { ConfigurationService } from './services/configuration/configuration.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
